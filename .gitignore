@@ -1,0 +1,8 @@
+target/
+.idea/
+*.vsz
+*.pdf
+*.csv
+trackedDetections_L1.txt
+trackedDetections_L2.txt
+RegressOutput*.txt
