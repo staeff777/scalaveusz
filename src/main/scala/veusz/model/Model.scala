@@ -4,80 +4,136 @@ import java.awt.Transparency
 import Conversions._
 
 trait Config
-trait ConfigureableItem {val config:Config}
+trait ConfigureableItem { var config: Config }
 
-sealed trait PageItem extends ConfigureableItem
-
+sealed trait PageItem
 
 object Document {
-  def apply(pages:Vector[Page])(implicit config:DocumentConfig) = new Document(pages, config)
-  def apply(pages:Page*)(implicit config:DocumentConfig) = new Document(pages.toVector, config)
-}
-case class Document(var pages:Vector[Page], var config:DocumentConfig, var none:Int = 0)
-case class DocumentConfig(var width:SizeUnit=15 cm, var height:SizeUnit=15 cm, var englishLocal:Boolean = false) extends Config
 
+  def apply(pages: Vector[Page]) = new Document(pages)
+  def apply(pages: Page*) = new Document(pages.toVector)
+}
+case class Document(var pages: Vector[Page], var config: DocumentConfig = DocumentConfig(), var none: Int = 0)
+case class DocumentConfig(var width: SizeUnit = 15 cm, var height: SizeUnit = 15 cm, var englishLocal: Boolean = false) extends Config
 
 object Page {
-  def apply(pageItems: Vector[PageItem])(implicit config: PageConfig) = new Page(pageItems.toVector, config)
-  def apply(pageItems: PageItem*)(implicit config: PageConfig) = new Page(pageItems.toVector, config)
-  def apply(name:String, pageItems: Vector[PageItem])(implicit config: PageConfig) = new Page(pageItems.toVector, config, name)
-  def apply(name:String, pageItems: PageItem*)(implicit config: PageConfig) = new Page(pageItems.toVector, config, name)
+  def apply(pageItems: Vector[PageItem]) = new Page(pageItems.toVector)
+  def apply(pageItems: PageItem*) = new Page(pageItems.toVector)
+  def apply(name: String, pageItems: Vector[PageItem])= new Page(pageItems.toVector, name)
+  def apply(name: String, pageItems: PageItem*) = new Page(pageItems.toVector, name)
 }
-case class Page(var pageItems:Vector[PageItem],  val config: PageConfig, var name:String = "page") extends  ConfigureableItem
-case class PageConfig( width:SizeUnit=15 cm, height:SizeUnit=15 cm ) extends Config
+case class Page(var pageItems: Vector[PageItem],  var name: String = "page", var config: PageConfig = PageConfig()) {}
+case class PageConfig(width: SizeUnit = 15 cm, height: SizeUnit = 15 cm) extends Config
 
-
-object Grid{
+object Grid {
   def apply(pageItems: Vector[PageItem])(implicit config: GridConfig) = new Grid(pageItems, config)
 }
-case class Grid(var pageItems:Vector[PageItem], config:GridConfig, var name:String = "grid", var rows:Int=2, var columns:Int=2, var scaleRows:String="", var scaleCols:String="") extends PageItem
-case class GridConfig(var leftMargin:SizeUnit = 1.7 cm, var rightMargin:SizeUnit = 0 cm, var topMargin:SizeUnit = 0.2 cm, var bottomMargin:SizeUnit = 1.7 cm, var internalMargin:SizeUnit = 0 cm) extends Config
 
-case class Text(val config:TextConfig) extends PageItem
+case class Grid(var pageItems: Vector[PageItem],
+                var config: GridConfig,
+                var name: String = "grid",
+                var rows: Int = 2,
+                var columns: Int = 2,
+                var scaleRows: String = "",
+                var scaleCols: String = "")
+    extends PageItem
+
+case class GridConfig(var leftMargin: SizeUnit = 1.7 cm,
+                      var rightMargin: SizeUnit = 0 cm,
+                      var topMargin: SizeUnit = 0.2 cm,
+                      var bottomMargin: SizeUnit = 1.7 cm,
+                      var internalMargin: SizeUnit = 0 cm)
+    extends Config
+
+case class Text(var config: TextConfig) extends PageItem
+
 case class TextConfig() extends Config
 
+object Graph {
 
-object Graph{
+  def apply(graphItems: GraphItem*) = new Graph(graphItems.toVector)
+  def apply(graphItems: Vector[GraphItem]) = new Graph(graphItems)
 
-  def apply(graphItems:GraphItem*) (implicit config:GraphConfig) = new Graph(graphItems.toVector, config = config)
-  def apply(graphItems:Vector[GraphItem])  (implicit config:GraphConfig) = new Graph(graphItems, config = config)
+  def apply(axis: Vector[Axis], graphItems: GraphItem*) = new Graph(graphItems.toVector, axis = axis)
+  def apply(axis: Vector[Axis], graphItems: Vector[GraphItem]) = new Graph(graphItems, axis = axis)
 
-  def apply(axis:Vector[Axis], graphItems:GraphItem*)(implicit config:GraphConfig) = new Graph(graphItems.toVector,axis=axis, config = config)
-  def apply(axis:Vector[Axis], graphItems:Vector[GraphItem]) (implicit config:GraphConfig) = new Graph(graphItems,axis = axis, config = config)
+  def apply(name: String, graphItems: GraphItem*) = new Graph(graphItems.toVector, name)
+  def apply(name: String, graphItems: Vector[GraphItem]) = new Graph(graphItems, name)
 
-  def apply(name:String, graphItems:GraphItem*)(implicit config:GraphConfig) = new Graph(graphItems.toVector,name, config = config)
-  def apply(name:String,  graphItems:Vector[GraphItem]) (implicit config:GraphConfig) = new Graph(graphItems,name, config = config)
-
-  def apply(name:String, axis:Vector[Axis], graphItems:GraphItem*)(implicit config:GraphConfig) = new Graph(graphItems.toVector,name, axis, config = config)
-  def apply(name:String, axis:Vector[Axis], graphItems:Vector[GraphItem]) (implicit config:GraphConfig) = new Graph(graphItems,name, axis, config = config)
+  def apply(name: String, axis: Vector[Axis], graphItems: GraphItem*) = new Graph(graphItems.toVector, name, axis)
+  def apply(name: String, axis: Vector[Axis], graphItems: Vector[GraphItem]) = new Graph(graphItems, name, axis)
 
 }
-case class Graph(graphItems:Vector[GraphItem],name:String = "graph", axis:Vector[Axis] = Vector(XAxis(), YAxis()), val config:GraphConfig) extends PageItem
-case class GraphConfig(border:GraphBorder = GraphBorder()) extends Config //axis:Vector[Axis]
-case class GraphBorder(var leftMargin:SizeUnit = 1.7 cm, var rightMargin:SizeUnit = 0.2 cm, var  topMargin:SizeUnit = 0.2 cm, var bottomMargin:SizeUnit = 1.7 cm, var aspectRatio:Option[Double] = None, var width:SizeUnit = 0.5 pt)
+case class Graph(graphItems: Vector[GraphItem], name: String = "graph", axis: Vector[Axis] = Vector(XAxis(), YAxis()), var config: GraphConfig = new GraphConfig()) extends PageItem
 
+case class GraphConfig(border: GraphBorder = GraphBorder()) extends Config //axis:Vector[Axis]
 
-object XAxis{
-  def apply(name:String="x", label:String="", min:Option[Double] = None, max:Option[Double] = None, log:Boolean= false, mode:AxisMode.Value = AxisMode.numeric, scale:Double = 1, minPos:Double = 0, maxpos:Double = 1, axisPosition:Int = 0) =
-    new Axis(name, label, min, max, log, mode, scale,minPos, maxpos, "horizontal",axisPosition )
+case class GraphBorder(var leftMargin: SizeUnit = 1.7 cm,
+                       var rightMargin: SizeUnit = 0.2 cm,
+                       var topMargin: SizeUnit = 0.2 cm,
+                       var bottomMargin: SizeUnit = 1.7 cm,
+                       var aspectRatio: Option[Double] = None,
+                       var width: SizeUnit = 0.5 pt)
+
+object XAxis {
+
+  def apply(name: String = "x",
+            label: String = "",
+            min: Option[Double] = None,
+            max: Option[Double] = None,
+            log: Boolean = false,
+            mode: AxisMode.Value = AxisMode.numeric,
+            scale: Double = 1,
+            minPos: Double = 0,
+            maxpos: Double = 1,
+            axisPosition: Int = 0) =
+    new Axis(name, label, min, max, log, mode, scale, minPos, maxpos, "horizontal", axisPosition)
 }
-object YAxis{
-  def apply(name:String="y", label:String="", min:Option[Double] = None, max:Option[Double] = None, log:Boolean= false, mode:AxisMode.Value = AxisMode.numeric, scale:Double = 1, minPos:Double = 0, maxpos:Double = 1, axisPosition:Int = 0) =
-    new Axis(name, label, min, max, log, mode, scale,minPos, maxpos, "vertical",axisPosition )
-}
-case class Axis(var name:String, var label:String="", var min:Option[Double] = None, var max:Option[Double] = None, var Log:Boolean= false, var mode:AxisMode.Value = AxisMode.numeric, var scale:Double = 1, var minPos:Double = 0, var maxPos:Double = 1, var direction:String = "horizontal", axisPosition:Int = 0,var config: AxisConfig = AxisConfig())
 
-object AxisMode extends Enumeration{
+object YAxis {
+
+  def apply(name: String = "y",
+            label: String = "",
+            min: Option[Double] = None,
+            max: Option[Double] = None,
+            log: Boolean = false,
+            mode: AxisMode.Value = AxisMode.numeric,
+            scale: Double = 1,
+            minPos: Double = 0,
+            maxpos: Double = 1,
+            axisPosition: Int = 0) =
+    new Axis(name, label, min, max, log, mode, scale, minPos, maxpos, "vertical", axisPosition)
+}
+case class Axis(var name: String,
+                var label: String = "",
+                var min: Option[Double] = None,
+                var max: Option[Double] = None,
+                var Log: Boolean = false,
+                var mode: AxisMode.Value = AxisMode.numeric,
+                var scale: Double = 1,
+                var minPos: Double = 0,
+                var maxPos: Double = 1,
+                var direction: String = "horizontal",
+                axisPosition: Int = 0,
+                var config: AxisConfig = AxisConfig())
+
+object AxisMode extends Enumeration {
   val numeric, datetime, labels = Value
 }
 
-case class AxisConfig(var autoRange:AutoRange.Value = AutoRange.nextTick, var autoMirror:Boolean = false, var reflect:Boolean = false, var outerticks:Boolean = false,
-                      var axisLine:LineStyle = LineStyle(width=0.5), var labelStyle:AxisLabelStyle= AxisLabelStyle(), var tickLabelStyle: TickLabelStyle = TickLabelStyle(),
-                      var majorTickStyle: MajorTickStyle = MajorTickStyle(), var minorTickStyle: MinorTickStyle = MinorTickStyle(),
-                      var majorGridLines: MajorGridLines = MajorGridLines(), var minorGridLines: MinorGridLines = MinorGridLines())
+case class AxisConfig(var autoRange: AutoRange.Value = AutoRange.nextTick,
+                      var autoMirror: Boolean = false,
+                      var reflect: Boolean = false,
+                      var outerticks: Boolean = false,
+                      var axisLine: LineStyle = LineStyle(width = 0.5),
+                      var labelStyle: AxisLabelStyle = AxisLabelStyle(),
+                      var tickLabelStyle: TickLabelStyle = TickLabelStyle(),
+                      var majorTickStyle: MajorTickStyle = MajorTickStyle(),
+                      var minorTickStyle: MinorTickStyle = MinorTickStyle(),
+                      var majorGridLines: MajorGridLines = MajorGridLines(),
+                      var minorGridLines: MinorGridLines = MinorGridLines())
 
-
-object AutoRange extends Enumeration{
+object AutoRange extends Enumeration {
   val exact = Value("exact")
   val nextTick = Value("next-tick")
   val plus2percent = Value("+2%")
@@ -87,42 +143,57 @@ object AutoRange extends Enumeration{
 
 }
 
+case class ArrowStyle(var arrowleft: Arrows.Value = Arrows.none, var arrowright: Arrows.Value = Arrows.none, var color: String = "black")
 
-
-
-
-case class ArrowStyle(var arrowleft:Arrows.Value = Arrows.none, var arrowright:Arrows.Value = Arrows.none, var color:String ="black")
-object Arrows extends Enumeration{
-  val none, arrow, arrownarrow, arrowtriangle, arrowreverse, linearrow,linearrowreverse, bar, linecross, asterisk = Value
+object Arrows extends Enumeration {
+  val none, arrow, arrownarrow, arrowtriangle, arrowreverse, linearrow, linearrowreverse, bar, linecross, asterisk = Value
 }
 
-case class XYMainStyle(var markerType: MarkerType.Value = MarkerType.circle, var size:Double = 3, var color:String = "black", var thinMarkers:Int = 1, thinErrors:Int = 1, var errorType:ErrorType.Value = ErrorType.bar, var hide:Boolean = false)
+case class XYMainStyle(var markerType: MarkerType.Value = MarkerType.circle,
+                       var size: Double = 3,
+                       var color: String = "black",
+                       var thinMarkers: Int = 1,
+                       thinErrors: Int = 1,
+                       var errorType: ErrorType.Value = ErrorType.bar,
+                       var hide: Boolean = false)
 
-object MarkerType extends  Enumeration {
-  val none , circle, diamond, square, cross, plus, star, dot, linevert, linehorz, linedown, lineup, lineright, lineleft = Value
+object MarkerType extends Enumeration {
+  val none, circle, diamond, square, cross, plus, star, dot, linevert, linehorz, linedown, lineup, lineright, lineleft = Value
 }
-object ErrorType extends  Enumeration {
+
+object ErrorType extends Enumeration {
   val bar, barends, box, diamond, curve, barbox = Value
 }
 
-case class MarkerBorder(var color:String = "black", var width:Double = 0.5, var style:LineStyles.Value = LineStyles.Solid, var hide:Boolean = false, var colorMap:ColorMapType.Value = ColorMapType.grey, var scale:Boolean = false)
-case class MarkerFill(var color:String = "black", var hide:Boolean = false, var colorMap:ColorMapType.Value = ColorMapType.grey, var invertmap:Boolean = false)
-object ColorMapType extends Enumeration{
+case class MarkerBorder(var color: String = "black",
+                        var width: Double = 0.5,
+                        var style: LineStyles.Value = LineStyles.Solid,
+                        var hide: Boolean = false,
+                        var colorMap: ColorMapType.Value = ColorMapType.grey,
+                        var scale: Boolean = false)
+case class MarkerFill(var color: String = "black", var hide: Boolean = false, var colorMap: ColorMapType.Value = ColorMapType.grey, var invertmap: Boolean = false)
+
+object ColorMapType extends Enumeration {
   val grey = Value("grey")
   val traffic = Value("traffic-7-25-sync@60")
   val trafficWithNone = Value("traffic-7-25-sync@60_None@-10")
 }
 
-case class Fill(var fillTo:FillTo.Value = FillTo.bottom, var color:String="grey", var style:FillStyle.Value = FillStyle.solid, hide:Boolean = true, transparency: Int = 0, hideErrorFill:Boolean = false)
+case class Fill(var fillTo: FillTo.Value = FillTo.bottom,
+                var color: String = "grey",
+                var style: FillStyle.Value = FillStyle.solid,
+                hide: Boolean = true,
+                transparency: Int = 0,
+                hideErrorFill: Boolean = false)
 
-object FillTo extends Enumeration{
+object FillTo extends Enumeration {
   val top = Value("top")
   val bottom = Value("bottom")
   val left = Value("left")
   val right = Value("right")
 }
 
-object FillStyle extends Enumeration{
+object FillStyle extends Enumeration {
   val solid = Value("solid")
   val horizontal = Value("horizontal")
   val vertical = Value("vertical")
@@ -139,27 +210,62 @@ object FillStyle extends Enumeration{
 
 }
 
+case class LineStyle(var color: String = "black", var width: Double = 1, var style: LineStyles.Value = LineStyles.Solid, var hide: Boolean = false, var transparency: Int = 0)
 
-case class LineStyle(var color:String = "black", var width:Double = 1, var style:LineStyles.Value = LineStyles.Solid, var hide:Boolean = false, var transparency:Int = 0)
+case class AxisLabelStyle(var font: String = "Times New Roman",
+                          var size: Double = 14,
+                          var color: String = "black",
+                          var italic: Boolean = false,
+                          var bold: Boolean = false,
+                          var underline: Boolean = false,
+                          var atEdge: Boolean = false,
+                          var rotate: Rotation.Value = Rotation.zero,
+                          var labelOffset: Double = 0,
+                          var position: LabelPosition.Value = LabelPosition.centre)
+case class TickLabelStyle(var font: String = "Times New Roman",
+                          var size: Double = 14,
+                          var color: String = "black",
+                          var italic: Boolean = false,
+                          var bold: Boolean = false,
+                          var underline: Boolean = false,
+                          var rotate: Rotation.Value = Rotation.zero,
+                          var tickOffset: Double = 0,
+                          var format: TickLabelFormat.Value = TickLabelFormat.Auto,
+                          var scale: Double = 1)
 
-case class AxisLabelStyle(var font:String ="Times New Roman", var size:Double = 14, var color:String = "black", var italic:Boolean = false, var bold:Boolean=false, var underline:Boolean=false, var atEdge:Boolean=false, var rotate:Rotation.Value = Rotation.zero, var labelOffset:Double = 0, var position:LabelPosition.Value = LabelPosition.centre )
-case class TickLabelStyle(var font:String ="Times New Roman", var size:Double = 14, var color:String = "black", var italic:Boolean = false, var bold:Boolean=false, var underline:Boolean=false, var rotate:Rotation.Value = Rotation.zero, var tickOffset:Double = 0, var format:TickLabelFormat.Value = TickLabelFormat.Auto, var scale:Double = 1 )
+case class MajorTickStyle(var color: String = "black",
+                          var width: Double = 0.5,
+                          var style: LineStyles.Value = LineStyles.Solid,
+                          var hide: Boolean = false,
+                          var length: Double = 6,
+                          var number: Int = 6,
+                          var manualTicks: String = "")
+case class MinorTickStyle(var color: String = "black",
+                          var width: Double = 0.5,
+                          var style: LineStyles.Value = LineStyles.Solid,
+                          var hide: Boolean = false,
+                          var length: Double = 3,
+                          var number: Int = 6)
 
+case class MajorGridLines(var color: String = "grey",
+                          var width: Double = 0.5,
+                          var style: LineStyles.Value = LineStyles.Dotted,
+                          var transparency: Int = 0,
+                          var hide: Boolean = true,
+                          var onTop: Boolean = false)
+case class MinorGridLines(var color: String = "lightgrey",
+                          var width: Double = 0.5,
+                          var style: LineStyles.Value = LineStyles.Dotted,
+                          var transparency: Int = 0,
+                          var hide: Boolean = true)
 
-case class MajorTickStyle(var color:String = "black", var width:Double = 0.5, var style:LineStyles.Value = LineStyles.Solid, var hide:Boolean = false, var length:Double = 6, var number:Int = 6, var manualTicks:String ="")
-case class MinorTickStyle(var color:String = "black", var width:Double = 0.5, var style:LineStyles.Value = LineStyles.Solid, var hide:Boolean = false, var length:Double = 3, var number:Int = 6)
-
-case class MajorGridLines(var color:String = "grey", var width:Double = 0.5, var style:LineStyles.Value = LineStyles.Dotted, var transparency: Int = 0, var hide:Boolean = true, var onTop:Boolean = false)
-case class MinorGridLines(var color:String = "lightgrey", var width:Double = 0.5, var style:LineStyles.Value = LineStyles.Dotted, var transparency: Int = 0, var hide:Boolean = true)
-
-
-object LabelPosition extends Enumeration{
+object LabelPosition extends Enumeration {
   val centre = Value("centre")
   val atMinimum = Value("at-minimum")
   val atMaximum = Value("at-maximum")
 }
 
-object Rotation extends Enumeration{
+object Rotation extends Enumeration {
   val zero = Value("0")
   val neg45 = Value("-45")
   val neg90 = Value("-90")
@@ -171,8 +277,7 @@ object Rotation extends Enumeration{
   val pos180 = Value("180")
 }
 
-
-object TickLabelFormat extends Enumeration{
+object TickLabelFormat extends Enumeration {
   val Auto = Value("Auto")
   val Vg = Value("%Vg")
   val Ve = Value("%Ve")
@@ -182,7 +287,7 @@ object TickLabelFormat extends Enumeration{
   val dot2f = Value("%.2f")
 }
 
-object LineStyles extends Enumeration{
+object LineStyles extends Enumeration {
   val Solid = Value("solid")
   val Dashed = Value("dashed")
   val Dotted = Value("dotted")

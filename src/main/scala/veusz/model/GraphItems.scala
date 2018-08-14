@@ -7,7 +7,7 @@ import veusz.model._
 /**
   * Created by Kaufmann on 22.06.2017.
   */
-sealed trait GraphItem extends ConfigureableItem
+sealed trait GraphItem
 
 
 case class XYDataEntry(data:Vector[Double]=Vector.empty, name:String ="")
@@ -50,10 +50,10 @@ object GraphItems {
   }
 
   object XY{
-    def apply(xYData: XYData)(implicit config:XYConfig) = new XY(xYData, config = config)
-    def apply(xYData: XYData, name:String)(implicit config:XYConfig) = new XY(xYData,name=name, config = config)
+    def apply(xYData: XYData) = new XY(xYData)
+    def apply(xYData: XYData, name:String) = new XY(xYData,name=name)
   }
-  case class XY(xYData: XYData, name:String="XY", keyText:String="",  val config:XYConfig,  xAxis:String="x", yAxis: String = "y") extends GraphItem
+  case class XY(xYData: XYData, name:String="XY", keyText:String="",  val config:XYConfig = new XYConfig(),  xAxis:String="x", yAxis: String = "y") extends GraphItem
   case class XYConfig(mainStyle: XYMainStyle = XYMainStyle(), lineStyle: LineStyle = LineStyle(), markerBorder: MarkerBorder = MarkerBorder(), markerFill: MarkerFill =MarkerFill(), fillBelow:Fill = Fill(), fillAbove:Fill = Fill(fillTo = FillTo.top)) extends Config
 
   case class BoxPlotData(values: Vector[XYDataEntry], labels:Vector[String], positions:Option[XYDataEntry] = None) extends VeuszData
