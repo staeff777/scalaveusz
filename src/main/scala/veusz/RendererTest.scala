@@ -2,9 +2,8 @@ package veusz
 
 import veusz.model._
 import veusz.model.VeuszOutput._
-/**
-  * Created by Kaufmann on 22.06.2017.
-  */
+
+
 object RendererTest extends App{
 
 
