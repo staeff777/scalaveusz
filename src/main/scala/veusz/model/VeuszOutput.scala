@@ -2,6 +2,7 @@ package veusz.model
 
 import java.awt.Desktop
 import java.io.{File, PrintWriter}
+import java.nio.file.Paths
 
 
 /**
@@ -9,6 +10,7 @@ import java.io.{File, PrintWriter}
   */
 object VeuszOutput {
 
+  var outPath = "veusz"
 
   implicit class DocumentTools(document:Document) {
 
@@ -19,21 +21,22 @@ object VeuszOutput {
     }
 
 
-    def show(fileName:String) = {
-      val outdir = new File("veusz")
+    def show(fileName:String, outdir:File = new File(VeuszOutput.outPath)) = {
+
       if(!outdir.exists()) outdir.mkdirs()
 
-      save(fileName)
-      val target = s"veusz/$fileName.vsz"
-      val targetFile = new File(target)
-      Desktop.getDesktop().open(targetFile)
+      save(fileName, outdir)
+      val target = Paths.get(outdir.getAbsolutePath, "$fileName.vsz")
+
+      Desktop.getDesktop().open(target.toFile)
     }
 
 
-    def save(fileName:String) = {
+    def save(fileName:String, outdir:File =new File(VeuszOutput.outPath)) = {
       val text = getVeuszText()
-      val target = s"veusz/$fileName.vsz"
-      new PrintWriter(target) { write(text); close }
+      if(!outdir.exists()) outdir.mkdirs()
+      val target = Paths.get(outdir.getAbsolutePath, s"$fileName.vsz")
+      new PrintWriter(target.toFile) { write(text); close }
     }
 
 

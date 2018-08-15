@@ -1,7 +1,7 @@
 package veusz.model
 import java.awt.Transparency
 
-import Conversions._
+import SizeUnits._
 
 trait Config
 trait ConfigureableItem { var config: Config }
@@ -30,7 +30,7 @@ object Grid {
 }
 
 case class Grid(var pageItems: Vector[PageItem],
-                var config: GridConfig,
+                var config: GridConfig = new GridConfig(),
                 var name: String = "grid",
                 var rows: Int = 2,
                 var columns: Int = 2,

@@ -19,7 +19,7 @@ case class Centimeter(value:Double) extends  SizeUnit {
 
 
 
-object Conversions{
+object SizeUnits{
   implicit class DoubleWithUnits(v:Double){
     def cm() = Centimeter(v)
     def pt() = Point(v)
