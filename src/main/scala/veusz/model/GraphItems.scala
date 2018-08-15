@@ -53,7 +53,7 @@ object GraphItems {
     def apply(xYData: XYData) = new XY(xYData)
     def apply(xYData: XYData, name:String) = new XY(xYData,name=name)
   }
-  case class XY(xYData: XYData, name:String="XY", keyText:String="",  val config:XYConfig = new XYConfig(),  xAxis:String="x", yAxis: String = "y") extends GraphItem
+  case class XY(xYData: XYData, name:String="XY", keyText:String="",  var config:XYConfig = new XYConfig(),  xAxis:String="x", yAxis: String = "y") extends GraphItem
   case class XYConfig(mainStyle: XYMainStyle = XYMainStyle(), lineStyle: LineStyle = LineStyle(), markerBorder: MarkerBorder = MarkerBorder(), markerFill: MarkerFill =MarkerFill(), fillBelow:Fill = Fill(), fillAbove:Fill = Fill(fillTo = FillTo.top)) extends Config
 
   case class BoxPlotData(values: Vector[XYDataEntry], labels:Vector[String], positions:Option[XYDataEntry] = None) extends VeuszData

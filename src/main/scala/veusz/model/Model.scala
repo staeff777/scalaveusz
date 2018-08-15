@@ -23,7 +23,7 @@ object Page {
   def apply(name: String, pageItems: PageItem*) = new Page(pageItems.toVector, name)
 }
 case class Page(var pageItems: Vector[PageItem],  var name: String = "page", var config: PageConfig = PageConfig()) {}
-case class PageConfig(width: SizeUnit = 15 cm, height: SizeUnit = 15 cm) extends Config
+case class PageConfig(var width: SizeUnit = 15 cm, var height: SizeUnit = 15 cm) extends Config
 
 object Grid {
   def apply(pageItems: Vector[PageItem])(implicit config: GridConfig) = new Grid(pageItems, config)
