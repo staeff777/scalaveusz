@@ -26,7 +26,7 @@ object VeuszOutput {
       if(!outdir.exists()) outdir.mkdirs()
 
       save(fileName, outdir)
-      val target = Paths.get(outdir.getAbsolutePath, "$fileName.vsz")
+      val target = Paths.get(outdir.getAbsolutePath, s"$fileName.vsz")
 
       Desktop.getDesktop().open(target.toFile)
     }
