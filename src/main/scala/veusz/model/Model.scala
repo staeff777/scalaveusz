@@ -19,10 +19,10 @@ case class DocumentConfig(var width: SizeUnit = 15 cm, var height: SizeUnit = 15
 object Page {
   def apply(pageItems: Vector[PageItem]) = new Page(pageItems.toVector)
   def apply(pageItems: PageItem*) = new Page(pageItems.toVector)
-  def apply(name: String, pageItems: Vector[PageItem])= new Page(pageItems.toVector, name)
+  def apply(name: String, pageItems: Vector[PageItem]) = new Page(pageItems.toVector, name)
   def apply(name: String, pageItems: PageItem*) = new Page(pageItems.toVector, name)
 }
-case class Page(var pageItems: Vector[PageItem],  var name: String = "page", var config: PageConfig = PageConfig()) {}
+case class Page(var pageItems: Vector[PageItem], var name: String = "page", var config: PageConfig = PageConfig()) {}
 case class PageConfig(var width: SizeUnit = 15 cm, var height: SizeUnit = 15 cm) extends Config
 
 object Grid {
@@ -162,7 +162,7 @@ object MarkerType extends Enumeration {
 }
 
 object ErrorType extends Enumeration {
-  val bar, barends, box, diamond, curve, barbox = Value
+  val bar, barends, box, diamond, curve, barbox, bardiamand, barcurve, boxfill, diamondfill, curvefill, fillvert, fillhorz, linevert, linehorz, linevertbar, linehorzbar = Value
 }
 
 case class MarkerBorder(var color: String = "black",
@@ -173,6 +173,15 @@ case class MarkerBorder(var color: String = "black",
                         var scale: Boolean = false)
 case class MarkerFill(var color: String = "black", var hide: Boolean = false, var colorMap: ColorMapType.Value = ColorMapType.grey, var invertmap: Boolean = false)
 
+case class ErrorBarLine(var color: String = "black",
+                        var width: Double = 0.5,
+                        var style: LineStyles.Value = LineStyles.Solid,
+                        var transparency: Int = 0,
+                        var hide: Boolean = false,
+                        var endSize: Double = 1.0,
+                        var hideHorz: Boolean = false,
+                        var hideVert: Boolean = false)
+
 object ColorMapType extends Enumeration {
   val grey = Value("grey")
   val traffic = Value("traffic-7-25-sync@60")
@@ -182,9 +191,9 @@ object ColorMapType extends Enumeration {
 case class Fill(var fillTo: FillTo.Value = FillTo.bottom,
                 var color: String = "grey",
                 var style: FillStyle.Value = FillStyle.solid,
-                hide: Boolean = true,
-                transparency: Int = 0,
-                hideErrorFill: Boolean = false)
+                var hide: Boolean = true,
+                var transparency: Int = 0,
+                var hideErrorFill: Boolean = false)
 
 object FillTo extends Enumeration {
   val top = Value("top")

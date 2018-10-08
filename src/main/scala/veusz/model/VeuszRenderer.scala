@@ -9,8 +9,17 @@ object VeuszRenderer {
 
   val NewLine = "\n"
 
+  object OneDDataWithErrors {
+    def apply(entry:XYDataEntry): OneDDataWithErrors = OneDDataWithErrors(entry.data, entry.symErrors, entry.negErrors, entry.posErrors)
+  }
+  case class OneDDataWithErrors(
+                                 data: Vector[Double] = Vector.empty,
+                                 symErrors: Option[Vector[Double]] = None,
+                                 negErrors: Option[Vector[Double]] = None,
+                                 posErrors: Option[Vector[Double]] = None
+                               )
 
-  case class Data( numericData:Map[scala.Vector[Double], String], textData: Map[scala.Vector[String], String], numeric3DData: Map[Map[(Double, Double), Double], String])
+  case class Data( numericData:Map[OneDDataWithErrors, String], textData: Map[scala.Vector[String], String], numeric3DData: Map[Map[(Double, Double), Double], String])
 
 
   def collectData(document: Document) ={
@@ -36,16 +45,16 @@ object VeuszRenderer {
     val pageItems = document.pages.zipWithIndex.flatMap{case (p,i) => p.pageItems.zipWithIndex.map{case (pi, pi_index ) =>(p.name.noBlanks +s"_${i+1}", (pi, pi_index))}}
     val allXYData = collectData(pageItems)
     val entries2d = allXYData.collect{case(n, xy:XYData) => Vector(
-                                              (xy.x.data, n+"_x_"+xy.x.name.noBlanks),
-                                              (xy.y.data, n+"_y_"+xy.y.name.noBlanks),
-                                              (xy.scaleMarkers.data, n+"_scale_"+xy.scaleMarkers.name.noBlanks),
-                                              (xy.colorMarkes.data, n+"_color_"+xy.colorMarkes.name.noBlanks)
+                                              (OneDDataWithErrors(xy.x), n+"_x_"+xy.x.name.noBlanks),
+                                              (OneDDataWithErrors(xy.y), n+"_y_"+xy.y.name.noBlanks),
+                                              (OneDDataWithErrors(xy.scaleMarkers), n+"_scale_"+xy.scaleMarkers.name.noBlanks),
+                                              (OneDDataWithErrors(xy.colorMarkes), n+"_color_"+xy.colorMarkes.name.noBlanks)
                                             )
                                       case(n, bp:BoxPlotData) => ()
-                                        bp.values.zipWithIndex.map{ case (d,i) => (d.data,n+s"_value${i}_"+d.name)} ++
+                                        bp.values.zipWithIndex.map{ case (d,i) => (OneDDataWithErrors(d),n+s"_value${i}_"+d.name)} ++
                                           (bp.positions match {
                                             case None => Vector()
-                                            case Some(p) => Vector((p.data,n+"_position_"+p.name))
+                                            case Some(p) => Vector((OneDDataWithErrors(p),n+"_position_"+p.name))
                                          })
                     }.flatten
     val groupedfun = entries2d.groupBy(_._1)
@@ -65,10 +74,30 @@ object VeuszRenderer {
 
 
   def dataToImportText(data:Data)={
+    def createTableHeader(d:OneDDataWithErrors) ={
+      (if(d.symErrors.isDefined) ",+-" else "") +
+      (if(d.negErrors.isDefined) ",-" else "") +
+      (if(d.posErrors.isDefined) ",+" else "")
+    }
+    def createDataTable(d:OneDDataWithErrors)={
+      def writeOptional(ov:Option[Vector[Double]], i:Int) = {
+        ov match {
+          case Some(v) => " " + v(i)
+          case None => ""
+        }
+      }
+      d.data.zipWithIndex.map { case (value, i) =>
+       value +
+        writeOptional(d.symErrors, i) +
+        writeOptional(d.negErrors, i) +
+        writeOptional(d.posErrors, i)
+      }
+    }
+
     val d = data.numericData.map(d => {
       s"""
-        |ImportString(u'${d._2}(numeric)','''
-        |${d._1.mkString(NewLine)}
+        |ImportString(u'${d._2}(numeric)${createTableHeader(d._1)}','''
+        |${createDataTable(d._1).mkString(NewLine)}
         |''')
       """.stripMargin
     }).mkString(NewLine)
@@ -280,7 +309,7 @@ object VeuszRenderer {
 
   def boxplot(bp: BoxPlot, index: Int)(implicit data:Data): String = {
 
-    val datanames =  bp.data.values.map(d => data.numericData(d.data)).map(name => s"u'$name'").mkString(",")
+    val datanames =  bp.data.values.map(d => data.numericData(OneDDataWithErrors(d))).map(name => s"u'$name'").mkString(",")
     val labelnames =  data.textData(bp.data.labels)
 
     s"""
@@ -323,9 +352,9 @@ object VeuszRenderer {
   }
 
   def xy(xy:GraphItems.XY,index:Int)(implicit data:Data) = {
-    val xName = data.numericData(xy.xYData.x.data)
-    val yName = data.numericData(xy.xYData.y.data)
-    val scaleName = if(xy.xYData.scaleMarkers.data.size > 0) data.numericData(xy.xYData.scaleMarkers.data)
+    val xName = data.numericData(OneDDataWithErrors(xy.xYData.x))
+    val yName = data.numericData(OneDDataWithErrors(xy.xYData.y))
+    val scaleName = if(xy.xYData.scaleMarkers.data.size > 0) data.numericData(OneDDataWithErrors(xy.xYData.scaleMarkers))
                     else ""
     s"""
        |
@@ -341,6 +370,7 @@ object VeuszRenderer {
        |${plotlineStyle(xy.config.lineStyle)}
        |${markerBorder(xy.config.markerBorder)}
        |${markerFill(xy.config.markerFill)}
+       |${errorBarLine(xy.config.errorBarLine)}
        |${fill("Below",xy.config.fillBelow)}
        |${fill("Above", xy.config.fillAbove)}
        |To('..') # End of Graph Item XY : ${xy.name}_[$index]
@@ -472,6 +502,21 @@ Set('Color/points', u'${xy.colorMarkers}')
        |Set('MarkerFill/hide', ${getBool(mf.hide)})
        |Set('MarkerFill/colorMap', u'${mf.colorMap}')
        |Set('MarkerFill/colorMapInvert', ${getBool(mf.invertmap)})
+       |
+     """.stripMargin
+  }
+
+  def errorBarLine(ebl: ErrorBarLine) ={
+    s"""
+       |
+       |Set('ErrorBarLine/color', u'${ebl.color}')
+       |Set('ErrorBarLine/width', u'${ebl.width}pt')
+       |Set('ErrorBarLine/style', u'${ebl.style}')
+       |Set('ErrorBarLine/transparency', ${ebl.transparency})
+       |Set('ErrorBarLine/hide', ${getBool(ebl.hide)})
+       |Set('ErrorBarLine/endsize', ${ebl.endSize})
+       |Set('ErrorBarLine/hideHorz', ${getBool(ebl.hideHorz)})
+       |Set('ErrorBarLine/hideVert', ${getBool(ebl.hideVert)})
        |
      """.stripMargin
   }
