@@ -1,6 +1,6 @@
 
 inThisBuild(List(
-  organization := "de.datenberg",
+  organization := "de.dreambeam",
   homepage := Some(url("https://github.com/staeff777/scalaveusz")),
   licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
   developers := List(
@@ -14,7 +14,7 @@ inThisBuild(List(
 ))
 
 name := "scalaveusz"
-organization := "de.datenberg"
+organization := "de.dreambeam"
 
 version := "1.0"
 
