@@ -1,4 +1,20 @@
-name := "Veuszlib"
+
+inThisBuild(List(
+  organization := "de.datenberg",
+  homepage := Some(url("https://github.com/staeff777/scalaveusz")),
+  licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+  developers := List(
+    Developer(
+      "staeff777",
+      "Stefan Kaufmann",
+      "stefan@dreambeam.de",
+      url("")
+    )
+  )
+))
+
+name := "scalaveusz"
+organization := "de.datenberg"
 
 version := "1.0"
 
