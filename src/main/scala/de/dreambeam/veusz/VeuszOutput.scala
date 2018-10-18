@@ -3,6 +3,7 @@ import java.awt.Desktop
 import java.io.{File, PrintWriter}
 import java.nio.file.Paths
 
+import de.dreambeam.veusz.model.Document
 import de.dreambeam.veusz.renderer.VeuszRenderer
 
 /**
