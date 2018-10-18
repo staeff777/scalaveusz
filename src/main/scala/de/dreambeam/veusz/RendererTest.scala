@@ -1,7 +1,7 @@
 package de.dreambeam.veusz
 
-import veusz.model._
 import VeuszOutput._
+import de.dreambeam.veusz.model._
 
 
 object RendererTest extends App{
