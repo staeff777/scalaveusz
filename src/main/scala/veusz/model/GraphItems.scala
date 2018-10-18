@@ -11,7 +11,13 @@ import SizeUnits._
   */
 sealed trait GraphItem
 
-case class XYDataEntry(data: Vector[Double] = Vector.empty, name: String = "")
+case class XYDataEntry(
+                        data: Vector[Double] = Vector.empty,
+                        name: String = "",
+                        symErrors: Option[Vector[Double]] = None,
+                        negErrors: Option[Vector[Double]] = None,
+                        posErrors: Option[Vector[Double]] = None
+                      )
 
 object XYData {
 
@@ -79,6 +85,7 @@ object GraphItems {
                       lineStyle: LineStyle = LineStyle(),
                       markerBorder: MarkerBorder = MarkerBorder(),
                       markerFill: MarkerFill = MarkerFill(),
+                      errorBarLine: ErrorBarLine = ErrorBarLine(),
                       fillBelow: Fill = Fill(),
                       fillAbove: Fill = Fill(fillTo = FillTo.top))
       extends Config
