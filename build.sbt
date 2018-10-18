@@ -8,7 +8,7 @@ inThisBuild(List(
       "staeff777",
       "Stefan Kaufmann",
       "stefan@dreambeam.de",
-      url("")
+      url("http://dreambeam.de")
     )
   )
 ))
