@@ -1,4 +1,4 @@
-package veusz
+package de.dreambeam.veusz
 
 import veusz.model._
 import VeuszOutput._

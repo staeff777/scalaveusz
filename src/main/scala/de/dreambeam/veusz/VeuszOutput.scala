@@ -1,9 +1,9 @@
-package veusz
+package de.dreambeam.veusz
 import java.awt.Desktop
 import java.io.{File, PrintWriter}
 import java.nio.file.Paths
 
-import veusz.model.{Document, VeuszRenderer}
+import de.dreambeam.veusz.renderer.VeuszRenderer
 
 /**
   * Created by Kaufmann on 22.06.2017.

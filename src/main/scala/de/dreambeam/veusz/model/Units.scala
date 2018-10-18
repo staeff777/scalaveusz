@@ -1,5 +1,4 @@
-package veusz.model
-
+package de.dreambeam.veusz.model
 
 sealed trait SizeUnit {
   def value:Double

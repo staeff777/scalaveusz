@@ -1,5 +1,6 @@
-package veusz.model
-import veusz.model.GraphItems.{BoxPlot, BoxPlotData, Label, LabelConfig, SimpleBorder, SimpleFill}
+package de.dreambeam.veusz.renderer
+import de.dreambeam.veusz.model.GraphItems.{BoxPlot, BoxPlotData, Label, LabelConfig, SimpleBorder, SimpleFill}
+import de.dreambeam.veusz.model._
 
 /**
   * Created by Kaufmann on 10.03.2017.

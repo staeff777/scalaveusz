@@ -1,5 +1,4 @@
-package veusz.model
-
+package de.dreambeam.veusz.model
 
 import SizeUnits._
 
