@@ -1,9 +1,9 @@
-package veusz.model
-
+package veusz
 import java.awt.Desktop
 import java.io.{File, PrintWriter}
 import java.nio.file.Paths
 
+import veusz.model.{Document, VeuszRenderer}
 
 /**
   * Created by Kaufmann on 22.06.2017.

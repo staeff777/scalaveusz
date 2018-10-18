@@ -1,5 +1,5 @@
 package veusz.model
-import java.awt.Transparency
+
 
 import SizeUnits._
 
@@ -66,7 +66,7 @@ object Graph {
 }
 case class Graph(graphItems: Vector[GraphItem], name: String = "graph", axis: Vector[Axis] = Vector(XAxis(), YAxis()), var config: GraphConfig = new GraphConfig()) extends PageItem
 
-case class GraphConfig(border: GraphBorder = GraphBorder()) extends Config //axis:Vector[Axis]
+case class GraphConfig(var border: GraphBorder = GraphBorder()) extends Config //axis:Vector[Axis]
 
 case class GraphBorder(var leftMargin: SizeUnit = 1.7 cm,
                        var rightMargin: SizeUnit = 0.2 cm,

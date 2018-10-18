@@ -1,7 +1,7 @@
 package veusz
 
 import veusz.model._
-import veusz.model.VeuszOutput._
+import VeuszOutput._
 
 
 object RendererTest extends App{
