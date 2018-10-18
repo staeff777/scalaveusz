@@ -1,9 +1,5 @@
 package de.dreambeam.veusz.model
 
-import java.awt.Transparency
-
-import veusz.model.AutoRange.Value
-import veusz.model._
 import SizeUnits._
 
 /**
