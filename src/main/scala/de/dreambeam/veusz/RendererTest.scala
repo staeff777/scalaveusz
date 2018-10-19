@@ -13,13 +13,13 @@ object RendererTest extends App {
   // create a linear XY Point Plot with Lines
   val xyDataLinear = XYData(XYDataEntry(xData), XYDataEntry(yLinear))
   val xyLinearPlot = GraphItems.XY(xyDataLinear)
-  xyLinearPlot.config.lineStyle.color = "blue"
+  xyLinearPlot.config.lineStyle.color = "darkblue"
   xyLinearPlot.config.markerFill.color = "blue"
 
   // create a sinus XY Point Plot with Lines
   val xyDataSinus = XYData(XYDataEntry(xData), XYDataEntry(ySin))
   val xySinusPlot = GraphItems.XY(xyDataSinus)
-  xySinusPlot.config.lineStyle.color = "red"
+  xySinusPlot.config.lineStyle.color = "darkred"
   xySinusPlot.config.markerFill.color = "red"
 
   // bot both XY Plots into a Graph
