@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/staeff777/scalaveusz.svg?branch=master)](https://travis-ci.org/staeff777/scalaveusz)[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.dreambeam/scalaveusz/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.dreambeam/svalaveusz) (Continuous Integration currently WIP)
 
 
-Create veusz charts in scala.
+Create [Veusz](https://veusz.github.io/) charts in Scala.
 
 The Api is currently work in progress.
 
