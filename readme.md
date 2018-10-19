@@ -32,14 +32,15 @@ object RendererTest extends App {
   xySinusPlot.config.lineStyle.color = "red"
   xySinusPlot.config.markerFill.color = "red"
 
-  // bot both XY Plots into a Graph
+  // put both XY Plots into a Graph
   val graph = Graph(xyLinearPlot, xySinusPlot)
 
   graph.axis(0).label = "X Axis" //Axis can also be defined in the Graph constructor
   graph.axis(1).label = "Y Axis" //More than just two axis is possible
 
-  val p = Page(graph)
-  val document = Document(p)
+  val p = Page(graph) // a Page can contain one Graph or a Grid with multiple Graphs 
+  
+  val document = Document(p) // a Document can contain multiple Pages
 
   //document will be saved in a "veusz-Directory" and then opened by the operating system
   //the show command comes from VeuszOutput
