@@ -1,5 +1,8 @@
 # VeuszLib
 
+[![Build Status](https://travis-ci.org/staeff777/scalaveusz.svg?branch=master)](https://travis-ci.org/staeff777/scalaveusz)[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.dreambeam/scalaveusz/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.dreambeam/svalaveusz) (Continuous Integration currently WIP)
+
+
 Create veusz charts in scala.
 
 Api is work in progress.
