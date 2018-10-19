@@ -8,7 +8,7 @@ The Api is currently work in progress.
 
 ## First Steps
 
-Include the Dependency requirements into the build.sbt:
+Include the dependency requirements into the build.sbt:
 ```scala
 libraryDependencies += "de.dreambeam" %% "scalaveusz" % "0.1.3" // version according to Maven Central Badge in the top of this page
 ```
