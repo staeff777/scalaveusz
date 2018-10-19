@@ -8,12 +8,12 @@ import SizeUnits._
 sealed trait GraphItem
 
 case class XYDataEntry(
-                        data: Vector[Double] = Vector.empty,
-                        name: String = "",
-                        symErrors: Option[Vector[Double]] = None,
-                        negErrors: Option[Vector[Double]] = None,
-                        posErrors: Option[Vector[Double]] = None
-                      )
+          data: Vector[Double] = Vector.empty,
+          name: String = "",
+          symErrors: Option[Vector[Double]] = None,
+          negErrors: Option[Vector[Double]] = None,
+          posErrors: Option[Vector[Double]] = None
+)
 
 object XYData {
 
@@ -145,18 +145,18 @@ object GraphItems {
 
   object Label {
 
-    def apply(label: String, xPosition: Double = 0.5, yPosition: Double = 0.5, positionMode: PositionMode.Value = PositionMode.relative, xAxis: String = "x", yAxis: String = "y", labelConfig: LabelConfig = LabelConfig()) =
+    def apply(label: String,
+              xPosition: Double = 0.5,
+              yPosition: Double = 0.5,
+              positionMode: PositionMode.Value = PositionMode.relative,
+              xAxis: String = "x",
+              yAxis: String = "y",
+              labelConfig: LabelConfig = LabelConfig()) =
       new Label(label, Vector(xPosition), Vector(yPosition), positionMode, xAxis, yAxis, LabelConfig())
   }
 
-  case class Label(label: String,
-                   xPositions: Vector[Double],
-                   yPositions: Vector[Double],
-                   positionMode: PositionMode.Value,
-                   xAxis: String,
-                   yAxis: String,
-                   config:LabelConfig
-                  ) extends GraphItem
+  case class Label(label: String, xPositions: Vector[Double], yPositions: Vector[Double], positionMode: PositionMode.Value, xAxis: String, yAxis: String, config: LabelConfig)
+      extends GraphItem
 
   case class LabelConfig(var alignment: Alignment = Alignment(),
                          var textConfig: TextConfig = TextConfig(),
