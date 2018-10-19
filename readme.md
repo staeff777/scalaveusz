@@ -1,12 +1,19 @@
 # VeuszLib
 
-[![Build Status](https://travis-ci.org/staeff777/scalaveusz.svg?branch=master)](https://travis-ci.org/staeff777/scalaveusz)[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.dreambeam/scalaveusz/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.dreambeam/svalaveusz) (Continuous Integration currently WIP)
-
+[![Build Status](https://travis-ci.org/staeff777/scalaveusz.svg?branch=master)](https://travis-ci.org/staeff777/scalaveusz)[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.dreambeam/scalaveusz_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.dreambeam/scalaveusz_2.12) 
 
 Create [Veusz](https://veusz.github.io/) charts in Scala.
 
 The Api is currently work in progress.
 
+## First Steps
+
+Include the Dependency requirements into the build.sbt:
+```scala
+libraryDependencies += "de.dreambeam" %% "scalaveusz" % "0.1.3" // version according to Maven Central Badge in the top of this page
+```
+
+Start with follwing example chart:
 ```scala
 package de.dreambeam.veusz
 
@@ -47,6 +54,6 @@ object RendererTest extends App {
   document.show("newTest")
 }
 ```
-This will result in following Veusz Project:
+This will result in following Veusz project:
 
 ![Example Image](documentation/example.png)
