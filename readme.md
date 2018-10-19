@@ -46,5 +46,6 @@ object RendererTest extends App {
   document.show("newTest")
 }
 ```
+This will result in following Veusz Project:
 
 ![Example Image](documentation/example.png)
