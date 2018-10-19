@@ -15,8 +15,6 @@ libraryDependencies += "de.dreambeam" %% "scalaveusz" % "0.1.3" // version accor
 
 Start with follwing example chart:
 ```scala
-package de.dreambeam.veusz
-
 import de.dreambeam.veusz.VeuszOutput._
 import de.dreambeam.veusz.model._
 
