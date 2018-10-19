@@ -47,4 +47,4 @@ object RendererTest extends App {
 }
 ```
 
-![asd][documentation/example.png]
+![Example Image](documentation/example.png)
