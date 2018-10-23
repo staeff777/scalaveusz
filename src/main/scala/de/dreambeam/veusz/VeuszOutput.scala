@@ -1,5 +1,5 @@
 package de.dreambeam.veusz
-import java.awt.Desktop
+import java.awt.{Desktop, GraphicsEnvironment}
 import java.io.{File, PrintWriter}
 import java.nio.file.Paths
 
@@ -26,7 +26,11 @@ object VeuszOutput {
       save(fileName, outdir)
       val target = Paths.get(outdir.getAbsolutePath, s"$fileName.vsz")
 
-      Desktop.getDesktop().open(target.toFile)
+      if(!GraphicsEnvironment.isHeadless())
+        Desktop.getDesktop().open(target.toFile)
+      else{
+        println("No Graphics Environment found. Vuesz file saved at "+ target)
+      }
     }
 
     def save(fileName: String, outdir: File = new File(VeuszOutput.outPath)) = {
