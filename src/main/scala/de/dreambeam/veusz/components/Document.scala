@@ -1,6 +1,6 @@
 package de.dreambeam.veusz.components
 
-import de.dreambeam.veusz.{Configurable, DocumentItem, Executable, Item}
+import de.dreambeam.veusz._
 import de.dreambeam.veusz.util.SizeUnit
 import de.dreambeam.veusz.util.SizeUnits._
 
@@ -47,12 +47,13 @@ class Document private (val name: String, val children: Option[Vector[DocumentIt
   extends Item
   with Configurable
   with Executable
+  with Parent
 {
   val group = ""
 
-  object config {
-    var width: SizeUnit = 15 cm
-    var height: SizeUnit = 15 cm
-    var englishLocale: Boolean = false
-  }
+  var config: DocumentConfig = DocumentConfig()
 }
+
+case class DocumentConfig(var width: SizeUnit = 15 cm,
+                          var height: SizeUnit = 15 cm,
+                          var englishLocale: Boolean = false)

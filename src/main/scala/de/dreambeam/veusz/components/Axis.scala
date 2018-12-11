@@ -2,60 +2,39 @@ package de.dreambeam.veusz.components
 
 import de.dreambeam.veusz.{Item, GraphItem, Executable, Configurable}
 import de.dreambeam.veusz.format._
-import de.dreambeam.veusz.util.SizeUnits._
 
-object Axis {
-  def apply(name: String,
-            label: String = "",
-            min: Option[Double] = None,
-            max: Option[Double] = None,
-            log: Boolean = false,
-            mode: AxisMode.Value = AxisMode.Numeric,
-            scale: Double = 1,
-            minPos: Double = 0,
-            maxPos: Double = 1,
-            direction: String = "horizontal",
-            axisPosition: Double = 0
-            ) =
-    new Axis(name, None, label, min, max, log, mode, scale, minPos, maxPos, direction, axisPosition)
-
-}
-
-class Axis private (val name: String,
-                    val children: Option[Vector[Item]],
-                    var label: String,
-                    var min: Option[Double],
-                    var max: Option[Double],
-                    var log: Boolean,
-                    var mode: AxisMode.Value,
-                    var scale: Double,
-                    var minPos: Double,
-                    var maxPos: Double,
-                    var direction: String,
-                    var axisPosition: Double
-                   )
-    extends GraphItem
-      with Configurable
-      with Executable
+case class Axis (var label: String = "",
+                 var min: Option[Double] = None,
+                 var max: Option[Double] = None,
+                 var log: Boolean = false,
+                 var mode: AxisMode.Value = AxisMode.Numeric,
+                 var scale: Double = 1,
+                 var minPos: Double = 0,
+                 var maxPos: Double = 1,
+                 var direction: String = "horizontal",
+                 var axisPosition: Double = 0,
+                 var name: String = ""
+                )
+  extends GraphItem
+    with Configurable
+    with Executable
 {
   val group = "axis"
-
-  object config {
-    val main = AxisMainConfig()
-    val axisLine = LineConfig()
-    val axisLabel = LabelConfig()
-    val tickLabels = TickLabelsConfig()
-    val majorTicks = MajorTicksConfig()
-    val minorTicks = MinorTicksConfig()
-    val majorGridLines = MajorGridLinesConfig()
-    val minorGridLines = MinorGridLinesConfig()
-  }
+  var config: AxisConfig = AxisConfig()
 }
 
+case class AxisConfig(main: AxisMainConfig = AxisMainConfig(),
+                      axisLine: de.dreambeam.veusz.format.LineConfig = de.dreambeam.veusz.format.LineConfig(),
+                      axisLabel: de.dreambeam.veusz.format.LabelConfig = de.dreambeam.veusz.format.LabelConfig(),
+                      tickLabels: TickLabelsConfig = TickLabelsConfig(),
+                      majorTicks: MajorTicksConfig = MajorTicksConfig(),
+                      minorTicks: MinorTicksConfig = MinorTicksConfig(),
+                      majorGridLines: MajorGridLinesConfig = MajorGridLinesConfig(),
+                      minorGridLines: MinorGridLinesConfig = MinorGridLinesConfig()
+                     )
 object XAxis {
 
-  def apply(name: String = "x",
-            label: String = "",
+  def apply(label: String = "",
             min: Option[Double] = None,
             max: Option[Double] = None,
             log: Boolean = false,
@@ -63,14 +42,14 @@ object XAxis {
             scale: Double = 1,
             minPos: Double = 0,
             maxPos: Double = 1,
-            axisPosition: Double = 0) =
-    Axis(name, label, min, max, log, mode, scale, minPos, maxPos, "horizontal", axisPosition)
+            axisPosition: Double = 0,
+            name: String = "x") =
+    Axis (label, min, max, log, mode, scale, minPos, maxPos, "horizontal", axisPosition, name)
 }
 
 object YAxis {
 
-  def apply(name: String = "y",
-            label: String = "",
+  def apply(label: String = "",
             min: Option[Double] = None,
             max: Option[Double] = None,
             log: Boolean = false,
@@ -78,7 +57,8 @@ object YAxis {
             scale: Double = 1,
             minPos: Double = 0,
             maxPos: Double = 1,
-            axisPosition: Double = 0) =
-    Axis(name, label, min, max, log, mode, scale, minPos, maxPos, "vertical", axisPosition)
+            axisPosition: Double = 0,
+            name: String = "y") =
+    Axis(label, min, max, log, mode, scale, minPos, maxPos, "vertical", axisPosition, name)
 }
 

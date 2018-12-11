@@ -93,17 +93,17 @@ case class LineConfig(
                          )
 
 case class LabelConfig(
-                          var font: String = "Times New Roman",
-                          var size: SizeUnit = 14 pt,
-                          var color: String = Colors.Foreground,
-                          var italic: Boolean = false,
-                          var bold: Boolean = false,
-                          var underline: Boolean = false,
-                          var hide: Boolean = false,
-                          var atEdge: Boolean = false,
-                          var rotate: Rotation.Value = Rotation.Zero,
-                          var offset: SizeUnit = 0 pt,
-                          var position: LabelPosition.Value = LabelPosition.Centre
+                        var font: String = "Times New Roman",
+                        var size: SizeUnit = 14 pt,
+                        var color: String = Colors.Foreground,
+                        var italic: Boolean = false,
+                        var bold: Boolean = false,
+                        var underline: Boolean = false,
+                        var hide: Boolean = false,
+                        var atEdge: Boolean = false,
+                        var rotate: Rotation.Value = Rotation.Zero,
+                        var offset: SizeUnit = 0 pt,
+                        var position: LabelPosition.Value = LabelPosition.Centre
                           )
 
 case class TickLabelsConfig(
@@ -273,7 +273,7 @@ case class BoxplotMainConfig(
                             var markersSize: SizeUnit = 3 pt
                             )
 
-case class BoxplotBoxFillConfig(
+case class BoxplotFillConfig(
                          var color: String = Colors.Background,
                          var style: FillStyle.Value = FillStyle.Solid,
                          var hide: Boolean = false,

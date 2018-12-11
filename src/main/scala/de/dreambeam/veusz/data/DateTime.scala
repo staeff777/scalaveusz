@@ -7,11 +7,6 @@ import java.util.Calendar
 import scala.collection.immutable.ListMap
 
 object DateTime {
-  def apply(
-             data: Vector[String],
-             name: String = ""
-           ) =
-    new DateTime(data, name)
 
   def apply(
            data: Vector[String],
@@ -74,10 +69,8 @@ object DateTime {
   }
 }
 
-case class DateTime(
-                     data: Vector[String],
-                     name: String = ""
-                   ) extends Data
+case class DateTime(data: Vector[String],
+                    name: String) extends Data
 {
   override def hashCode(): Int = data.hashCode()
 }

@@ -1,23 +1,18 @@
 package de.dreambeam.veusz.components
 
-import de.dreambeam.veusz.{Item, GraphItem}
+import de.dreambeam.veusz.{Configurable, GraphItem, Item}
 import de.dreambeam.veusz.format._
 
-object Key {
-  def apply() = new Key
-}
-
-class Key private (var title: String = "",
-                   val name: String = "key",
-                   val children: Option[Vector[Item]] = None)
+case class Key(title: String = "",
+               var name: String = "key")
   extends GraphItem
+    with Configurable
 {
   val group = "key"
-
-  object config {
-    val main = KeyMainConfig()
-    val text = TextConfig()
-    val background = BackgroundConfig()
-    val border = BorderConfig()
-  }
+  var config = KeyConfig()
 }
+
+case class KeyConfig(main: KeyMainConfig = KeyMainConfig(),
+                     text: TextConfig = TextConfig(),
+                     background: BackgroundConfig = BackgroundConfig(),
+                     border: BorderConfig = BorderConfig())

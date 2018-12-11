@@ -3,7 +3,7 @@ package de.dreambeam.veusz
 import de.dreambeam.veusz.components._
 import de.dreambeam.veusz.data.Text
 import de.dreambeam.veusz.format._
-import de.dreambeam.veusz.util.{MemoryTools => M, RenderTools => R, StringTools => S}
+import de.dreambeam.veusz.util.{RenderTools => R, StringTools => S}
 
 package object Renderer {
 
@@ -17,12 +17,13 @@ package object Renderer {
             case None => ""
           })
         }
-        case x: Item => {
+        case x: Parent => {
           x.children match {
             case Some(c) => c.map(go).mkString("")
             case None => ""
           }
         }
+        case _ => ""
       }
 
       item match {
@@ -35,7 +36,6 @@ package object Renderer {
         }
 
         case x => {
-          //val name = S.uniqueName(S.noBlanks(item.name))
 
           val name = x match {
             case axis: Axis => S.noBlanks(item.name)
@@ -748,7 +748,7 @@ package object Renderer {
        |${R.render(prefix)("transparency", bc.transparency)}
      """.stripMargin
 
-  def renderLabelConfig(lc: LabelConfig)(implicit prefix: String = "Label") : String =
+  def renderLabelConfig(lc: de.dreambeam.veusz.format.LabelConfig)(implicit prefix: String = "Label") : String =
     s"""
        |${R.render(prefix)("font", lc.font)}
        |${R.render(prefix)("size", lc.size)}
@@ -830,7 +830,7 @@ package object Renderer {
        |${R.render(prefix)("hide", tc.hide)}
      """.stripMargin
 
-  def renderLineConfig(lc: LineConfig)(implicit prefix: String = "Line"): String =
+  def renderLineConfig(lc: de.dreambeam.veusz.format.LineConfig)(implicit prefix: String = "Line"): String =
     s"""
        |${R.render(prefix)("color", lc.color)}
        |${R.render(prefix)("width", lc.width)}

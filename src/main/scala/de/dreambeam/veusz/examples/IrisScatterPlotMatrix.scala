@@ -203,7 +203,7 @@ object IrisScatterPlotMatrix extends App {
   }
 
   // Add the graphs to the grid
-  val grid = Grid(graphs, rows=4, columns=4) // since we compare all x/y combinations of those 4 features (4x4)
+  val grid = Grid(Some(graphs), rows=4, columns=4) // since we compare all x/y combinations of those 4 features (4x4)
 
   // Configure the grid
   grid.config.leftMargin = 1 cm;

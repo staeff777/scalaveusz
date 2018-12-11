@@ -4,7 +4,6 @@ import java.awt.Desktop
 import java.io.{File, PrintWriter}
 import java.nio.file.Paths
 
-import types._
 import util.RenderTools.newLine
 import components._
 import de.dreambeam.veusz.data.{BoxplotData, DateTime, Numerical, Text}
@@ -17,20 +16,15 @@ trait GraphItem extends Item
 trait Scene3DItem extends Item
 trait Graph3DItem extends Item
 
+trait Parent {
+  def children: Option[Vector[Item]]
+}
 trait Item {
   def group: String
   def name: String
-
-  //def entry = s"Add('$group', name='$name', autoadd=False)"
-  //def to = s"To('$name')"
-  //def exit = "To('..')"
-
-  def children: Option[Children]
 }
 
-trait Configurable {
-  abstract class config
-}
+trait Configurable
 
 trait Executable {
 
@@ -57,7 +51,6 @@ trait Executable {
             writeOptional(d.posErrors, i)
       }
     }
-
     MemoryTools.dataset.map {
       case (data: Numerical, reference) =>
         s"""
