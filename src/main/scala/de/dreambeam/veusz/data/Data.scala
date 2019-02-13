@@ -7,7 +7,7 @@ trait Data {
 object Data {
 
   /* Children */
-  lazy val $Numerical = Numerical
-  lazy val $DateTime = DateTime
-  lazy val $Text = Text
+  val $Numerical = Numerical
+  val $DateTime = DateTimeConstructor
+  val $Text = Text
 }

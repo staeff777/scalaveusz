@@ -1,58 +1,57 @@
 package de.dreambeam.veusz.data
 
+import java.time.{LocalDateTime, LocalDate}
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoField
 import java.util.Calendar
 
 import scala.collection.immutable.ListMap
 
-object DateTime {
+object DateTimeConstructor {
 
-  def apply(
-           data: Vector[String],
-           pattern: String,
-           name: String = ""
-           )
-           (calendar: Calendar = {
-             val calendar = Calendar.getInstance
-             calendar.set(
-               calendar.get(Calendar.YEAR),
-               calendar.get(Calendar.MONTH),
-               calendar.get(Calendar.DAY_OF_MONTH),
-               0,
-               0,
-               0
-             )
-             calendar
-           })
-           (offset_calendar: Calendar = {
-             val offset_calendar = Calendar.getInstance
-             offset_calendar.set(0, 0, 0, 0, 0, 0)
-             offset_calendar
-           }): DateTime = {
+  def format(i: Long): String = "%02d" format i
 
-    val year = calendar.get(Calendar.YEAR) + offset_calendar.get(Calendar.YEAR)
-    val month = calendar.get(Calendar.MONTH) + offset_calendar.get(Calendar.MONTH)
-    val day = calendar.get(Calendar.DAY_OF_MONTH) + offset_calendar.get(Calendar.DAY_OF_MONTH)
-    val hour = calendar.get(Calendar.HOUR_OF_DAY) + offset_calendar.get(Calendar.HOUR_OF_DAY)
-    val minute = calendar.get(Calendar.MINUTE) + offset_calendar.get(Calendar.MINUTE)
-    val second = calendar.get(Calendar.SECOND) + offset_calendar.get(Calendar.SECOND)
+  def fromLocalDate(data: Vector[LocalDate])
+                   (implicit offsetCalendar: Map[String, Int] = Map.empty[String, Int]): DateTime = {
+    val offsetData = data
+      .map(_.plusYears(offsetCalendar.getOrElse("yyyy", 0).asInstanceOf[Long]))
+      .map(_.plusMonths(offsetCalendar.getOrElse("MM", 0).asInstanceOf[Long]))
+      .map(_.plusDays(offsetCalendar.getOrElse("dd", 0).asInstanceOf[Long]))
+
+    val years = offsetData.map(_.getYear).map(_.asInstanceOf[Long])
+    val months = offsetData.map(_.getMonthValue).map(_.asInstanceOf[Long])
+    val days = offsetData.map(_.getDayOfMonth).map(_.asInstanceOf[Long])
+
+    DateTime((for {(y, m, d) <- (years, months, days).zipped} yield { s"${format(y)}-${format(m)}-${format(d)}"} ).toVector, "")
+  }
+
+  def fromString(data: Vector[String])
+           (pattern: String = "yyyy-MM-dd")
+           (offsetCalendar: Map[String, Int] = Map.empty[String, Int])
+           (implicit calendar: LocalDateTime = LocalDateTime.now().`with`(LocalDateTime.MIN)): DateTime = {
+    val year = calendar.getYear + offsetCalendar.getOrElse("yyyy", 0)
+    val month = calendar.getMonthValue + offsetCalendar.getOrElse("MM", 0)
+    val day = calendar.getDayOfMonth + offsetCalendar.getOrElse("dd", 0)
+    val hour = calendar.getHour + offsetCalendar.getOrElse("HH", 0)
+    val minute = calendar.getMinute + offsetCalendar.getOrElse("mm", 0)
+    val second = calendar.getSecond + offsetCalendar.getOrElse("ss", 0)
 
     implicit def format(i: Int): String = "%02d" format i
+    implicit def int2Long(i: Int): Long = i.toLong
 
-    case class Field(pos: Int, name: String, default: String, chronoField: ChronoField, calendarField: Int)
+    case class Field(pos: Int, name: String, default: Int, chronoField: ChronoField)
 
-    val pos = ListMap( "yyyy" -> Field(0, "year", year.toInt, ChronoField.YEAR, Calendar.YEAR)
-      , "MM" -> Field(1, "month", month.toInt + 1, ChronoField.MONTH_OF_YEAR, Calendar.MONTH) // increment month because it is zero based
-      , "dd" -> Field(2, "day", day.toInt, ChronoField.DAY_OF_MONTH, Calendar.DAY_OF_MONTH)
-      , "HH" -> Field(3, "hour", hour.toInt, ChronoField.HOUR_OF_DAY, Calendar.HOUR_OF_DAY)
-      , "mm" -> Field(4, "minute", minute.toInt, ChronoField.MINUTE_OF_HOUR, Calendar.MINUTE)
-      , "ss" -> Field(5, "second", second.toInt, ChronoField.SECOND_OF_MINUTE, Calendar.SECOND)
+    val pos: Map[String, Field] = Map("yyyy" -> Field(0, "year", year, ChronoField.YEAR)
+      , "MM" -> Field(1, "month", month, ChronoField.MONTH_OF_YEAR)
+      , "dd" -> Field(2, "day", day, ChronoField.DAY_OF_MONTH)
+      , "HH" -> Field(3, "hour", hour, ChronoField.HOUR_OF_DAY)
+      , "mm" -> Field(4, "minute", minute, ChronoField.MINUTE_OF_HOUR)
+      , "ss" -> Field(5, "second", second, ChronoField.SECOND_OF_MINUTE)
     )
 
     val upsilon = pos.map {
       case (key, value) if pattern contains key => key -> (value, true) // mark for replacement
-      case (key, value)                         => key -> (value, false) // mark for using default value
+      case (key, value) => key -> (value, false) // mark for using default value
     }
 
     val parser = DateTimeFormatter.ofPattern(pattern)
@@ -60,12 +59,31 @@ object DateTime {
     val completedDateTimeEntries = data.map { x =>
       val parsed = parser.parse(x)
       val c = upsilon map {
-        case (key, (value, true))  => key -> format(parsed.get(value.chronoField) + offset_calendar.get(value.calendarField))
+        case (key, (value, true)) => key -> parsed.get(value.chronoField)
         case (key, (value, false)) => key -> value.default
       }
-      s"""${c("yyyy")}-${c("MM")}-${c("dd")}'T'${c("HH")}:${c("mm")}:${c("ss")}"""
+      val cal = LocalDateTime.of(c("yyyy"), c("MM"), c("dd"), c("HH"), c("mm"), c("ss"))
+        .plusYears(offsetCalendar.getOrElse("yyyy", 0).asInstanceOf[Long])
+        .plusMonths(offsetCalendar.getOrElse("MM", 0).asInstanceOf[Long])
+        .plusDays(offsetCalendar.getOrElse("dd", 0).asInstanceOf[Long])
+        .plusHours(offsetCalendar.getOrElse("HH", 0).asInstanceOf[Long])
+        .plusMinutes(offsetCalendar.getOrElse("mm", 0).asInstanceOf[Long])
+        .plusSeconds(offsetCalendar.getOrElse("ss", 0).asInstanceOf[Long])
+
+      val cv: Vector[String] = Vector(
+          cal.getYear
+        , cal.getMonthValue
+        , cal.getDayOfMonth
+        , cal.getHour
+        , cal.getMinute
+        , cal.getSecond
+      )
+        .map(format)
+
+      s"${cv(0)}-${cv(1)}-${cv(2)}'T'${cv(3)}:${cv(4)}:${cv(5)}"
     }
-    DateTime(completedDateTimeEntries, name)
+
+    DateTime(completedDateTimeEntries, "")
   }
 }
 

@@ -468,6 +468,7 @@ package object Renderer {
 
     s"""
        |${R.render("lengths", bar.lengths)}
+       |${R.render("posn", bar.positions)}
        |${R.render("direction", bar.direction)}
        |${R.render("mode", bar.mode)}
        |${R.render("keys", bar.keys)}

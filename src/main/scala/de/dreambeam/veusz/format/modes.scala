@@ -18,6 +18,6 @@ object VectorfieldMode extends Enumeration {
 
 object AxisMode extends Enumeration {
   val Numeric = Value("numeric")
-  val DateTime = Value("dateTime")
+  val DateTime = Value("datetime")
   val Labels = Value("labels")
 }

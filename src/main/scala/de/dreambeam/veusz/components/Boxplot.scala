@@ -13,8 +13,8 @@ object Boxplot {
             name: String = "boxplot",
             ): Boxplot = {
     val dataNames = data.data.map(uniqueReference(_, ""))
-    val labelNames = uniqueReference(Text(data.labels), "labels")
-    Boxplot(dataNames, labelNames, whiskerMode, fillFraction, name)
+    val labelName = uniqueReference(Text(data.labels), "labels")
+    Boxplot(dataNames, labelName, whiskerMode, fillFraction, name)
   }
 
 }

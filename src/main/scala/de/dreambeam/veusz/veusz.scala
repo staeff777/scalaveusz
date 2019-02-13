@@ -8,6 +8,7 @@ import util.RenderTools.newLine
 import components._
 import de.dreambeam.veusz.data.{BoxplotData, DateTime, Numerical, Text}
 import de.dreambeam.veusz.util.MemoryTools
+import de.dreambeam.veusz.format._
 
 trait DocumentItem extends Item
 trait PageItem extends Item
@@ -54,8 +55,7 @@ trait Executable {
     MemoryTools.dataset.map {
       case (data: Numerical, reference) =>
         s"""
-           |ImportString(u'$reference(numeric)','''
-           |${createNumericTableHeader(data)}
+           |ImportString(u'$reference(numeric)${createNumericTableHeader(data)}','''
            |${createNumericDataTable(data).mkString(newLine)}
            |''')
          """.stripMargin
@@ -104,7 +104,7 @@ trait Executable {
     case g: Graph3D => Scene3D(g).save(fileName)
     case s: Scene3D => Page(s).save(fileName)
     case a: Axis => Graph(a).save(fileName)
-    case bar: Barchart => Graph(bar).save(fileName)
+    //case bar: Barchart => Graph(bar).save(fileName)
     case fun: Function => Graph(fun).save(fileName)
     case img: ImageFile => Page(img).save(fileName)
     case rect: Rectangle => Page(rect).save(fileName)
@@ -115,6 +115,14 @@ trait Executable {
     case con: Contour => Graph(con).save(fileName)
     case vec: Vectorfield => Graph(vec).save(fileName)
     case cov: Covariance => Graph(cov).save(fileName)
+    case bar: Barchart => {
+      if (bar.positions.endsWith("dt")) { // this is by convention
+        val xAxis = XAxis(mode=AxisMode.DateTime)
+        val yAxis = YAxis()
+        Graph(children=bar, axis= Vector(xAxis, yAxis)).save(fileName)
+      }
+      else Graph(bar).save(fileName)
+    }
   }
 
   def show(fileName: String, outdir: File = new File(Document.OutPath)) = {

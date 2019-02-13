@@ -1,6 +1,5 @@
 package de.dreambeam.veusz.util
 
-//import de.dreambeam.veusz.components.XY
 import de.dreambeam.veusz.data.{Data, Text}
 
 import scala.collection.mutable
@@ -8,7 +7,6 @@ import scala.collection.mutable
 object MemoryTools {
   val dataset = mutable.HashMap.empty[Data, String]
   val references = mutable.Map.empty[String, Int]
-  //val reverseDataset = for ((k, v) <- dataset) yield (v, k)
 
   def uniqueReference(data: Data, suffix: String): String = {
     if (dataset contains data) dataset(data)
