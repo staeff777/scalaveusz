@@ -5,24 +5,41 @@ import de.dreambeam.veusz.data.Text
 import de.dreambeam.veusz.format._
 import de.dreambeam.veusz.util.{RenderTools => R, StringTools => S}
 
+/**
+  * Renderer contains all methods for rendering
+  * the Veusz components
+  */
 package object Renderer {
 
+  /**
+    * Render all items recursively starting with the Document
+    *
+    * @return the rendered text for the Veusz components
+    */
   def renderAllItems = {
     def go(item: Item): String = {
 
       val childRender = item match {
+
+        // a graph must render its axes,
+        // since these are not under the category of children
         case g: Graph => {
           g.axis.map(go).mkString("") + (g.children match {
             case Some(c) => c.map(go).mkString("")
             case None => ""
           })
         }
+
+        // a parent is a component that has children
+        // and thus triggers the recursive render
         case x: Parent => {
           x.children match {
             case Some(c) => c.map(go).mkString("")
             case None => ""
           }
         }
+
+        // and if no children exist, do nothing
         case _ => ""
       }
 

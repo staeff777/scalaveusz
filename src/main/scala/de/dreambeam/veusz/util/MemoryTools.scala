@@ -8,6 +8,12 @@ object MemoryTools {
   val dataset = mutable.HashMap.empty[Data, String]
   val references = mutable.Map.empty[String, Int]
 
+  /**
+    *
+    * @param data one of Numerical, DateTime, Text
+    * @param suffix a suffix to add to the returned reference
+    * @return a String refernece to the data
+    */
   def uniqueReference(data: Data, suffix: String): String = {
     if (dataset contains data) dataset(data)
     else {

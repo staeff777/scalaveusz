@@ -25,6 +25,32 @@ object DateTimeConstructor {
     DateTime((for {(y, m, d) <- (years, months, days).zipped} yield { s"${format(y)}-${format(m)}-${format(d)}"} ).toVector, "")
   }
 
+  def fromLocalDateTime(data: Vector[LocalDateTime])
+                       (implicit offsetCalendar: Map[String, Int] = Map.empty[String, Int]): DateTime = {
+    val offsetData = data
+      .map(_.plusYears(offsetCalendar.getOrElse("yyyy", 0).asInstanceOf[Long]))
+      .map(_.plusMonths(offsetCalendar.getOrElse("MM", 0).asInstanceOf[Long]))
+      .map(_.plusDays(offsetCalendar.getOrElse("dd", 0).asInstanceOf[Long]))
+      .map(_.plusHours(offsetCalendar.getOrElse("HH", 0).asInstanceOf[Long]))
+      .map(_.plusMinutes(offsetCalendar.getOrElse("mm", 0).asInstanceOf[Long]))
+      .map(_.plusSeconds(offsetCalendar.getOrElse("ss", 0).asInstanceOf[Long]))
+
+    val years = offsetData.map(_.getYear).map(_.asInstanceOf[Long])
+    val months = offsetData.map(_.getMonthValue).map(_.asInstanceOf[Long])
+    val days = offsetData.map(_.getDayOfMonth).map(_.asInstanceOf[Long])
+    val hours = offsetData.map(_.getHour).map(_.asInstanceOf[Long])
+    val minutes = offsetData.map(_.getMinute).map(_.asInstanceOf[Long])
+    val seconds = offsetData.map(_.getSecond).map(_.asInstanceOf[Long])
+
+    //DateTime((for {(y, m, d, h, mi, s) <- (years, months, days, hours, minutes, seconds)} yield { s"${format(y)}-${format(m)}-${format(d)}'T'${format(h)}:${format(mi)}:${format(s)}" }).toVector, "")
+
+    val dates = (years zip months zip days zip hours zip minutes zip seconds) map {
+      case (((((y, m), d), h), mi), s) => s"${format(y)}-${format(m)}-${format(d)}'T'${format(h)}:${format(mi)}:${format(s)}"
+    }
+
+    DateTime(dates, "")
+  }
+
   def fromString(data: Vector[String])
            (pattern: String = "yyyy-MM-dd")
            (offsetCalendar: Map[String, Int] = Map.empty[String, Int])

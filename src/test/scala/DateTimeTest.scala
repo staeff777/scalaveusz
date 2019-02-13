@@ -11,25 +11,9 @@ class DateTimeTest extends FlatSpec with Matchers {
     new {
       val dateString = Vector("02/12/2019")
       val dateJava = LocalDate.of(2019, 2, 12)
+      val dateTimeJava = LocalDateTime.of(2019, 2, 12, 12, 30, 50)
       val pattern = "MM/dd/yyyy"
     }
-  /*
-  "DateTimeConstructor" should "parse date correctly" in {
-    val dates = Vector("02/12/2019", "2019/02/12", "2019-02-12", "2019:02:12")
-    val patterns = Vector("MM/dd/yyyy", "yyyy/MM/dd", "yyyy-MM-dd", "yyyy:MM:dd")
-
-    val dtcs = (dates zip patterns).map { dp =>
-      val date = dp._1
-      val pattern = dp._2
-      DateTimeConstructor(Vector(date), pattern)
-    }
-
-    forAll (dtcs) { dtc =>
-      dtc.data.mkString should equal  ("2019-02-12'T'00:00:00")
-    }
-  }
-  */
-
 
   "DateTimeConstructor" should "correctly add positive year offset" in {
     val f = fixture
@@ -102,6 +86,35 @@ class DateTimeTest extends FlatSpec with Matchers {
     val dt1 = DateTimeConstructor.fromLocalDate(Vector(f.dateJava))(offsetCalendar1)
     val dt2 = DateTimeConstructor.fromLocalDate(Vector(f.dateJava))(offsetCalendar2)
     val dt3 = DateTimeConstructor.fromLocalDate(Vector(f.dateJava))(offsetCalendar3)
+    dt1.data.mkString should startWith("2020-01-12")
+    dt2.data.mkString should startWith("2019-02-17")
+    dt3.data.mkString should startWith("2019-03-14")
+  }
+
+  it should "correctly substract negative year offset from java.time.LocalDateTime" in {
+    val f = fixture
+    val offsetCalendar = Map("yyyy"->(-5))
+
+    val dt = DateTimeConstructor.fromLocalDateTime(Vector(f.dateTimeJava))(offsetCalendar)
+    dt.data.mkString should startWith ("2014-02-12")
+  }
+
+  it should "correctly add positive month offset from java.time.LocalDateTime" in {
+    val f = fixture
+    val offsetCalendar = Map("MM"->2)
+
+    val dt = DateTimeConstructor.fromLocalDateTime(Vector(f.dateTimeJava))(offsetCalendar)
+    dt.data.mkString should startWith("2019-04-12")
+  }
+
+  it should "correctly handle data overflows from java.time.LocalDateTime" in {
+    val f = fixture
+    val offsetCalendar1 = Map("MM"->11)
+    val offsetCalendar2 = Map("dd"->5)
+    val offsetCalendar3 = Map("dd"->30)
+    val dt1 = DateTimeConstructor.fromLocalDateTime(Vector(f.dateTimeJava))(offsetCalendar1)
+    val dt2 = DateTimeConstructor.fromLocalDateTime(Vector(f.dateTimeJava))(offsetCalendar2)
+    val dt3 = DateTimeConstructor.fromLocalDateTime(Vector(f.dateTimeJava))(offsetCalendar3)
     dt1.data.mkString should startWith("2020-01-12")
     dt2.data.mkString should startWith("2019-02-17")
     dt3.data.mkString should startWith("2019-03-14")
