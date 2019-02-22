@@ -49,3 +49,35 @@ For further examples see [scalaveusz-examples](https://github.com/staeff777/scal
 ![Using autocompletion](https://raw.githubusercontent.com/staeff777/scalaveusz/develop/docs/auto-completion.PNG)
 
 Just append `.$` to any component in your favourite IDE to see which child-components are available.
+
+# Dealing with DateTime
+
+There are several options:
+
+1. **Using java.time.LocalDate**
+
+    ```scala
+    val dates: Vector[LocalDate] = ???
+    val datesFormatted = DateTimeConstructor.fromLocalDate(dates)
+    ```
+
+2. **Using java.time.LocalDateTime**
+
+    ```scala
+    val dates: Vector[LocalDateTime] = ???
+    val datesFormatted = DateTimeConstructor.fromLocalDateTime(dates)
+    ```
+
+3. **Using String**
+
+    ```scala
+    val dates = Vector("1/22/2020", "1/23/2020", "1/24/2020")
+    val datesFormatted = DateTimeConstructor.fromString(dates)("M/dd/yyyy")
+    ```
+
+### Giving an offset to the dates
+
+```scala
+// Increase all dates by 30 days
+val datesFormatted = DateTimeConstructor.fromString(dates)("M/dd/yyyy")(Map("dd"->30))
+```
