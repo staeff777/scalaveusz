@@ -41,3 +41,9 @@ object RendererTest extends App {
 This will result in the following Veusz project:
 
 ![Veusz Document](https://raw.githubusercontent.com/staeff777/scalaveusz/master/documentation/example.png)
+
+# Easily discover Plot-Types
+
+![Using autocompletion](https://raw.githubusercontent.com/staeff777/scalaveusz/develop/docs/auto-completion.PNG)
+
+Just append `.$` to any component in your favourite IDE to see which child-components are available.
