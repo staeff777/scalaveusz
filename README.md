@@ -42,6 +42,8 @@ This will result in the following Veusz project:
 
 ![Veusz Document](https://raw.githubusercontent.com/staeff777/scalaveusz/master/documentation/example.png)
 
+For further examples see [scalaveusz-examples](https://github.com/staeff777/scalaveusz-examples)
+
 # Easily discover Plot-Types
 
 ![Using autocompletion](https://raw.githubusercontent.com/staeff777/scalaveusz/develop/docs/auto-completion.PNG)
