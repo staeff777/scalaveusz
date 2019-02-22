@@ -44,6 +44,27 @@ This will result in the following Veusz project:
 
 For further examples see [scalaveusz-examples](https://github.com/staeff777/scalaveusz-examples)
 
+# Structure
+
+- Document
+  - Page
+    - Grid
+    - Graph
+      - Axis
+      - Barchart
+      - Boxplot
+      - Contour
+      - Covariance
+      - Function
+      - XY
+   - Scene3D
+     - Graph3D
+       - Axis3D
+   - Line
+   - Rectangle
+   - Polygon
+   - ImageFile
+
 # Easily discover Plot-Types
 
 ![Using autocompletion](https://raw.githubusercontent.com/staeff777/scalaveusz/develop/docs/auto-completion.PNG)
