@@ -32,7 +32,7 @@ object XYData {
 sealed trait VeuszData
 
 //check if Data is really required
-case class XYData(x: XYDataEntry, y: XYDataEntry, scaleMarkers: XYDataEntry = XYDataEntry(), colorMarkes: XYDataEntry = XYDataEntry(), labels: Vector[String] = Vector.empty)
+case class XYData(x: XYDataEntry, y: XYDataEntry, scaleMarkers: XYDataEntry = XYDataEntry(), colorMarkers: XYDataEntry = XYDataEntry(), labels: Vector[String] = Vector.empty)
     extends VeuszData
 
 case class XYZData(dataset: Map[(Double, Double), Double], name: String = "XYZData") extends VeuszData

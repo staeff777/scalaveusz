@@ -59,7 +59,7 @@ object VeuszRenderer {
                                               (OneDDataWithErrors(xy.x), n+"_x_"+xy.x.name.noBlanks),
                                               (OneDDataWithErrors(xy.y), n+"_y_"+xy.y.name.noBlanks),
                                               (OneDDataWithErrors(xy.scaleMarkers), n+"_scale_"+xy.scaleMarkers.name.noBlanks),
-                                              (OneDDataWithErrors(xy.colorMarkes), n+"_color_"+xy.colorMarkes.name.noBlanks)
+                                              (OneDDataWithErrors(xy.colorMarkers), n+"_color_"+xy.colorMarkers.name.noBlanks)
         )
       case (n, bp: BoxPlotData) =>
         ()
@@ -408,6 +408,7 @@ object VeuszRenderer {
   def xy(xy: GraphItems.XY, index: Int)(implicit data: Data) = {
     val xName = data.numericData(OneDDataWithErrors(xy.xYData.x))
     val yName = data.numericData(OneDDataWithErrors(xy.xYData.y))
+    val colorName = if(xy.xYData.colorMarkers.data.size > 0)data.numericData(OneDDataWithErrors(xy.xYData.colorMarkers)) else ""
     val scaleName = if(xy.xYData.scaleMarkers.data.size > 0) data.numericData(OneDDataWithErrors(xy.xYData.scaleMarkers))
       else ""
     s"""
@@ -419,6 +420,7 @@ object VeuszRenderer {
        |Set('xAxis', u'${xy.xAxis}')
        |Set('yAxis', u'${xy.yAxis}')
        |Set('scalePoints', u'$scaleName')
+       |Set('Color/points', u'$colorName')
        |Set('key', u'${xy.keyText}')
        |${markerStyle(xy.config.mainStyle)}
        |${plotlineStyle(xy.config.lineStyle)}
@@ -437,7 +439,6 @@ object VeuszRenderer {
 
 
 Set('labels', u'${xy.labels}')
-Set('scalePoints', u'${xy.scaleMarkers}')
 Set('Color/points', u'${xy.colorMarkers}')
 
 
