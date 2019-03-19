@@ -1,8 +1,23 @@
-name := "ScalaVeusz4"
+inThisBuild(List(
+  organization := "de.dreambeam",
+  homepage := Some(url("https://github.com/staeff777/scalaveusz")),
+  licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+  developers := List(
+    Developer(
+      "staeff777",
+      "Stefan Kaufmann",
+      "stefan@dreambeam.de",
+      url("http://dreambeam.de")
+    )
+  )
+))
 
-version := "0.1"
+name := "scalaveusz"
+organization := "de.dreambeam"
 
-scalaVersion := "2.12.7"
+version := "0.0.10"
+
+scalaVersion := "2.12.8"
 
 libraryDependencies ++= Seq(
   "com.nrinaudo" %% "kantan.csv" % "0.4.0",
