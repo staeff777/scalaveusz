@@ -16,9 +16,9 @@ inThisBuild(List(
 name := "scalaveusz"
 organization := "de.dreambeam"
 
-version := "0.1.6"
+version := "0.1.7"
 
-scalaVersion := "2.12.6"
+scalaVersion := "2.12.8"
 
 
 libraryDependencies ++= Seq( //"com.softwaremill.quicklens" %% "quicklens" % "1.4.11",

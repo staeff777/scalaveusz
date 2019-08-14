@@ -1,5 +1,5 @@
 package de.dreambeam.veusz.renderer
-import de.dreambeam.veusz.model.GraphItems.{BoxPlot, BoxPlotData, Label, LabelConfig, SimpleBorder, SimpleFill}
+import de.dreambeam.veusz.model.GraphItems.{BoxPlot, BoxPlotData, ImageFile, Label, LabelConfig, SimpleBorder, SimpleFill}
 import de.dreambeam.veusz.model._
 
 /**
@@ -310,7 +310,32 @@ object VeuszRenderer {
       case p: GraphItems.Polygon  => polygon(p, index)
       case b: GraphItems.BoxPlot  => boxplot(b, index)
       case l: GraphItems.Label    => label(l, index)
+      case i: GraphItems.ImageFile => imageFile(i, index)
     }
+  }
+
+
+  def imageFile(i:ImageFile, index: Int): String = {
+    val name = s"ImageFile_${index}"
+    s"""
+       |
+       |Add('imagefile', name=u'$name', autoadd=False)
+       |To(u'$name')
+       |Set('filename', u'${i.filename}')
+       |Set('xPos', [${i.xPos}])
+       |Set('yPos', [${i.yPos}])
+       |Set('width', [${i.widths}])
+       |Set('height', [${i.heights}])
+       |Set('rotate', [${i.rotate}])
+       |Set('positioning', u'${i.positioning}')
+       |Set('clip', ${getBool(i.config.clip)})
+       |Set('aspect',  ${getBool(i.config.preserveAspect)})
+       |
+       |${simpleFill(i.config.fill)}
+       |${lineStyle(i.config.border, "Border")}
+       |To('..')
+       |
+     """.stripMargin
   }
 
   def label(l: Label, index: Int)(implicit data: Data): String = {
@@ -375,6 +400,7 @@ object VeuszRenderer {
        |Set('whiskermode', u'${bp.whiskerMode}')
        |Set('fillfraction', ${bp.fillFraction})
        |Set('Fill/color', u'white')
+       |Set('posn', u'${bp.data}')
        |${simpleMarkerBorder(bp.config.markerBorder)}
        |To('..')
        |
@@ -427,6 +453,7 @@ object VeuszRenderer {
        |${markerBorder(xy.config.markerBorder)}
        |${markerFill(xy.config.markerFill)}
        |${errorBarLine(xy.config.errorBarLine)}
+       |${colorConfig(xy.config.colorConfig)}
        |${fill("Below", xy.config.fillBelow)}
        |${fill("Above", xy.config.fillAbove)}
        |To('..') # End of Graph Item XY : ${xy.name}_[$index]
@@ -471,7 +498,7 @@ Set('Color/points', u'${xy.colorMarkers}')
        |To('${poly.name}_[$index]')
        |Set('xPos', [${poly.xPositions.mkString(", ")}])
        |Set('yPos', [${poly.yPositions.mkString(", ")}])
-       |Set('positioning', u'${poly.positionMode}')
+       |Set('positioning', u'${poly.positioning}')
        |${lineStyle(poly.config.lineStyle)}
        |${simpleFill(poly.config.fill)}
        |To('..')
@@ -594,16 +621,27 @@ Set('Color/points', u'${xy.colorMarkers}')
        |
      """.stripMargin
 
-  def lineStyle(ls: LineStyle) =
+  def lineStyle(ls: LineStyle, name: String ="Line") =
     s"""
        |
-       |Set('Line/color', u'${ls.color}')
-       |Set('Line/width', u'${ls.width}pt')
-       |Set('Line/style', u'${ls.style}')
-       |Set('Line/transparency', ${ls.transparency})
-       |Set('Line/hide', ${getBool(ls.hide)})
+       |Set('$name/color', u'${ls.color}')
+       |Set('$name/width', u'${ls.width}pt')
+       |Set('$name/style', u'${ls.style}')
+       |Set('$name/transparency', ${ls.transparency})
+       |Set('$name/hide', ${getBool(ls.hide)})
        |
      """.stripMargin
+
+  def colorConfig(cc: ColorConfig) = {
+    s"""
+       |
+       |Set('Color/min', ${cc.min})
+       |Set('Color/max', ${cc.max})
+       |Set('Color/scaling', u'${cc.scaling}')
+       |
+     """.stripMargin
+  }
+
 
   def axisLabelStyle(ls: AxisLabelStyle) =
     s"""

@@ -83,7 +83,8 @@ object GraphItems {
                       markerFill: MarkerFill = MarkerFill(),
                       errorBarLine: ErrorBarLine = ErrorBarLine(),
                       fillBelow: Fill = Fill(),
-                      fillAbove: Fill = Fill(fillTo = FillTo.top))
+                      fillAbove: Fill = Fill(fillTo = FillTo.top),
+                      colorConfig: ColorConfig = ColorConfig())
       extends Config
 
   case class BoxPlotData(values: Vector[XYDataEntry], labels: Vector[String], positions: Option[XYDataEntry] = None) extends VeuszData
@@ -121,20 +122,31 @@ object GraphItems {
 
   case class FunctionConfig(steps: Double = 50, plotLine: LineStyle = LineStyle()) extends Config
 
-  case class Line(xPos: String, name: String = "Line", yPos: String, length: String, angle: String, config: LineConfig) extends GraphItem
+  case class Line(name: String = "Line", xPos: String, yPos: String, length: String, angle: String, config: LineConfig) extends GraphItem
 
   case class LineConfig(arrowStyle: ArrowStyle = ArrowStyle(), plotLine: LineStyle = LineStyle()) extends Config
 
   case class Polygon(xPositions: Vector[Double],
                      yPositions: Vector[Double],
                      name: String = "polygon",
-                     positionMode: PositionMode.Value = PositionMode.relative,
+                     positioning: Positioning.Value = Positioning.relative,
                      xAxis: String = "x",
                      yAxis: String = "y",
                      config: PolygonConfig = PolygonConfig())
       extends GraphItem
 
-  object PositionMode extends Enumeration {
+  case class ImageFile(filename:String,
+                       xPos: String,
+                       yPos: String,
+                       widths: String,
+                       heights: String,
+                       rotate: Double,
+                       positioning: Positioning.Value = Positioning.relative,
+                       xAxis: String = "x",
+                       yAxis: String = "y",
+                       config: ImageConfig = ImageConfig()) extends GraphItem
+
+  object Positioning extends Enumeration {
     val relative = Value("relative")
     val axes = Value("axes")
   }
@@ -143,19 +155,21 @@ object GraphItems {
 
   case class SimpleFill(var color: String = "grey", var style: FillStyle.Value = FillStyle.solid, hide: Boolean = true, transparency: Int = 0)
 
+  case class ImageConfig(preserveAspect: Boolean = true, clip: Boolean = false, fill: SimpleFill = SimpleFill(), border: LineStyle = LineStyle(hide = true))
+
   object Label {
 
     def apply(label: String,
               xPosition: Double = 0.5,
               yPosition: Double = 0.5,
-              positionMode: PositionMode.Value = PositionMode.relative,
+              positionMode: Positioning.Value = Positioning.relative,
               xAxis: String = "x",
               yAxis: String = "y",
               labelConfig: LabelConfig = LabelConfig()) =
       new Label(label, Vector(xPosition), Vector(yPosition), positionMode, xAxis, yAxis, LabelConfig())
   }
 
-  case class Label(label: String, xPositions: Vector[Double], yPositions: Vector[Double], positionMode: PositionMode.Value, xAxis: String, yAxis: String, config: LabelConfig)
+  case class Label(label: String, xPositions: Vector[Double], yPositions: Vector[Double], positionMode: Positioning.Value, xAxis: String, yAxis: String, config: LabelConfig)
       extends GraphItem
 
   case class LabelConfig(var alignment: Alignment = Alignment(),

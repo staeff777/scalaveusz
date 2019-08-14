@@ -168,9 +168,9 @@ case class MarkerBorder(var color: String = "black",
                         var width: Double = 0.5,
                         var style: LineStyles.Value = LineStyles.Solid,
                         var hide: Boolean = false,
-                        var colorMap: ColorMapType.Value = ColorMapType.grey,
+                        var colorMap: String = "grey",
                         var scale: Boolean = false)
-case class MarkerFill(var color: String = "black", var hide: Boolean = false, var colorMap: ColorMapType.Value = ColorMapType.grey, var invertmap: Boolean = false)
+case class MarkerFill(var color: String = "black", var hide: Boolean = false, var colorMap: String = "grey", var invertmap: Boolean = false)
 
 case class ErrorBarLine(var color: String = "black",
                         var width: Double = 0.5,
@@ -181,11 +181,7 @@ case class ErrorBarLine(var color: String = "black",
                         var hideHorz: Boolean = false,
                         var hideVert: Boolean = false)
 
-object ColorMapType extends Enumeration {
-  val grey = Value("grey")
-  val traffic = Value("traffic-7-25-sync@60")
-  val trafficWithNone = Value("traffic-7-25-sync@60_None@-10")
-}
+
 
 case class Fill(var fillTo: FillTo.Value = FillTo.bottom,
                 var color: String = "grey",
@@ -219,6 +215,16 @@ object FillStyle extends Enumeration {
 }
 
 case class LineStyle(var color: String = "black", var width: Double = 1, var style: LineStyles.Value = LineStyles.Solid, var hide: Boolean = false, var transparency: Int = 0)
+
+case class ColorConfig(var min:Double = 0.0, var max:Double = 1.0, var scaling: Scaling.Value = Scaling.linear)
+
+object Scaling extends Enumeration {
+  val linear = Value("linear")
+  val sqrt = Value("sqrt")
+  val log = Value("at-log")
+  val squared = Value("squared")
+}
+
 
 case class AxisLabelStyle(var font: String = "Times New Roman",
                           var size: Double = 14,
@@ -311,3 +317,4 @@ object LineStyles extends Enumeration {
   val Dash2 = Value("dash2")
   val Dash3 = Value("dash3")
 }
+
