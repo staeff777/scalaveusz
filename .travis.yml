@@ -1,7 +1,7 @@
 language: scala
 dist: trusty
 jdk:
-- oraclejdk9
+- oraclejdk8
 
 before_install:
 - git fetch --tags
