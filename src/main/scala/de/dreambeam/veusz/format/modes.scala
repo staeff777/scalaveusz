@@ -6,7 +6,7 @@ object BarchartMode extends Enumeration {
   val Grouped = Value("grouped")
 }
 
-object PositionMode extends Enumeration {
+object Positioning extends Enumeration {
   val Relative = Value("relative")
   val Axes = Value("axes")
 }

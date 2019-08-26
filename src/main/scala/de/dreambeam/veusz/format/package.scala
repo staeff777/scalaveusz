@@ -192,7 +192,7 @@ case class XYMarkerFillConfig(
                              var style: FillStyle.Value = FillStyle.Solid,
                              var transparency: Int = 0,
                              var hide: Boolean = false,
-                             var colorMap: ColorMapType.Value = ColorMapType.Grey,
+                             var colorMap: String  = ColorMaps.Grey,
                              var invertMap: Boolean = false
                              )
 

@@ -1,28 +1,28 @@
 package de.dreambeam.veusz.components
 
-import de.dreambeam.veusz.{GraphItem, Configurable, Executable}
-import de.dreambeam.veusz.format._
+import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
+import de.dreambeam.veusz.format.{ColorMaps, ImageScaling}
 
-case class Image (children: Option[Vector[GraphItem]] = None,
-                          dataset: Vector[Vector[Double]],
-                          minval: Option[Int] = None,
-                          maxval: Option[Int] = None,
-                          scaling: ImageScaling.Value = ImageScaling.Linear,
-                          transData: Option[Vector[Vector[Double]]] = None,
-                          keys: Vector[String] = Vector(""),
-                          xAxis: String = "x",
-                          yAxis: String = "y",
-                          var name: String = "image")
+
+case class Image( dataset: Vector[Vector[Double]],
+                 min: Option[Double] = None,
+                 max: Option[Double] = None,
+                 scaling: ImageScaling.Value = ImageScaling.Linear,
+                 transData: Option[Vector[Vector[Double]]] = None,
+                 keyText: String  = "",
+                 xAxis: String = "x",
+                 yAxis: String = "y",
+                 name: String = "image",
+                )
   extends GraphItem
     with Configurable
-    with Executable
-{
+    with Executable {
   val group = "image"
   var config = ImageConfig()
 }
 
-case class ImageConfig(var colorMap: ColorMapType.Value = ColorMapType.Heat,
-                       var invertColorMap: Boolean = false,
-                       var transparency: Int = 0,
-                       var hide: Boolean = false,
-                       var smooth: Boolean = false)
+case class ImageConfig(colorMap: String = ColorMaps.Grey,
+                       invertColormap: Boolean = false,
+                       transparency: Int = 0,
+                       hide: Boolean = false,
+                       smooth: Boolean = true)

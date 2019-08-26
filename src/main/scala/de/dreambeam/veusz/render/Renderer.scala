@@ -516,10 +516,26 @@ package object Renderer {
      """.stripMargin
 
   // TODO
-  def render(img: Image) =
+  def render(img: Image) = {
     s"""
        |
+       |${R.render("data", img.dataset)}
+       |${R.renderOption("min", img.min, s"Set('min', u'Auto')")}
+       |${R.renderOption("max", img.max, s"Set('max', u'Auto')")}
+       |${R.render("scaling", img.scaling)}
+       |${R.render("keyText", img.keyText)}
+       |${R.render("xAxis", img.xAxis)}
+       |${R.render("yAxis", img.yAxis)}
+       |${R.render("colorScaling", img.scaling)}
+       |
+       |${R.render("colorMap", img.config.colorMap)}
+       |${R.render("colorInvert", img.config.invertColormap)}
+       |${R.render("transparency", img.config.transparency)}
+       |${R.render("hide", img.config.hide)}
+       |${R.render("smooth", img.config.smooth)}
+       |
      """.stripMargin
+  }
 
   def render(img: ImageFile) =
     s"""
@@ -529,11 +545,11 @@ package object Renderer {
        |Set('width', [${img.widths.mkString(", ")}])
        |Set('height', [${img.heights.mkString(", ")}])
        |${R.render("rotate", img.rotate)}
-       |${R.render("positionMode", img.positionMode)}
+       |${R.render("positioning", img.positioning)}
        |${R.render("xAxis", img.xAxis)}
        |${R.render("yAxis", img.yAxis)}
        |
-       |${R.render("preserveAspect", img.config.main.preserveAspect)}
+       |${R.render("aspect", img.config.main.preserveAspect)}
        |${R.render("hide", img.config.main.hide)}
        |${R.render("clip", img.config.main.clip)}
        |

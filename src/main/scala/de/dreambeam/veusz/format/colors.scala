@@ -22,12 +22,9 @@ object Colors  {
   val LightGrey = "lightgrey"
 }
 
-object ColorMapType extends Enumeration {
-  val Grey = Value("grey")
-  val Blue = Value("blue")
-  val Heat = Value("heat")
-  //val BlueToDarkOrange = Value("blue-darkorange")
-  //val BlueToDarkOrangeStep12 = Value("blue-darkorange-step12")
-  val Traffic = Value("traffic-7-25-sync@60")
-  val TrafficWithNone = Value("traffic-7-25-sync@60_None@-10")
+object ColorMaps {
+  val Grey = "grey"
+  val Blue = "blue"
+  val Heat =  "heat"
+
 }

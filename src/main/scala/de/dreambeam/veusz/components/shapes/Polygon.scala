@@ -5,7 +5,7 @@ import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PageItem}
 
 case class Polygon(xPositions: Vector[Double] = Vector(0.5),
                    yPositions: Vector[Double] = Vector(0.5),
-                   positionMode: PositionMode.Value = PositionMode.Relative,
+                   positionMode: Positioning.Value = Positioning.Relative,
                    xAxis: String = "x",
                    yAxis: String = "y",
                    var name: String = "polygon")
