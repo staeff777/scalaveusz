@@ -6,36 +6,22 @@ import de.dreambeam.veusz.util.SizeUnits._
 
 object Document
 {
-  var instance: Document = null
   var OutPath = "veusz"
   val defaultName = "document"
 
-  def apply(name: String = defaultName) = {
-    if (instance == null) {
-      instance = new Document(name, None)
-    }
-    instance
-  }
+  def apply(name: String = defaultName) = new Document(name, None)
+
 
   def apply(name: String, children: Vector[DocumentItem]) = {
-    if (instance == null) {
-      instance = new Document(name, Some(children))
-    }
-    instance
+     new Document(name, Some(children))
   }
 
   def apply(name: String, children: DocumentItem*) = {
-    if (instance == null) {
-      instance = new Document(name, Some(children.toVector))
-    }
-    instance
+      new Document(name, Some(children.toVector))
   }
 
   def apply(children: DocumentItem*) = {
-    if (instance == null) {
-      instance = new Document(defaultName, Some(children.toVector))
-    }
-    instance
+       new Document(defaultName, Some(children.toVector))
   }
 
   /* Children */

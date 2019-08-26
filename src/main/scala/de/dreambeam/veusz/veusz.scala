@@ -7,7 +7,7 @@ import java.nio.file.Paths
 import util.RenderTools.newLine
 import components._
 import de.dreambeam.veusz.data.{BoxplotData, DateTime, Numerical, Text}
-import de.dreambeam.veusz.util.MemoryTools
+import de.dreambeam.veusz.util.{DataHandler}
 import de.dreambeam.veusz.format._
 
 trait DocumentItem extends Item
@@ -29,7 +29,7 @@ trait Configurable
 
 trait Executable {
 
-  def dataImport = {
+  def dataImport(dataHandler: DataHandler) = {
     def createNumericTableHeader(d: Numerical) = {
       (if (d.symErrors.isDefined) ",+-" else "") +
         (if (d.negErrors.isDefined) ",-" else "") +
@@ -52,7 +52,8 @@ trait Executable {
             writeOptional(d.posErrors, i)
       }
     }
-    MemoryTools.dataset.map {
+
+    dataHandler.dataset.map {
       case (data: Numerical, reference) =>
         s"""
            |ImportString(u'$reference(numeric)${createNumericTableHeader(data)}','''
@@ -92,8 +93,11 @@ trait Executable {
   }
 
   def save(fileName: String, outdir: File = new File(Document.OutPath)): Unit = this match {
-    case _: Document => {
-      val text = dataImport + Renderer.renderAllItems
+
+    case document: Document => {
+      val dataHandler = DataHandler()
+      val renderedContent = Renderer.renderAllItems(document, dataHandler)
+      val text = dataImport(dataHandler) + renderedContent
       if (!outdir.exists()) outdir.mkdirs()
       val target = Paths.get(outdir.getAbsolutePath, s"$fileName.vsz")
       val _ = new PrintWriter(target.toFile) { write(text); close }
@@ -104,7 +108,6 @@ trait Executable {
     case g: Graph3D => Scene3D(g).save(fileName)
     case s: Scene3D => Page(s).save(fileName)
     case a: Axis => Graph(a).save(fileName)
-    //case bar: Barchart => Graph(bar).save(fileName)
     case fun: Function => Graph(fun).save(fileName)
     case img: ImageFile => Page(img).save(fileName)
     case rect: Rectangle => Page(rect).save(fileName)
@@ -115,13 +118,12 @@ trait Executable {
     case con: Contour => Graph(con).save(fileName)
     case vec: Vectorfield => Graph(vec).save(fileName)
     case cov: Covariance => Graph(cov).save(fileName)
-    case bar: Barchart => {
-      if (bar.positions.endsWith("dt")) { // this is by convention
+    case bar: Barchart => bar.positions match {
+      case d: DateTime =>
         val xAxis = XAxis(mode=AxisMode.DateTime)
         val yAxis = YAxis()
         Graph(children=bar, axis= Vector(xAxis, yAxis)).save(fileName)
-      }
-      else Graph(bar).save(fileName)
+      case n: Numerical => Graph(bar).save(fileName)
     }
   }
 

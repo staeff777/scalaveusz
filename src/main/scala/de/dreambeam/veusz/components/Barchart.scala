@@ -3,7 +3,6 @@ package de.dreambeam.veusz.components
 import de.dreambeam.veusz.data.{Data, DateTime, Numerical}
 import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
 import de.dreambeam.veusz.format._
-import de.dreambeam.veusz.util.MemoryTools.uniqueReference
 
 object Barchart {
 
@@ -15,9 +14,7 @@ object Barchart {
             xAxis: String,
             yAxis: String,
             name: String): Barchart = {
-    val lengthNames = lengths.map(uniqueReference(_, ""))
-    val positionName = uniqueReference(positions, "dt")
-    Barchart(lengthNames, positionName, direction, mode, keys, xAxis, yAxis, name)
+    Barchart(lengths, positions, direction, mode, keys, xAxis, yAxis, name)
   }
 
   def apply(lengths: Vector[Numerical],
@@ -28,14 +25,13 @@ object Barchart {
             xAxis: String = "x",
             yAxis: String = "y",
             name: String = "bar"): Barchart = {
-    val lengthNames = lengths.map(uniqueReference(_, ""))
-    val positionName = uniqueReference(positions, "")
-    Barchart(lengthNames, positionName, direction, mode, keys, xAxis, yAxis, name)
+
+    Barchart(lengths, positions, direction, mode, keys, xAxis, yAxis, name)
   }
 }
 
-case class Barchart(lengths: Vector[String],
-                    positions: String,
+case class Barchart(lengths: Vector[Numerical],
+                    positions: Either[Numerical, DateTime],
                     direction: Direction.Value,
                     mode: BarchartMode.Value,
                     keys: Vector[String],

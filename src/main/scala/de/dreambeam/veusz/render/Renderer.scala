@@ -1,26 +1,31 @@
 package de.dreambeam.veusz
 
 import de.dreambeam.veusz.components._
-import de.dreambeam.veusz.data.Text
+import de.dreambeam.veusz.data.{DateTime, Numerical, Text}
 import de.dreambeam.veusz.format._
-import de.dreambeam.veusz.util.{RenderTools => R, StringTools => S}
+import de.dreambeam.veusz.util.{DataHandler, RenderTools => R, StringTools => S}
 
 /**
   * Renderer contains all methods for rendering
   * the Veusz components
   */
-package object Renderer {
+object Renderer {
+  def renderAllItems(document: Document, dataHandler: DataHandler) = {
+    val renderer = new Renderer(dataHandler)
+    renderer.renderDocument(document)
+  }
+}
 
+class Renderer(dataHandler: DataHandler) {
   /**
     * Render all items recursively starting with the Document
     *
     * @return the rendered text for the Veusz components
     */
-  def renderAllItems = {
+  def renderDocument(document: Document) = {
     def go(item: Item): String = {
 
       val childRender = item match {
-
         // a graph must render its axes,
         // since these are not under the category of children
         case g: Graph => {
@@ -74,7 +79,7 @@ package object Renderer {
         }
       }
     }
-    go(Document())
+    go(document)
   }
 
   def render(item: Item): String = item match {
@@ -354,15 +359,20 @@ package object Renderer {
          |${R.render("Fill" + fillType)("transparency", fc.transparency)}
        """.stripMargin
 
+    //store data in datahandler and receive unique dataset references
+    val xName = dataHandler.uniqueReference(xy.x, "x")
+    val yName = dataHandler.uniqueReference(xy.y, "y")
+    val scaleName = dataHandler.uniqueReference(xy.scaleMarkers, "s")
+    val colorName = dataHandler.uniqueReference(xy.scaleMarkers, "c")
+
     s"""
-       |${R.render("xData", xy.xName)}
-       |${R.render("yData", xy.yName)}
+       |${R.render("xData", xName)}
+       |${R.render("yData", yName)}
        |${R.render("xAxis", xy.xAxis)}
        |${R.render("yAxis", xy.yAxis)}
-       |${R.render("scalePoints", xy.scaleName)}
-       |${R.render("Color")("points", xy.colorName)}
+       |${R.render("scalePoints", scaleName)}
+       |${R.render("Color")("points", colorName)}
        |${R.render("key", xy.keyText)}
-       |
        |# XY Formatting
        |${R.render("marker", xy.config.main.markerType)}
        |${R.render("markerSize", xy.config.main.markerSize)}
@@ -437,10 +447,11 @@ package object Renderer {
       }
       else ""
     }
-
+    val dataNames =  bp.data.data.map(dataHandler.uniqueReference(_, ""))
+    val labelNames = dataHandler.uniqueReference(Text(bp.data.labels), "labels")
     s"""
-       |${R.render("values", bp.dataNames)}
-       |${R.render("labels", bp.labelNames)}
+       |${R.render("values", dataNames)}
+       |${R.render("labels", labelNames)}
        |${R.render("whiskermode", bp.whiskerMode)}
        |${R.render("fillfraction", bp.fillFraction)}
        |
@@ -483,9 +494,16 @@ package object Renderer {
     }
       .mkString(", ")
 
+    val lengthNames = bar.lengths.map(dataHandler.uniqueReference(_, ""))
+    val positionName = bar.positions match{
+      case n: Numerical => dataHandler.uniqueReference(n, "")
+      case d: DateTime => dataHandler.uniqueReference(d, "dt")
+    }
+
+
     s"""
-       |${R.render("lengths", bar.lengths)}
-       |${R.render("posn", bar.positions)}
+       |${R.render("lengths", lengthNames)}
+       |${R.render("posn", positionName)}
        |${R.render("direction", bar.direction)}
        |${R.render("mode", bar.mode)}
        |${R.render("keys", bar.keys)}

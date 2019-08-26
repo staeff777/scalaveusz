@@ -16,13 +16,10 @@ object XY {
             yAxis: String = "y",
             name: String = "xy",
            ): XY = {
-    val xName = uniqueReference(Numerical(x), "x")
-    val yName = uniqueReference(Numerical(y), "y")
-    val scaleName = uniqueReference(Numerical(scaleMarkers), "s")
-    val colorName = uniqueReference(Numerical(colorMarkers), "c")
-    XY(xName, yName, scaleName, colorName, keyText, xAxis, yAxis, name)
+    XY(Numerical(x), Numerical(y), Numerical(scaleMarkers), Numerical(colorMarkers), keyText, xAxis, yAxis, name, XYConfig())
   }
 
+  /*
   def apply(x: Data,
             y: Data,
             scaleMarkers: Numerical,
@@ -36,24 +33,25 @@ object XY {
     val yName = uniqueReference(y, "y")
     val scaleName = uniqueReference(scaleMarkers, "s")
     val colorName = uniqueReference(scaleMarkers, "c")
-    XY(xName, yName, scaleName, colorName, keyText, xAxis, yAxis, name)
-  }
+    XY(xName, yName, scaleName, colorName, keyText, xAxis, yAxis, name, XYConfig())
+  }*/
 }
 
-case class XY (xName: String,
-               yName: String,
-               scaleName: String,
-               colorName: String,
+case class XY (x: Data,
+               y: Data,
+               scaleMarkers: Numerical,
+               colorMarkers: Numerical,
                keyText: String,
                xAxis: String,
                yAxis: String,
-               var name: String)
+               var name: String,
+               var config: XYConfig)
   extends GraphItem
     with Configurable
     with Executable
 {
   val group = "xy"
-  var config = XYConfig()
+
 }
 
 case class XYConfig(main: XYMainConfig = XYMainConfig(),

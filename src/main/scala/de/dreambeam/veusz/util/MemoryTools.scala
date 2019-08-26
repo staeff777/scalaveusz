@@ -4,7 +4,10 @@ import de.dreambeam.veusz.data.{Data, Text}
 
 import scala.collection.mutable
 
-object MemoryTools {
+object DataHandler{
+  def apply(): DataHandler = new DataHandler()
+}
+class DataHandler {
   val dataset = mutable.HashMap.empty[Data, String]
   val references = mutable.Map.empty[String, Int]
 
