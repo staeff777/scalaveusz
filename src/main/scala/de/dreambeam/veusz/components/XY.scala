@@ -57,4 +57,5 @@ case class XYConfig(main: XYMainConfig = XYMainConfig(),
                     errorBarLine: XYErrorBarLineConfig = XYErrorBarLineConfig(),
                     fillBelow: XYFillConfig = XYFillConfig(fillTo = FillTo.bottom),
                     fillAbove: XYFillConfig = XYFillConfig(fillTo = FillTo.top),
-                    label: XYLabelConfig = XYLabelConfig())
+                    label: XYLabelConfig = XYLabelConfig(),
+                    colorConfig: ColorConfig = ColorConfig())

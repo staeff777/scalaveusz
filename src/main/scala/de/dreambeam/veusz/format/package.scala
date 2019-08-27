@@ -46,7 +46,7 @@ object Direction extends Enumeration {
   val Horizontal = Value("horizontal")
 }
 
-object ImageScaling extends Enumeration {
+object Scaling extends Enumeration {
   val Sqrt = Value("sqrt")
   val Linear = Value("linear")
   val Log = Value("log")
@@ -226,6 +226,8 @@ case class XYLabelConfig(
                         var underline: Boolean = false,
                         var hide: Boolean = false
                         )
+
+case class ColorConfig(var min:Double = 0.0, var max:Double = 1.0, var scaling: Scaling.Value = Scaling.Linear)
 
 case class FunctionMainConfig(
                              var steps: Int = 50,

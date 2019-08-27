@@ -2,14 +2,14 @@ package de.dreambeam.veusz.components
 
 import de.dreambeam.veusz.data.NumericalImage
 import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
-import de.dreambeam.veusz.format.{ColorMaps, ImageScaling}
+import de.dreambeam.veusz.format.{ColorMaps, Scaling}
 
 
 object Image {
   def apply(data: Map[(Double, Double), Double],
             min: Option[Double] = None,
             max: Option[Double] = None,
-            scaling: ImageScaling.Value = ImageScaling.Linear,
+            scaling: Scaling.Value = Scaling.Linear,
             transData: Option[Vector[Vector[Double]]] = None,
             keyText: String = "",
             xAxis: String = "x",
@@ -26,7 +26,7 @@ object Image {
 case class Image(dataset: NumericalImage,
                  min: Option[Double],
                  max: Option[Double],
-                 scaling: ImageScaling.Value,
+                 scaling: Scaling.Value,
                  transData: Option[Vector[Vector[Double]]],
                  keyText: String,
                  xAxis: String,

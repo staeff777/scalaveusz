@@ -373,6 +373,10 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("scalePoints", scaleName)}
        |${R.render("Color")("points", colorName)}
        |${R.render("key", xy.keyText)}
+       |# XY Color Config
+       |${R.render("Color")("min",xy.config.colorConfig.min)}
+       |${R.render("Color")("max",xy.config.colorConfig.max)}
+       |${R.render("Color")("scaling",xy.config.colorConfig.scaling)}
        |# XY Formatting
        |${R.render("marker", xy.config.main.markerType)}
        |${R.render("markerSize", xy.config.main.markerSize)}
