@@ -2,7 +2,6 @@ package de.dreambeam.veusz.components
 
 import de.dreambeam.veusz.{GraphItem, Configurable, Executable}
 import de.dreambeam.veusz.data._
-import de.dreambeam.veusz.util.MemoryTools.uniqueReference
 import de.dreambeam.veusz.format._
 
 object XY {
@@ -19,7 +18,7 @@ object XY {
     XY(Numerical(x), Numerical(y), Numerical(scaleMarkers), Numerical(colorMarkers), keyText, xAxis, yAxis, name, XYConfig())
   }
 
-  /*
+
   def apply(x: Data,
             y: Data,
             scaleMarkers: Numerical,
@@ -29,12 +28,9 @@ object XY {
             yAxis: String,
             name: String
            ): XY = {
-    val xName = uniqueReference(x, "x")
-    val yName = uniqueReference(y, "y")
-    val scaleName = uniqueReference(scaleMarkers, "s")
-    val colorName = uniqueReference(scaleMarkers, "c")
-    XY(xName, yName, scaleName, colorName, keyText, xAxis, yAxis, name, XYConfig())
-  }*/
+
+    XY(x, y, scaleMarkers, colorMarkers, keyText, xAxis, yAxis, name, XYConfig())
+  }
 }
 
 case class XY (x: Data,

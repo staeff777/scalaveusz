@@ -1,19 +1,21 @@
 package de.dreambeam.veusz.util
 
-import de.dreambeam.veusz.data.{Data, Text}
+import de.dreambeam.veusz.data.{Data, NumericalImage, Text}
 
 import scala.collection.mutable
 
-object DataHandler{
+object DataHandler {
   def apply(): DataHandler = new DataHandler()
 }
+
 class DataHandler {
   val dataset = mutable.HashMap.empty[Data, String]
+  val dataset3D = mutable.HashMap.empty[NumericalImage, String]
   val references = mutable.Map.empty[String, Int]
 
   /**
     *
-    * @param data one of Numerical, DateTime, Text
+    * @param data   one of Numerical, DateTime, Text
     * @param suffix a suffix to add to the returned reference
     * @return a String refernece to the data
     */
@@ -41,4 +43,6 @@ class DataHandler {
       nameWithIndex
     }
   }
+
+
 }

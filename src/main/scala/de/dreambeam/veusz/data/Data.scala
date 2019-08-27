@@ -10,4 +10,5 @@ object Data {
   val $Numerical = Numerical
   val $DateTime = DateTimeConstructor
   val $Text = Text
+  val $NumericalImage = NumericalImage
 }

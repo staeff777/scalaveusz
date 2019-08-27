@@ -6,28 +6,36 @@ import java.nio.file.Paths
 
 import util.RenderTools.newLine
 import components._
-import de.dreambeam.veusz.data.{BoxplotData, DateTime, Numerical, Text}
-import de.dreambeam.veusz.util.{DataHandler}
+import de.dreambeam.veusz.data.{BoxplotData, DateTime, Numerical, NumericalImage, Text}
+import de.dreambeam.veusz.util.DataHandler
 import de.dreambeam.veusz.format._
 
 trait DocumentItem extends Item
+
 trait PageItem extends Item
+
 trait GridItem extends Item
+
 trait GraphItem extends Item
+
 trait Scene3DItem extends Item
+
 trait Graph3DItem extends Item
 
 trait Parent {
   def children: Option[Vector[Item]]
 }
+
 trait Item {
   def group: String
+
   def name: String
 }
 
 trait Configurable
 
 trait Executable {
+  val NewLine = "\n"
 
   def dataImport(dataHandler: DataHandler) = {
     def createNumericTableHeader(d: Numerical) = {
@@ -84,6 +92,27 @@ trait Executable {
              |''')
          """.stripMargin).mkString(newLine)
       }
+      case (data: NumericalImage, reference) =>
+
+        val xs = data.map.keys.map(_._1).toVector.sorted
+        val ys = data.map.keys.map(_._2).toVector.sorted
+
+        val xRange = s"(${xs.head},${xs.last})"
+        val yRange = s"(${ys.head},${ys.last})"
+
+        val stringMap = ys.reverse.foldLeft("")(
+          (text, y) =>
+            text
+              + xs.foldLeft("")((line, x) =>
+              line
+                + data.map((x, y))
+                + " ")
+              + NewLine)
+        s"""
+           |ImportString2D(u'$reference', '''
+           |$stringMap
+           |''', xrange=${xRange}, yrange=${yRange})
+      """.stripMargin
 
 
       case _ => ""
@@ -100,7 +129,9 @@ trait Executable {
       val text = dataImport(dataHandler) + renderedContent
       if (!outdir.exists()) outdir.mkdirs()
       val target = Paths.get(outdir.getAbsolutePath, s"$fileName.vsz")
-      val _ = new PrintWriter(target.toFile) { write(text); close }
+      val _ = new PrintWriter(target.toFile) {
+        write(text); close
+      }
     }
 
     case p: Page => Document(p).save(fileName)
@@ -115,14 +146,15 @@ trait Executable {
     case line: Line => Page(line).save(fileName)
     case poly: Polygon => Page(poly).save(fileName)
     case cb: Colorbar => Graph(cb).save(fileName)
+    case img2d: Image => Graph(img2d).save(fileName)
     case con: Contour => Graph(con).save(fileName)
     case vec: Vectorfield => Graph(vec).save(fileName)
     case cov: Covariance => Graph(cov).save(fileName)
     case bar: Barchart => bar.positions match {
       case d: DateTime =>
-        val xAxis = XAxis(mode=AxisMode.DateTime)
+        val xAxis = XAxis(mode = AxisMode.DateTime)
         val yAxis = YAxis()
-        Graph(children=bar, axis= Vector(xAxis, yAxis)).save(fileName)
+        Graph(children = bar, axis = Vector(xAxis, yAxis)).save(fileName)
       case n: Numerical => Graph(bar).save(fileName)
     }
   }

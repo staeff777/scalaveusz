@@ -535,13 +535,15 @@ class Renderer(dataHandler: DataHandler) {
 
   // TODO
   def render(img: Image) = {
+
+    val datasetName = dataHandler.uniqueReference(img.dataset, "")
+
     s"""
        |
-       |${R.render("data", img.dataset)}
+       |${R.render("data", datasetName)}
        |${R.renderOption("min", img.min, s"Set('min', u'Auto')")}
        |${R.renderOption("max", img.max, s"Set('max', u'Auto')")}
-       |${R.render("scaling", img.scaling)}
-       |${R.render("keyText", img.keyText)}
+       |${R.render("key", img.keyText)}
        |${R.render("xAxis", img.xAxis)}
        |${R.render("yAxis", img.yAxis)}
        |${R.render("colorScaling", img.scaling)}
