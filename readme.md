@@ -1,22 +1,15 @@
-# ScalaVeusz
+# scalaveusz
+Scala Api for the Veusz scientific plotting package 
 
-[![Build Status](https://travis-ci.org/staeff777/scalaveusz.svg?branch=master)](https://travis-ci.org/staeff777/scalaveusz)[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.dreambeam/scalaveusz_2.12/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.dreambeam/scalaveusz_2.12) 
+# Excerpt of Architecture
 
-Create [Veusz](https://veusz.github.io/) charts in Scala.
+![Excerpt of ScalaVeusz Architecture](https://raw.githubusercontent.com/staeff777/scalaveusz/develop/ScalaVeusz.png)
 
-The Api is currently work in progress.
+# How to Use
 
-## First Steps
-
-Include the dependency requirements into the build.sbt:
 ```scala
-libraryDependencies += "de.dreambeam" %% "scalaveusz" % "0.1.3" // version according to Maven Central Badge in the top of this page
-```
 
-Start with follwing example chart:
-```scala
-import de.dreambeam.veusz.VeuszOutput._
-import de.dreambeam.veusz.model._
+import de.dreambeam.veusz.components.{XY, Graph}
 
 object RendererTest extends App {
 
@@ -26,15 +19,13 @@ object RendererTest extends App {
   val ySin = xData.map (2 * Math.sin(_) + 5)
 
   // create a linear XY Point Plot with Lines
-  val xyDataLinear = XYData(XYDataEntry(xData), XYDataEntry(yLinear))
-  val xyLinearPlot = GraphItems.XY(xyDataLinear)
-  xyLinearPlot.config.lineStyle.color = "darkblue"
+  val xyLinearPlot = XY(xData, yLinear)
+  xyLinearPlot.config.plotLine.color = "darkblue"
   xyLinearPlot.config.markerFill.color = "blue"
 
   // create a sinus XY Point Plot with Lines
-  val xyDataSinus = XYData(XYDataEntry(xData), XYDataEntry(ySin))
-  val xySinusPlot = GraphItems.XY(xyDataSinus)
-  xySinusPlot.config.lineStyle.color = "darkred"
+  val xySinusPlot = XY(xData, ySin)
+  xySinusPlot.config.plotLine.color = "darkred"
   xySinusPlot.config.markerFill.color = "red"
 
   // put both XY Plots into a Graph
@@ -43,15 +34,71 @@ object RendererTest extends App {
   graph.axis(0).label = "X Axis" //Axis can also be defined in the Graph constructor
   graph.axis(1).label = "Y Axis" //More than just two axis is possible
 
-  val p = Page(graph) // a Page can contain one Graph or a Grid with multiple Graphs 
-  
-  val document = Document(p) // a Document can contain multiple Pages
-
-  //document will be saved in a "veusz-Directory" and then opened by the operating system
-  //the show command comes from VeuszOutput
-  document.show("newTest")
+  graph.show("newTest")
 }
 ```
-This will result in following Veusz project:
 
-![Example Image](documentation/example.png)
+This will result in the following Veusz project:
+
+![Veusz Document](https://raw.githubusercontent.com/staeff777/scalaveusz/master/documentation/example.png)
+
+For further examples see [scalaveusz-examples](https://github.com/staeff777/scalaveusz-examples)
+
+# Structure
+
+- Document
+  - Page
+    - Grid
+    - Graph
+      - Axis
+      - Barchart
+      - Boxplot
+      - Contour
+      - Covariance
+      - Function
+      - XY
+   - Scene3D
+     - Graph3D
+       - Axis3D
+   - Line
+   - Rectangle
+   - Polygon
+   - ImageFile
+
+# Easily discover Plot-Types
+
+![Using autocompletion](https://raw.githubusercontent.com/staeff777/scalaveusz/develop/docs/auto-completion.PNG)
+
+Just append `.$` to any component in your favourite IDE to see which child-components are available.
+
+# Dealing with DateTime
+
+There are several options:
+
+1. **Using java.time.LocalDate**
+
+    ```scala
+    val dates: Vector[LocalDate] = ???
+    val datesFormatted = DateTimeConstructor.fromLocalDate(dates)
+    ```
+
+2. **Using java.time.LocalDateTime**
+
+    ```scala
+    val dates: Vector[LocalDateTime] = ???
+    val datesFormatted = DateTimeConstructor.fromLocalDateTime(dates)
+    ```
+
+3. **Using String**
+
+    ```scala
+    val dates = Vector("1/22/2020", "1/23/2020", "1/24/2020")
+    val datesFormatted = DateTimeConstructor.fromString(dates)("M/dd/yyyy")
+    ```
+
+### Giving an offset to the dates
+
+```scala
+// Increase all dates by 30 days
+val datesFormatted = DateTimeConstructor.fromString(dates)("M/dd/yyyy")(Map("dd"->30))
+```

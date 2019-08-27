@@ -1,4 +1,3 @@
-
 inThisBuild(List(
   organization := "de.dreambeam",
   homepage := Some(url("https://github.com/staeff777/scalaveusz")),
@@ -16,11 +15,17 @@ inThisBuild(List(
 name := "scalaveusz"
 organization := "de.dreambeam"
 
-version := "0.1.12-SNAPSHOT"
+version := "0.3.0-SNAPSHOT"
 
 scalaVersion := "2.12.8"
 
-
-libraryDependencies ++= Seq( //"com.softwaremill.quicklens" %% "quicklens" % "1.4.11",
-                            // "com.lihaoyi" %% "sourcecode" % "0.1.3" //https://github.com/lihaoyi/sourcecode
+libraryDependencies ++= Seq(
+  "com.nrinaudo" %% "kantan.csv" % "0.4.0",
+  "com.nrinaudo" %% "kantan.csv-generic" % "0.4.0",
+  "com.nrinaudo" %% "kantan.csv-java8" % "0.4.0",
+  "com.github.haifengl" %% "smile-scala" % "1.5.2",
+  "org.scalactic" %% "scalactic" % "3.0.5",
+  "org.scalatest" %% "scalatest" % "3.0.5" % "test"
 )
+
+resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
