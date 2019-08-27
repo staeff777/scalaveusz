@@ -56,7 +56,7 @@ object RenderTools {
     }
 
     value match {
-      case Some(value) => s"Set($pre$field', u'$value')"
+      case Some(value) => s"Set('$pre$field', $value)"
       case None => noneCase
     }
   }

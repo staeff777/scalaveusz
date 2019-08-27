@@ -1,6 +1,8 @@
 import de.dreambeam.veusz.components.{Document, Graph, Image, ImageFile, XY}
 import de.dreambeam.veusz.format.Positioning
 
+import scala.util.Random
+
 object RenderDemo extends App {
   // XY Plots use 2 one-dimensional datasets
   val xData = (1.0 to 10.0 by 0.5).toVector
@@ -26,7 +28,15 @@ object RenderDemo extends App {
   graph.axis(0).label = "X Axis" //Axis can also be defined in the Graph constructor
   graph.axis(1).label = "Y Axis" //More than just two axis is possible
 
-  //graph.show("newTest")
+  graph.axis(0).min = Some(2)
+  graph.show("newTest")
+
+  var x = Random.nextInt(1000)
+  var y = Random.nextInt(1000)
+  for(i <- 0 to 1000){
+    val i = Random.nextInt(1000)
+    //(x,y) = 1
+  }
 
 
   val dataset = (for (x <- 0 until 100; y <- 0 until 100) yield
@@ -35,6 +45,6 @@ object RenderDemo extends App {
 
 
   val img2d = Image.apply(dataset)
-  img2d.show("im2d")
+  //img2d.show("im2d")
 
 }

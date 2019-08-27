@@ -602,7 +602,7 @@ class Renderer(dataHandler: DataHandler) {
 
   def render(cb: Colorbar) =
     s"""
-       |${R.render("widget", cb.widget)}
+       |${R.render("widgetName", cb.widget)}
        |${R.render("label", cb.label)}
        |${R.renderOption("min", cb.min, s"Set('min', u'Auto')")}
        |${R.renderOption("max", cb.max, s"Set('max', u'Auto')")}
@@ -612,7 +612,7 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("autoRange", cb.config.main.autoRange)}
        |${R.render("autoMirror", cb.config.main.autoMirror)}
        |${R.render("reflect", cb.config.main.reflect)}
-       |${R.render("outerTicks", cb.config.main.outerTicks)}
+       |${R.render("outerticks", cb.config.main.outerTicks)}
        |${R.render("horzPosn", cb.config.main.horzPosition)}
        |${R.render("vertPosn", cb.config.main.vertPosition)}
        |${R.render("width", cb.config.main.width)}
