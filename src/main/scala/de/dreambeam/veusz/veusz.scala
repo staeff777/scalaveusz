@@ -138,6 +138,7 @@ trait Executable {
 
     case p: Page => Document(p).save(fileName)
     case g: Graph => Page(g).save(fileName)
+    case p: PolarGraph => Page(p).save(fileName)
     case g: Graph3D => Scene3D(g).save(fileName)
     case s: Scene3D => Page(s).save(fileName)
     case a: Axis => Graph(a).save(fileName)

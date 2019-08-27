@@ -87,6 +87,7 @@ class Renderer(dataHandler: DataHandler) {
     case p: Page => render(p)
     case g: Grid => render(g)
     case g: Graph => render(g)
+    case p: PolarGraph => render(p)
     case g: Graph3D => render(g)
     case a: Axis => render(a)
     case a: Axis3D => render(a)
@@ -152,6 +153,28 @@ class Renderer(dataHandler: DataHandler) {
        |${renderBackgroundConfig(g.config.background)}
        |
        |${renderBorderConfig(g.config.border)}
+     """.stripMargin
+
+  def render(p: PolarGraph) =
+    s"""
+
+       |${R.renderOption("minradius", p.minRadius, "u'Auto'")}
+       |${R.renderOption("maxradius", p.maxRadius, "u'Auto'")}
+       |${R.render("units", p.units)}
+       |${R.render("direction", p.direction)}
+       |${R.render("position0", p.positionOf0)}
+       |${R.render("log", p.log)}
+       |
+       |# Graph Formatting
+       |${R.render("hide", p.config.main.hide)}
+       |${R.render("leftMargin", p.config.main.leftMargin)}
+       |${R.render("rightMargin", p.config.main.rightMargin)}
+       |${R.render("topMargin", p.config.main.topMargin)}
+       |${R.render("bottomMargin", p.config.main.bottomMargin)}
+       |
+       |${renderBackgroundConfig(p.config.background)}
+       |
+       |${renderBorderConfig(p.config.border)}
      """.stripMargin
 
   def render(g: Graph3D) =

@@ -75,7 +75,7 @@ object PolarGraph {
 case class PolarGraph(var name: String,
                       var minRadius: Option[Double],
                       var maxRadius: Option[Double],
-                      var unit: PolarUnit.Value,
+                      var units: PolarUnit.Value,
                       var direction: PolarDirection.Value,
                       var positionOf0: PolarPositionOf0.Value,
                       var log: Boolean,
@@ -85,7 +85,7 @@ case class PolarGraph(var name: String,
   with Configurable
   with Executable
   with Parent {
-  val group = "polarGraph"
+  val group = "polar"
   var config: PolarGraphConfig = PolarGraphConfig()
 }
 

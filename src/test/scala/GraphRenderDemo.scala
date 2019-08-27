@@ -3,7 +3,7 @@ import de.dreambeam.veusz.format.Positioning
 
 import scala.util.Random
 
-object RenderDemo extends App {
+object GraphRenderDemo extends App {
   // XY Plots use 2 one-dimensional datasets
   val xData = (1.0 to 10.0 by 0.5).toVector
   val yLinear = xData.map(_ * 1.25)
@@ -39,12 +39,5 @@ object RenderDemo extends App {
   }
 
 
-  val dataset = (for (x <- 0 until 100; y <- 0 until 100) yield
-    (x.toDouble, y.toDouble) -> (x + y).toDouble
-    ).toMap
-
-
-  val img2d = Image.apply(dataset)
-  //img2d.show("im2d")
 
 }
