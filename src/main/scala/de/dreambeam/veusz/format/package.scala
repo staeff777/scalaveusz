@@ -71,7 +71,7 @@ case class BackgroundConfig(
 case class BorderConfig(
                         var color: String = Colors.Foreground,
                         var width: SizeUnit = 0.5 pt,
-                        var style: LineStyle.Value = LineStyle.Solid,
+                        var style: String = LineStyle.Solid,
                         var transparency: Int = 0,
                         var hide: Boolean = false
                         )
@@ -87,7 +87,7 @@ case class AxisMainConfig(
 case class LineConfig(
                          var color: String = Colors.Foreground,
                          var width: SizeUnit = 0.5 pt,
-                         var style: LineStyle.Value = LineStyle.Solid,
+                         var style: String = LineStyle.Solid,
                          var transparency: Int = 0,
                          var hide: Boolean = false
                          )
@@ -123,7 +123,7 @@ case class TickLabelsConfig(
 case class MajorTicksConfig(
                                var color: String = Colors.Foreground,
                                var width: SizeUnit = 0.5 pt,
-                               var style: LineStyle.Value = LineStyle.Solid,
+                               var style: String = LineStyle.Solid,
                                var transparency: Int = 0,
                                var hide: Boolean = false,
                                var length: SizeUnit = 6 pt,
@@ -134,7 +134,7 @@ case class MajorTicksConfig(
 case class MinorTicksConfig(
                                var color: String = Colors.Foreground,
                                var width: SizeUnit = 0.5 pt,
-                               var style: LineStyle.Value = LineStyle.Solid,
+                               var style: String = LineStyle.Solid,
                                var transparency: Int = 0,
                                var hide: Boolean = false,
                                var length: SizeUnit = 3 pt,
@@ -144,7 +144,7 @@ case class MinorTicksConfig(
 case class MajorGridLinesConfig(
                                     var color: String = Colors.Grey,
                                     var width: SizeUnit = 0.5 pt,
-                                    var style: LineStyle.Value = LineStyle.Dotted,
+                                    var style: String = LineStyle.Dotted,
                                     var transparency: Int = 0,
                                     var hide: Boolean = true,
                                     var onTop: Boolean = false
@@ -153,7 +153,7 @@ case class MajorGridLinesConfig(
 case class MinorGridLinesConfig(
                                    var color: String = Colors.LightGrey,
                                    var width: SizeUnit = 0.5 pt,
-                                   var style: LineStyle.Value = LineStyle.Dotted,
+                                   var style: String = LineStyle.Dotted,
                                    var transparency: Int = 0,
                                    var hide: Boolean = true
                                    )
@@ -173,7 +173,7 @@ case class XYPlotLineConfig(
                            var bezierJoin: Boolean = false,
                            var color: String = Colors.Auto,
                            var width: SizeUnit = 0.5 pt,
-                           var style: LineStyle.Value = LineStyle.Solid,
+                           var style: String = LineStyle.Solid,
                            var transparency: Int = 0,
                            var hide: Boolean = false
                            )
@@ -181,7 +181,7 @@ case class XYPlotLineConfig(
 case class XYMarkerBorderConfig(
                                var color: String = Colors.Foreground,
                                var width: SizeUnit = 0.5 pt,
-                               var style: LineStyle.Value = LineStyle.Solid,
+                               var style: String = LineStyle.Solid,
                                var transparency: Int = 0,
                                var scale: Boolean = true,
                                var hide: Boolean = false
@@ -199,7 +199,7 @@ case class XYMarkerFillConfig(
 case class XYErrorBarLineConfig(
                                var color: String = Colors.Auto,
                                var width: SizeUnit = 0.5 pt,
-                               var style: LineStyle.Value = LineStyle.Solid,
+                               var style: String = LineStyle.Solid,
                                var transparency: Int = 0,
                                var hide: Boolean = false,
                                var endSize: Double = 1.0,
@@ -253,13 +253,13 @@ case class BarchartFillConfig(
                         )
 
 case class BarchartLineConfig(
-                        var lineStyles: Vector[(LineStyle.Value, SizeUnit, String, Boolean)] = Vector((LineStyle.Solid, 0.5 pt, Colors.Black, false))
+                        var lineStyles: Vector[(String, SizeUnit, String, Boolean)] = Vector((LineStyle.Solid, 0.5 pt, Colors.Black, false))
                         )
 
 case class BarchartErrorBarLineConfig(
                                       var color: String = Colors.Foreground,
                                       var width: SizeUnit = 0.5 pt,
-                                      var style: LineStyle.Value = LineStyle.Solid,
+                                      var style: String = LineStyle.Solid,
                                       var transparency: Int = 0,
                                       var hide: Boolean = false,
                                       var endSize: Double = 1.0,
@@ -285,7 +285,7 @@ case class BoxplotFillConfig(
 
 case class AdvancedFillStyleConfig(
                                   var lineWidth: SizeUnit = 0.5 pt,
-                                  var lineStyle: LineStyle.Value = LineStyle.Solid,
+                                  var lineStyle: String = LineStyle.Solid,
                                   var spacing: SizeUnit = 5 pt,
                                   var backColor: String = Colors.Background,
                                   var backTrans: Int = 0,
@@ -318,7 +318,7 @@ case class Graph3DMainConfig(
 case class Graph3DBorderConfig(
                               var color: String = Colors.Foreground,
                               var width: Double = 1.0,
-                              var style: LineStyle.Value = LineStyle.Solid,
+                              var style: String = LineStyle.Solid,
                               var transparency: Int = 0,
                               var reflectivity: Int = 0,
                               var hide: Boolean = false
@@ -340,7 +340,7 @@ case class Axis3DMainConfig(
 case class Axis3DLineConfig(
                            var color: String = Colors.Foreground,
                            var width: Double = 1.0,
-                           var style: LineStyle.Value = LineStyle.Solid,
+                           var style: String = LineStyle.Solid,
                            var transparency: Int = 0,
                            var reflectivity: Int = 0,
                            var hide: Boolean = false
@@ -372,7 +372,7 @@ case class Axis3DTickLabelsConfig(
 case class Axis3DMajorTicksConfig(
                                  var color: String = Colors.Grey,
                                  var width: Double = 1.0,
-                                 var style: LineStyle.Value = LineStyle.Solid,
+                                 var style: String = LineStyle.Solid,
                                  var transparency: Int = 0,
                                  var reflectivity: Int = 0,
                                  var hide: Boolean = false,
@@ -384,7 +384,7 @@ case class Axis3DMajorTicksConfig(
 case class Axis3DMinorTicksConfig(
                                    var color: String = Colors.Grey,
                                    var width: Double = 1.0,
-                                   var style: LineStyle.Value = LineStyle.Solid,
+                                   var style: String = LineStyle.Solid,
                                    var transparency: Int = 0,
                                    var reflectivity: Int = 0,
                                    var hide: Boolean = false,
@@ -395,7 +395,7 @@ case class Axis3DMinorTicksConfig(
 case class Axis3DMajorGridLinesConfig(
                                       var color: String = Colors.Grey,
                                       var width: Double = 1.0,
-                                      var style: LineStyle.Value = LineStyle.Solid,
+                                      var style: String = LineStyle.Solid,
                                       var transparency: Int = 0,
                                       var reflectivity: Int = 0,
                                       var hide: Boolean = true,
@@ -404,7 +404,7 @@ case class Axis3DMajorGridLinesConfig(
 case class Axis3DMinorGridLinesConfig(
                                       var color: String = Colors.LightGrey,
                                       var width: Double = 1.0,
-                                      var style: LineStyle.Value = LineStyle.Solid,
+                                      var style: String = LineStyle.Solid,
                                       var transparency: Int = 0,
                                       var reflectivity: Int = 0,
                                       var hide: Boolean = true,
@@ -492,7 +492,7 @@ case class ContourLabelsConfig(
                               )
 
 case class ContourLinesConfig(
-                             var lineStyles: Vector[(LineStyle.Value, SizeUnit, String, Boolean)] = Vector((LineStyle.Solid, 0.5 pt, Colors.Black, false)),
+                             var lineStyles: Vector[(String, SizeUnit, String, Boolean)] = Vector((LineStyle.Solid, 0.5 pt, Colors.Black, false)),
                              var hide: Boolean = false
                              )
 
@@ -502,7 +502,7 @@ case class ContourFillConfig(
                              )
 
 case class ContourSubLinesConfig(
-                                var lineStyle: Vector[(LineStyle.Value, SizeUnit, String, Boolean)] = Vector((LineStyle.Solid, 0.5 pt, Colors.Black, false)),
+                                var lineStyle: Vector[(String, SizeUnit, String, Boolean)] = Vector((LineStyle.Solid, 0.5 pt, Colors.Black, false)),
                                 var levels: Int = 5,
                                 var hide: Boolean = true
                                 )
@@ -519,7 +519,7 @@ case class VectorfieldMainConfig(
 case class ContourEllipseLineConfig(
                                    var color: String = Colors.Auto,
                                    var width: SizeUnit = 0.5 pt,
-                                   var style: LineStyle.Value = LineStyle.Solid,
+                                   var style: String = LineStyle.Solid,
                                    var transparency: Int = 0,
                                    var hide: Boolean = false,
                                    var steps: Int = 25

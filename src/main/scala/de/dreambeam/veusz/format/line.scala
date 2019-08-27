@@ -10,19 +10,19 @@ object LineSteps extends Enumeration {
   val VCentre = Value("vcentre")
 }
 
-object LineStyle extends Enumeration {
-  val Solid = Value("solid")
-  val Dashed = Value("dashed")
-  val Dotted = Value("dotted")
-  val DashDot = Value("dash-dot")
-  val DashDotDot = Value("dash-dot-dot")
-  val DottedFine = Value("dotted-fine")
-  val DashedFine = Value("dashed-fine")
-  val DashedDotFine = Value("dash-dot-fine")
-  val Dot1 = Value("dot1")
-  val Dot2 = Value("dot2")
-  val Dot3 = Value("dot3")
-  val Dash1 = Value("dash1")
-  val Dash2 = Value("dash2")
-  val Dash3 = Value("dash3")
+object LineStyle  {
+  val Solid = "solid"
+  val Dashed = "dashed"
+  val Dotted = "dotted"
+  val DashDot =  "dash-dot"
+  val DashDotDot = "dash-dot-dot"
+  val DottedFine = "dotted-fine"
+  val DashedFine = "dashed-fine"
+  val DashedDotFine = "dash-dot-fine"
+  val Dot1 = "dot1"
+  val Dot2 = "dot2"
+  val Dot3 = "dot3"
+  val Dash1 = "dash1"
+  val Dash2 =  "dash2"
+  val Dash3 = "dash3"
 }
