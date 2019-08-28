@@ -57,7 +57,7 @@ object PolarGraph {
             children: PolarGraphItem*): PolarGraph = PolarGraph(name, minRadius, maxRadius, unit, direction, positionOf0, log, children = Some(children.toVector))
 
 
-  def apply(name: String = Graph.defaultName,
+  def apply(name: String = PolarGraph.defaultName,
             minRadius: Option[Double] = None,
             maxRadius: Option[Double] = None,
             unit: PolarUnit.Value = PolarUnit.degrees,
@@ -65,7 +65,7 @@ object PolarGraph {
             positionOf0: PolarPositionOf0.Value = PolarPositionOf0.top,
             log: Boolean = false,
             children: Option[Vector[PolarGraphItem]] = None): PolarGraph =
-    new PolarGraph(name, minRadius, maxRadius, unit, direction, positionOf0, log)
+    new PolarGraph(name, minRadius, maxRadius, unit, direction, positionOf0, log, children)
 
 
   val $Function = Function

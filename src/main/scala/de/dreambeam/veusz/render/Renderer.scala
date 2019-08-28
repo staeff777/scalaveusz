@@ -10,6 +10,7 @@ import de.dreambeam.veusz.util.{DataHandler, RenderTools => R, StringTools => S}
   * the Veusz components
   */
 object Renderer {
+
   def renderAllItems(document: Document, dataHandler: DataHandler) = {
     val renderer = new Renderer(dataHandler)
     renderer.renderDocument(document)
@@ -17,6 +18,7 @@ object Renderer {
 }
 
 class Renderer(dataHandler: DataHandler) {
+
   /**
     * Render all items recursively starting with the Document
     *
@@ -31,7 +33,7 @@ class Renderer(dataHandler: DataHandler) {
         case g: Graph => {
           g.axis.map(go).mkString("") + (g.children match {
             case Some(c) => c.map(go).mkString("")
-            case None => ""
+            case None    => ""
           })
         }
 
@@ -40,7 +42,7 @@ class Renderer(dataHandler: DataHandler) {
         case x: Parent => {
           x.children match {
             case Some(c) => c.map(go).mkString("")
-            case None => ""
+            case None    => ""
           }
         }
 
@@ -61,7 +63,7 @@ class Renderer(dataHandler: DataHandler) {
 
           val name = x match {
             case axis: Axis => S.noBlanks(item.name)
-            case _ => S.uniqueName(S.noBlanks(item.name))
+            case _          => S.uniqueName(S.noBlanks(item.name))
           }
 
           val entry = s"Add('${item.group}', name='$name', autoadd=False)"
@@ -83,31 +85,33 @@ class Renderer(dataHandler: DataHandler) {
   }
 
   def render(item: Item): String = item match {
-    case d: Document => render(d)
-    case p: Page => render(p)
-    case g: Grid => render(g)
-    case g: Graph => render(g)
-    case p: PolarGraph => render(p)
-    case g: Graph3D => render(g)
-    case a: Axis => render(a)
-    case a: Axis3D => render(a)
-    case s: Scene3D => render(s)
-    case k: Key => render(k)
-    case xy: XY => render(xy)
-    case bp: Boxplot => render(bp)
-    case bar: Barchart => render(bar)
-    case fun: Function => render(fun)
-    case img: Image => render(img)
-    case img: ImageFile => render(img)
-    case l: Label => render(l)
-    case rect: Rectangle => render(rect)
-    case el: Ellipse => render(el)
-    case poly: Polygon => render(poly)
-    case line: Line => render(line)
-    case cb: Colorbar => render(cb)
-    case cont: Contour => render(cont)
+    case d: Document      => render(d)
+    case p: Page          => render(p)
+    case g: Grid          => render(g)
+    case g: Graph         => render(g)
+    case p: PolarGraph    => render(p)
+    case g: Graph3D       => render(g)
+    case a: Axis          => render(a)
+    case a: Axis3D        => render(a)
+    case s: Scene3D       => render(s)
+    case k: Key           => render(k)
+    case xy: XY           => render(xy)
+    case bp: Boxplot      => render(bp)
+    case bar: Barchart    => render(bar)
+    case fun: Function    => render(fun)
+    case img: Image       => render(img)
+    case img: ImageFile   => render(img)
+    case l: Label         => render(l)
+    case rect: Rectangle  => render(rect)
+    case el: Ellipse      => render(el)
+    case poly: Polygon    => render(poly)
+    case line: Line       => render(line)
+    case cb: Colorbar     => render(cb)
+    case cont: Contour    => render(cont)
     case vec: Vectorfield => render(vec)
-    case cov: Covariance => render(cov)
+    case cov: Covariance  => render(cov)
+    case no: NonOrthPoint => render(no)
+    case x                => throw new RuntimeException(x + " is currently not supported")
   }
 
   def render(d: Document) =
@@ -367,8 +371,6 @@ class Renderer(dataHandler: DataHandler) {
        |${renderBorderConfig(k.config.border)}
      """.stripMargin
 
-
-
   // TODO: formatting
   def render(xy: XY) = {
 
@@ -397,9 +399,7 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("Color")("points", colorName)}
        |${R.render("key", xy.keyText)}
        |# XY Color Config
-       |${R.render("Color")("min",xy.config.colorConfig.min)}
-       |${R.render("Color")("max",xy.config.colorConfig.max)}
-       |${R.render("Color")("scaling",xy.config.colorConfig.scaling)}
+       | ${colorConfig(xy.config.colorConfig)}
        |# XY Formatting
        |${R.render("marker", xy.config.main.markerType)}
        |${R.render("markerSize", xy.config.main.markerSize)}
@@ -456,7 +456,107 @@ class Renderer(dataHandler: DataHandler) {
      """.stripMargin
   }
 
+  def colorConfig(colorConfig: ColorConfig) = {
+    s"""
+    |${R.render("Color")("min", colorConfig.min)}
+    |${R.render("Color")("max", colorConfig.max)}
+    |${R.render("Color")("scaling", colorConfig.scaling)}
+    """.stripMargin
+  }
 
+  def markerFillConfig(markerFillConfig: MarkerFillConfig) = {
+    s"""
+    |${R.render("MarkerFill")("color", markerFillConfig.color)}
+    |${R.render("MarkerFill")("style", markerFillConfig.style)}
+    |${R.render("MarkerFill")("transparency", markerFillConfig.transparency)}
+    |${R.render("MarkerFill")("hide", markerFillConfig.hide)}
+    |${R.render("MarkerFill")("colorMap", markerFillConfig.colorMap)}
+    |${R.render("MarkerFill")("colorMapInvert", markerFillConfig.invertMap)}
+    """.stripMargin
+  }
+
+  def markerBorderConfig(markerBorderConfig: MarkerBorderConfig) = {
+    s"""
+       |${R.render("MarkerLine")("color", markerBorderConfig.color)}
+       |${R.render("MarkerLine")("width", markerBorderConfig.width)}
+       |${R.render("MarkerLine")("style", markerBorderConfig.style)}
+       |${R.render("MarkerLine")("transparency", markerBorderConfig.transparency)}
+       |${R.render("MarkerLine")("scaleLine", markerBorderConfig.scale)}
+       |${R.render("MarkerLine")("hide", markerBorderConfig.hide)}
+       |""".stripMargin
+  }
+
+  def plotLineConfig(plotLineConfig: PlotLineConfig) ={
+    s"""
+       |${R.render("PlotLine")("steps", plotLineConfig.steps)}
+       |${R.render("PlotLine")("bezierJoin", plotLineConfig.bezierJoin)}
+       |${R.render("PlotLine")("color", plotLineConfig.color)}
+       |${R.render("PlotLine")("width", plotLineConfig.width)}
+       |${R.render("PlotLine")("style", plotLineConfig.style)}
+       |${R.render("PlotLine")("transparency", plotLineConfig.transparency)}
+       |${R.render("PlotLine")("hide", plotLineConfig.hide)}
+       |""".stripMargin
+  }
+
+  def xyLabelConfig(xyLabelConfig: XYLabelConfig) = {
+    s"""
+      |${R.render("Label")("posnHorz", xyLabelConfig.horzPosition)}
+      |${R.render("Label")("posnVert", xyLabelConfig.vertPosition)}
+      |${R.render("Label")("angle", xyLabelConfig.angle)}
+      |${R.render("Label")("font", xyLabelConfig.font)}
+      |${R.render("Label")("size", xyLabelConfig.size)}
+      |${R.render("Label")("color", xyLabelConfig.color)}
+      |${R.render("Label")("italic", xyLabelConfig.italic)}
+      |${R.render("Label")("bold", xyLabelConfig.bold)}
+      |${R.render("Label")("underline", xyLabelConfig.underline)}
+      |${R.render("Label")("hide", xyLabelConfig.hide)}
+      """.stripMargin
+  }
+
+  def render(no: NonOrthPoint) = {
+
+    def fill(fillID: Int, fc: NonOrthFillConfig) =
+      s"""
+         |${R.render("Fill" + fillID)("filltype", fc.fillType)}
+         |${R.render("Fill" + fillID)("color", fc.color)}
+         |${R.render("Fill" + fillID)("style", fc.style)}
+         |${R.render("Fill" + fillID)("hide", fc.hide)}
+         |${R.render("Fill" + fillID)("transparency", fc.transparency)}
+       """.stripMargin
+
+    //store data in datahandler and receive unique dataset references
+    val d1Name = dataHandler.uniqueReference(no.data1, "d1")
+    val d2Name = dataHandler.uniqueReference(no.data2, "d2")
+    val scaleName = dataHandler.uniqueReference(no.scaleMarkers, "s")
+    val colorName = dataHandler.uniqueReference(no.colorMarkers, "c")
+
+    s"""
+       |${R.render("data1", d1Name)}
+       |${R.render("data2", d2Name)}
+       |${R.render("scalePoints", scaleName)}
+       |${R.render("Color")("points", colorName)}
+       |${R.render("labels", no.keyText)}
+       |# XY Color Config
+       |${colorConfig(no.config.colorConfig)}
+       |# XY Formatting
+       |${R.render("marker", no.config.main.markerType)}
+       |${R.render("markerSize", no.config.main.markerSize)}
+       |${R.render("color", no.config.main.color)}
+       |${R.render("hide", no.config.main.hide)}
+       |
+       |${xyLabelConfig(no.config.label)}
+       |
+       |${markerBorderConfig(no.config.markerBorder)}
+       |
+       |${markerFillConfig(no.config.markerFill)}
+       |
+       |${fill(1, no.config.areaFill1)}
+       |
+       |${fill(2, no.config.areaFill2)}
+       |
+       |${xyLabelConfig(no.config.label)}
+     """.stripMargin
+  }
 
   def render(bp: Boxplot) = {
 
@@ -471,10 +571,9 @@ class Renderer(dataHandler: DataHandler) {
            |${R.render("Fill")("backTrans", bp.config.fill.advanced.backTrans)}
            |${R.render("Fill")("backHide", bp.config.fill.advanced.backHide)}
          """.stripMargin
-      }
-      else ""
+      } else ""
     }
-    val dataNames =  bp.data.data.map(dataHandler.uniqueReference(_, ""))
+    val dataNames = bp.data.data.map(dataHandler.uniqueReference(_, ""))
     val labelNames = dataHandler.uniqueReference(Text(bp.data.labels), "labels")
     s"""
        |${R.render("values", dataNames)}
@@ -511,22 +610,23 @@ class Renderer(dataHandler: DataHandler) {
   // TODO
   def render(bar: Barchart) = {
 
-    val fills = bar.config.fill.fillStyles.map {
-      case (fillStyle, color, enable) => (s"'$fillStyle'", s"'$color'", s"${R.getBool(enable)}")
-    }
+    val fills = bar.config.fill.fillStyles
+      .map {
+        case (fillStyle, color, enable) => (s"'$fillStyle'", s"'$color'", s"${R.getBool(enable)}")
+      }
       .mkString(", ")
 
-    val lines = bar.config.line.lineStyles.map {
-      case (lineStyle, size, color, enable) => (s"'$lineStyle'", s"'$size'", s"'$color'", s"${R.getBool(enable)}")
-    }
+    val lines = bar.config.line.lineStyles
+      .map {
+        case (lineStyle, size, color, enable) => (s"'$lineStyle'", s"'$size'", s"'$color'", s"${R.getBool(enable)}")
+      }
       .mkString(", ")
 
     val lengthNames = bar.lengths.map(dataHandler.uniqueReference(_, ""))
-    val positionName = bar.positions match{
-      case Left(n) => dataHandler.uniqueReference(n, "")
+    val positionName = bar.positions match {
+      case Left(n)  => dataHandler.uniqueReference(n, "")
       case Right(d) => dataHandler.uniqueReference(d, "dt")
     }
-
 
     s"""
        |${R.render("lengths", lengthNames)}
@@ -669,22 +769,25 @@ class Renderer(dataHandler: DataHandler) {
 
     val manualLevels = cont.manualLevels match {
       case Some(ml) => s"Set('levelsManual', [${ml.asInstanceOf[Vector[Int]].mkString(", ")}])"
-      case None => ""
+      case None     => ""
     }
 
-    val contourLines = cont.config.lines.lineStyles.map {
-      case (lineStyle, size, color, enable) => s"('$lineStyle', '$size', '$color', ${R.getBool(enable)})"
-    }
+    val contourLines = cont.config.lines.lineStyles
+      .map {
+        case (lineStyle, size, color, enable) => s"('$lineStyle', '$size', '$color', ${R.getBool(enable)})"
+      }
       .mkString(", ")
 
-    val contourFills = cont.config.fill.fillStyles.map {
-      case (fillStyle, color, enable) => s"('$fillStyle', '$color', ${R.getBool(enable)})"
-    }
+    val contourFills = cont.config.fill.fillStyles
+      .map {
+        case (fillStyle, color, enable) => s"('$fillStyle', '$color', ${R.getBool(enable)})"
+      }
       .mkString(", ")
 
-    val contourSubLines = cont.config.sublines.lineStyle.map {
-      case (lineStyle, size, color, enable) => s"('$lineStyle', '$size', '$color', ${R.getBool(enable)})"
-    }
+    val contourSubLines = cont.config.sublines.lineStyle
+      .map {
+        case (lineStyle, size, color, enable) => s"('$lineStyle', '$size', '$color', ${R.getBool(enable)})"
+      }
       .mkString(", ")
 
     s"""
@@ -829,7 +932,7 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render(prefix)("transparency", bc.transparency)}
      """.stripMargin
 
-  def renderLabelConfig(lc: de.dreambeam.veusz.format.LabelConfig)(implicit prefix: String = "Label") : String =
+  def renderLabelConfig(lc: de.dreambeam.veusz.format.LabelConfig)(implicit prefix: String = "Label"): String =
     s"""
        |${R.render(prefix)("font", lc.font)}
        |${R.render(prefix)("size", lc.size)}
@@ -859,7 +962,7 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render(prefix)("offset", tlc.offset)}
      """.stripMargin
 
-  def renderMajorTicksConfig(tc: MajorTicksConfig)(implicit prefix: String = "MajorTicks") : String =
+  def renderMajorTicksConfig(tc: MajorTicksConfig)(implicit prefix: String = "MajorTicks"): String =
     s"""
        |${R.render(prefix)("color", tc.color)}
        |${R.render(prefix)("width", tc.width)}
@@ -896,7 +999,7 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render(prefix)("color", glc.color)}
        |${R.render(prefix)("width", glc.width)}
        |${R.render(prefix)("style", glc.style)}
-       |${R.render(prefix)("transparency",glc.transparency)}
+       |${R.render(prefix)("transparency", glc.transparency)}
        |${R.render(prefix)("hide", glc.hide)}
      """.stripMargin
 

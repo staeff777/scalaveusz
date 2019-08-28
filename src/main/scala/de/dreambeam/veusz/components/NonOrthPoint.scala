@@ -6,15 +6,20 @@ import de.dreambeam.veusz.format.{ColorConfig, MarkerBorderConfig, MarkerFillCon
 
 object NonOrthPoint {
 
-  def apply(data1: Vector[Double], data2: Vector[Double], keyText: String = "", scaleMarkers: Vector[Double] = Vector.empty[Double], name: String = "nonorthpoint") =
-    new NonOrthPoint(Numerical(data1), Numerical(data2), keyText, Numerical(scaleMarkers), name)
+  def apply(data1: Vector[Double], data2: Vector[Double], scaleMarkers: Vector[Double] = Vector.empty[Double], colorMarkers: Vector[Double] = Vector.empty[Double], keyText: String = "", name: String = "nonorthpoint") =
+    new NonOrthPoint(Numerical(data1), Numerical(data2), Numerical(scaleMarkers), Numerical(colorMarkers), keyText, name)
 
-  def apply(data1: Numerical, data2: Numerical, keyText: String, scaleMarkers: Numerical, name: String) =
-    new NonOrthPoint(data1, data2, keyText, scaleMarkers, name)
+  def apply(data1: Numerical, data2: Numerical, scaleMarkers: Numerical, colorMarkers: Numerical, keyText: String, name: String) =
+    new NonOrthPoint(data1, data2, scaleMarkers, colorMarkers, keyText, name)
 
 }
 
-case class NonOrthPoint(data1: Numerical, data2: Numerical, keyText: String, scaleMarkers: Numerical, var name: String) extends PolarGraphItem with Configurable with Executable {
+case class NonOrthPoint(data1: Numerical,
+                        data2: Numerical,
+                        scaleMarkers: Numerical,
+                        colorMarkers: Numerical,
+                        keyText: String,
+                        var name: String) extends PolarGraphItem with Configurable with Executable {
 
   val group = "nonorthpoint"
   var config: NonOrthPointConfig = NonOrthPointConfig()
