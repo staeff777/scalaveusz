@@ -555,8 +555,11 @@ class Renderer(dataHandler: DataHandler) {
     }
     val dataNames = bp.data.data.map(dataHandler.uniqueReference(_, ""))
     val labelNames = dataHandler.uniqueReference(Text(bp.data.labels), "labels")
+    val positionName = dataHandler.uniqueReference(bp.data.positions, "pos")
+
     s"""
        |${R.render("values", dataNames)}
+       |${R.render("posn", labelNames)}
        |${R.render("labels", labelNames)}
        |${R.render("whiskermode", bp.whiskerMode)}
        |${R.render("fillfraction", bp.fillFraction)}
