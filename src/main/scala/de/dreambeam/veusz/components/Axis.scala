@@ -4,6 +4,7 @@ import de.dreambeam.veusz.{Item, GraphItem, Executable, Configurable}
 import de.dreambeam.veusz.format._
 
 case class Axis (var label: String = "",
+                 var direction: Direction.Value = Direction.Horizontal,
                  var min: Option[Double] = None,
                  var max: Option[Double] = None,
                  var log: Boolean = false,
@@ -11,7 +12,6 @@ case class Axis (var label: String = "",
                  var scale: Double = 1,
                  var minPos: Double = 0,
                  var maxPos: Double = 1,
-                 var direction: String = "horizontal",
                  var axisPosition: Double = 0,
                  var name: String = ""
                 )
@@ -44,7 +44,7 @@ object XAxis {
             maxPos: Double = 1,
             axisPosition: Double = 0,
             name: String = "x") =
-    Axis (label, min, max, log, mode, scale, minPos, maxPos, "horizontal", axisPosition, name)
+    Axis (label, Direction.Horizontal, min, max, log, mode, scale, minPos, maxPos, axisPosition, name)
 }
 
 object YAxis {
@@ -59,6 +59,6 @@ object YAxis {
             maxPos: Double = 1,
             axisPosition: Double = 0,
             name: String = "y") =
-    Axis(label, min, max, log, mode, scale, minPos, maxPos, "vertical", axisPosition, name)
+    Axis(label, Direction.Vertical, min, max, log, mode, scale, minPos, maxPos, axisPosition, name)
 }
 

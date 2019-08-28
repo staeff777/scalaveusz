@@ -40,8 +40,8 @@ case class Image(dataset: NumericalImage,
   var config = ImageConfig()
 }
 
-case class ImageConfig(colorMap: String = ColorMaps.Grey,
-                       invertColormap: Boolean = false,
-                       transparency: Int = 0,
-                       hide: Boolean = false,
-                       smooth: Boolean = true)
+case class ImageConfig(var colorMap: String = ColorMaps.Grey,
+                       var invertColormap: Boolean = false,
+                       var transparency: Int = 0,
+                       var hide: Boolean = false,
+                       var smooth: Boolean = true)

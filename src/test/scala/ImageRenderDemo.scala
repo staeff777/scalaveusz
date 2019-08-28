@@ -5,6 +5,10 @@ object ImageRenderDemo extends App{
     (x.toDouble, y.toDouble) -> (x + y).toDouble
     ).toMap
 
-  val img2d = Image.apply(dataset)
+  val img2d = Image(dataset)
+  img2d.config.colorMap = "heat"
+  img2d.config.invertColormap = true
+
+
    img2d.show("image")
 }

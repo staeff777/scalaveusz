@@ -1,5 +1,7 @@
-import de.dreambeam.veusz.components.{Document, Graph, Image, ImageFile, XY}
-import de.dreambeam.veusz.format.Positioning
+import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Axis
+import de.dreambeam.veusz.components
+import de.dreambeam.veusz.components.{Axis, Document, Graph, Image, ImageFile, XY}
+import de.dreambeam.veusz.format.{Direction, Positioning}
 
 import scala.util.Random
 
@@ -10,10 +12,11 @@ object GraphRenderDemo extends App {
   val ySin = xData.map(2 * Math.sin(_) + 5)
 
   // create a linear XY Point Plot with Lines
-  val xyLinearPlot = XY(xData, yLinear)
+  val xyLinearPlot = XY(xData, yLinear, colorMarkers = yLinear)
   xyLinearPlot.config.plotLine.color = "darkblue"
   xyLinearPlot.config.markerFill.color = "blue"
-
+  xyLinearPlot.config.colorConfig.min = 0
+  xyLinearPlot.config.colorConfig.max = 10
   // create a sinus XY Point Plot with Lines
   val xySinusPlot = XY(xData, ySin)
   xySinusPlot.config.plotLine.color = "darkred"
@@ -23,13 +26,21 @@ object GraphRenderDemo extends App {
   val img = ImageFile("C:/temp/1.png", Vector(4.5303), Vector(4.2213), Vector(0.8614), Vector(0.64532), rotate = 75, positioning = Positioning.Axes)
 
   // put both XY Plots into a Graph
-  val graph = Graph(xyLinearPlot, xySinusPlot, img)
+  val xAxis = components.XAxis("X", min=Some(1), max=Some(9))
+  val yAxis = components.YAxis("Y")
+  val graph = Graph(Vector(xAxis, yAxis),xyLinearPlot, xySinusPlot, img)
 
+  /*
   graph.axis(0).label = "X Axis" //Axis can also be defined in the Graph constructor
+  graph.axis(0).min = Some(1)
+  graph.axis(0).max = Some(9)
   graph.axis(1).label = "Y Axis" //More than just two axis is possible
 
   graph.axis(0).min = Some(2)
+  */
+
   graph.show("newTest")
+
 
 
 }

@@ -388,7 +388,7 @@ class Renderer(dataHandler: DataHandler) {
     val xName = dataHandler.uniqueReference(xy.x, "x")
     val yName = dataHandler.uniqueReference(xy.y, "y")
     val scaleName = dataHandler.uniqueReference(xy.scaleMarkers, "s")
-    val colorName = dataHandler.uniqueReference(xy.scaleMarkers, "c")
+    val colorName = dataHandler.uniqueReference(xy.colorMarkers, "c")
 
     s"""
        |${R.render("xData", xName)}
