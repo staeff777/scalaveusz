@@ -21,7 +21,7 @@ case class Colorbar(widget: String = "",
     with Configurable
     with Executable
 {
-  val group = "polargraph"
+  val group = "colorbar"
   var config: ColorbarConfig = ColorbarConfig()
 }
 

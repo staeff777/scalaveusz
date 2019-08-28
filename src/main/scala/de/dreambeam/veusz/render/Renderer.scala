@@ -722,8 +722,8 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("outerticks", cb.config.main.outerTicks)}
        |${R.render("horzPosn", cb.config.main.horzPosition)}
        |${R.render("vertPosn", cb.config.main.vertPosition)}
-       |${R.render("width", cb.config.main.width)}
-       |${R.render("height", cb.config.main.width)}
+       |${R.renderSizeOption("width", cb.config.main.width,"Set('width', u'Auto')")}
+       |${R.renderSizeOption("height", cb.config.main.height,"Set('height', u'Auto')")}
        |${R.renderOption("horzManual", cb.config.main.horzManual, "")}
        |${R.renderOption("vertManual", cb.config.main.vertManual, "")}
        |

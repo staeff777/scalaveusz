@@ -46,6 +46,7 @@ object RenderTools {
     }
   }
 
+
   def renderOption(field: String, value: Option[Double], noneCase: String): String =
     renderOption(null)(field, value, noneCase)
 
@@ -57,6 +58,22 @@ object RenderTools {
 
     value match {
       case Some(value) => s"Set('$pre$field', $value)"
+      case None => noneCase
+    }
+  }
+
+
+  def renderSizeOption(field: String, value: Option[SizeUnit], noneCase: String): String =
+    renderSizeOption(null)(field, value, noneCase)
+
+  def renderSizeOption(prefix: String)(field: String, value: Option[SizeUnit], noneCase: String) = {
+    val pre = {
+      if (prefix == null || prefix == "") ""
+      else s"$prefix/"
+    }
+
+    value match {
+      case Some(value) => s"Set('$pre$field', u'$value')"
       case None => noneCase
     }
   }

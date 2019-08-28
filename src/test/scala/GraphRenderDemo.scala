@@ -1,8 +1,8 @@
 import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Axis
 import de.dreambeam.veusz.components
-import de.dreambeam.veusz.components.{Axis, Document, Graph, Image, ImageFile, XY}
+import de.dreambeam.veusz.components.{Axis, Colorbar, Document, Graph, Image, ImageFile, XY}
 import de.dreambeam.veusz.format.{Direction, Positioning}
-
+import de.dreambeam.veusz.util.SizeUnits._
 import scala.util.Random
 
 object GraphRenderDemo extends App {
@@ -25,10 +25,13 @@ object GraphRenderDemo extends App {
 
   val img = ImageFile("C:/temp/1.png", Vector(4.5303), Vector(4.2213), Vector(0.8614), Vector(0.64532), rotate = 75, positioning = Positioning.Axes)
 
+  val cb = Colorbar(widget = "xy", "label")
+  cb.config.main.height = Some(1.0 cm)
+
   // put both XY Plots into a Graph
   val xAxis = components.XAxis("X", min=Some(1), max=Some(9))
   val yAxis = components.YAxis("Y")
-  val graph = Graph(Vector(xAxis, yAxis),xyLinearPlot, xySinusPlot, img)
+  val graph = Graph(Vector(xAxis, yAxis),xyLinearPlot, xySinusPlot, img, cb)
 
   /*
   graph.axis(0).label = "X Axis" //Axis can also be defined in the Graph constructor
