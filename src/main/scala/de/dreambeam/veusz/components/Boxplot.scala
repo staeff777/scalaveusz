@@ -13,7 +13,7 @@ object Boxplot {
             name: String = "boxplot",
             ): Boxplot = {
 
-    Boxplot(data, whiskerMode, fillFraction, name)
+   new Boxplot(data, whiskerMode, fillFraction, name)
   }
 
 }

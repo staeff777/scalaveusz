@@ -135,7 +135,6 @@ trait Executable {
         write(text); close
       }
     }
-
     case p: Page => Document(p).save(fileName)
     case g: Graph => Page(g).save(fileName)
     case p: PolarGraph => Page(p).save(fileName)
@@ -161,6 +160,7 @@ trait Executable {
         Graph(children = bar, axis = Vector(xAxis, yAxis)).save(fileName)
       case n: Numerical => Graph(bar).save(fileName)
     }
+    case box: Boxplot => Graph(box).save(fileName)
   }
 
   def show(fileName: String, outdir: File = new File(Document.OutPath)) = {
