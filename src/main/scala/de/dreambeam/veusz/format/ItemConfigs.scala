@@ -170,7 +170,7 @@ case class XYMainConfig(
                        var errorStyle: ErrorType.Value = ErrorType.Bar
                        )
 
-case class XYPlotLineConfig(
+case class PlotLineConfig(
                            var steps: LineSteps.Value = LineSteps.Off,
                            var bezierJoin: Boolean = false,
                            var color: String = Colors.Auto,
@@ -180,7 +180,7 @@ case class XYPlotLineConfig(
                            var hide: Boolean = false
                            )
 
-case class XYMarkerBorderConfig(
+case class MarkerBorderConfig(
                                var color: String = Colors.Foreground,
                                var width: SizeUnit = 0.5 pt,
                                var style: String = LineStyle.Solid,
@@ -189,7 +189,7 @@ case class XYMarkerBorderConfig(
                                var hide: Boolean = false
                                )
 
-case class XYMarkerFillConfig(
+case class MarkerFillConfig(
                              var color: String = Colors.Auto,
                              var style: FillStyle.Value = FillStyle.Solid,
                              var transparency: Int = 0,
@@ -560,3 +560,18 @@ case class RadialTicksConfig(
                              var hide: Boolean = false,
                              var number: Int = 6,
                            )
+
+
+case class NonOrthMainConfig(
+                              var markerType: MarkerType.Value = MarkerType.Circle,
+                              var markerSize: SizeUnit = 3 pt,
+                              var color: String = Colors.Auto,
+                              var hide: Boolean = false,
+                            )
+
+case class NonOrthFillConfig(var color: String = "foreground",
+                             var style: FillStyle.Value = FillStyle.Solid,
+                             var transparency: Int = 0,
+                             var fillType: NonOrthFillType.Value = NonOrthFillType.Center,
+                             var hide: Boolean = true
+                            )

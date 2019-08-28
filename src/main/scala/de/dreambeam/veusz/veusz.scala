@@ -153,6 +153,7 @@ trait Executable {
     case con: Contour => Graph(con).save(fileName)
     case vec: Vectorfield => Graph(vec).save(fileName)
     case cov: Covariance => Graph(cov).save(fileName)
+    case nono: NonOrthPoint => PolarGraph(nono).save(fileName)
     case bar: Barchart => bar.positions match {
       case d: DateTime =>
         val xAxis = XAxis(mode = AxisMode.DateTime)

@@ -50,9 +50,9 @@ case class XY(x: Data,
 }
 
 case class XYConfig(main: XYMainConfig = XYMainConfig(),
-                    plotLine: XYPlotLineConfig = XYPlotLineConfig(),
-                    markerBorder: XYMarkerBorderConfig = XYMarkerBorderConfig(),
-                    markerFill: XYMarkerFillConfig = XYMarkerFillConfig(),
+                    plotLine: PlotLineConfig = PlotLineConfig(),
+                    markerBorder: MarkerBorderConfig = MarkerBorderConfig(),
+                    markerFill: MarkerFillConfig = MarkerFillConfig(),
                     errorBarLine: XYErrorBarLineConfig = XYErrorBarLineConfig(),
                     fillBelow: XYFillConfig = XYFillConfig(fillTo = FillTo.bottom),
                     fillAbove: XYFillConfig = XYFillConfig(fillTo = FillTo.top),

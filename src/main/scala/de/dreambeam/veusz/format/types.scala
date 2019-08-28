@@ -137,3 +137,14 @@ object ArrowType extends Enumeration {
   val LineCross = Value("linecross")
   val Asterisk = Value("asterisk")
 }
+
+object NonOrthFillType extends Enumeration {
+  val Center = Value("center")
+  val Outside = Value("outside")
+  val Top = Value("top")
+  val Bottom = Value("bottom")
+  val Left = Value("left")
+  val Right = Value("right")
+  val Polygon = Value("polygon")
+
+}

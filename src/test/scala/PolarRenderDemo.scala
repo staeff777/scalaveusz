@@ -1,7 +1,11 @@
-import de.dreambeam.veusz.components.PolarGraph
+import de.dreambeam.veusz.components.{NonOrthPoint, PolarGraph}
 
 object PolarRenderDemo extends App{
 
   val polar = PolarGraph()
-  polar.show("polar")
+
+  val nonOrt = NonOrthPoint(Vector.empty, Vector.empty)
+
+  nonOrt.show("nonOrt")
+
 }

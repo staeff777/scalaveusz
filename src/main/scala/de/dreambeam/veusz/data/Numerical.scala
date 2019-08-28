@@ -9,6 +9,7 @@ object Numerical {
              posErrors: Option[Vector[Double]] = None
            ) =
     new Numerical(data, name, symErrors, negErrors, posErrors)
+
 }
 
 case class Numerical(
