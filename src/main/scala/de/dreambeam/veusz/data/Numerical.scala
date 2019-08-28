@@ -22,4 +22,6 @@ case class Numerical(
 {
   override def hashCode(): Int =
     (31 * data.hashCode) ^ (59 * symErrors.hashCode) ^ (283 * negErrors.hashCode) ^ (911 * posErrors.hashCode)
+
+  override def isEmpty: Boolean = data.isEmpty
 }

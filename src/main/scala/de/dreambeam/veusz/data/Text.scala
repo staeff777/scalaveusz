@@ -14,4 +14,6 @@ case class Text(
                ) extends Data
 {
   override def hashCode(): Int = data.hashCode()
+
+  override def isEmpty: Boolean = data.isEmpty
 }

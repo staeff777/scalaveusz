@@ -409,27 +409,11 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("hide", xy.config.main.hide)}
        |${R.render("errorStyle", xy.config.main.errorStyle)}
        |
-       |${R.render("PlotLine")("steps", xy.config.plotLine.steps)}
-       |${R.render("PlotLine")("bezierJoin", xy.config.plotLine.bezierJoin)}
-       |${R.render("PlotLine")("color", xy.config.plotLine.color)}
-       |${R.render("PlotLine")("width", xy.config.plotLine.width)}
-       |${R.render("PlotLine")("style", xy.config.plotLine.style)}
-       |${R.render("PlotLine")("transparency", xy.config.plotLine.transparency)}
-       |${R.render("PlotLine")("hide", xy.config.plotLine.hide)}
+       |${plotLineConfig(xy.config.plotLine)}
        |
-       |${R.render("MarkerLine")("color", xy.config.markerBorder.color)}
-       |${R.render("MarkerLine")("width", xy.config.markerBorder.width)}
-       |${R.render("MarkerLine")("style", xy.config.markerBorder.style)}
-       |${R.render("MarkerLine")("transparency", xy.config.markerBorder.transparency)}
-       |${R.render("MarkerLine")("scaleLine", xy.config.markerBorder.scale)}
-       |${R.render("MarkerLine")("hide", xy.config.markerBorder.hide)}
+       |${markerBorderConfig(xy.config.markerBorder)}
        |
-       |${R.render("MarkerFill")("color", xy.config.markerFill.color)}
-       |${R.render("MarkerFill")("style", xy.config.markerFill.style)}
-       |${R.render("MarkerFill")("transparency", xy.config.markerFill.transparency)}
-       |${R.render("MarkerFill")("hide", xy.config.markerFill.hide)}
-       |${R.render("MarkerFill")("colorMap", xy.config.markerFill.colorMap)}
-       |${R.render("MarkerFill")("colorMapInvert", xy.config.markerFill.invertMap)}
+       |${markerFillConfig(xy.config.markerFill)}
        |
        |${R.render("ErrorBarLine")("color", xy.config.errorBarLine.color)}
        |${R.render("ErrorBarLine")("width", xy.config.errorBarLine.width)}
@@ -443,21 +427,13 @@ class Renderer(dataHandler: DataHandler) {
        |${fill("Below", xy.config.fillBelow)}
        |${fill("Above", xy.config.fillAbove)}
        |
-       |${R.render("Label")("posnHorz", xy.config.label.horzPosition)}
-       |${R.render("Label")("posnVert", xy.config.label.vertPosition)}
-       |${R.render("Label")("angle", xy.config.label.angle)}
-       |${R.render("Label")("font", xy.config.label.font)}
-       |${R.render("Label")("size", xy.config.label.size)}
-       |${R.render("Label")("color", xy.config.label.color)}
-       |${R.render("Label")("italic", xy.config.label.italic)}
-       |${R.render("Label")("bold", xy.config.label.bold)}
-       |${R.render("Label")("underline", xy.config.label.underline)}
-       |${R.render("Label")("hide", xy.config.label.hide)}
+       |${xyLabelConfig(xy.config.label)}
      """.stripMargin
   }
 
   def colorConfig(colorConfig: ColorConfig) = {
     s"""
+    |# Color
     |${R.render("Color")("min", colorConfig.min)}
     |${R.render("Color")("max", colorConfig.max)}
     |${R.render("Color")("scaling", colorConfig.scaling)}
@@ -466,6 +442,7 @@ class Renderer(dataHandler: DataHandler) {
 
   def markerFillConfig(markerFillConfig: MarkerFillConfig) = {
     s"""
+    |# Marker Fill
     |${R.render("MarkerFill")("color", markerFillConfig.color)}
     |${R.render("MarkerFill")("style", markerFillConfig.style)}
     |${R.render("MarkerFill")("transparency", markerFillConfig.transparency)}
@@ -477,6 +454,7 @@ class Renderer(dataHandler: DataHandler) {
 
   def markerBorderConfig(markerBorderConfig: MarkerBorderConfig) = {
     s"""
+       |# Marker Border
        |${R.render("MarkerLine")("color", markerBorderConfig.color)}
        |${R.render("MarkerLine")("width", markerBorderConfig.width)}
        |${R.render("MarkerLine")("style", markerBorderConfig.style)}
@@ -488,6 +466,7 @@ class Renderer(dataHandler: DataHandler) {
 
   def plotLineConfig(plotLineConfig: PlotLineConfig) ={
     s"""
+       |# Plot Line
        |${R.render("PlotLine")("steps", plotLineConfig.steps)}
        |${R.render("PlotLine")("bezierJoin", plotLineConfig.bezierJoin)}
        |${R.render("PlotLine")("color", plotLineConfig.color)}
@@ -500,6 +479,7 @@ class Renderer(dataHandler: DataHandler) {
 
   def xyLabelConfig(xyLabelConfig: XYLabelConfig) = {
     s"""
+      |# Label
       |${R.render("Label")("posnHorz", xyLabelConfig.horzPosition)}
       |${R.render("Label")("posnVert", xyLabelConfig.vertPosition)}
       |${R.render("Label")("angle", xyLabelConfig.angle)}

@@ -10,7 +10,6 @@ object DataHandler {
 
 class DataHandler {
   val dataset = mutable.HashMap.empty[Data, String]
-  val dataset3D = mutable.HashMap.empty[NumericalImage, String]
   val references = mutable.Map.empty[String, Int]
 
   /**
@@ -20,7 +19,8 @@ class DataHandler {
     * @return a String refernece to the data
     */
   def uniqueReference(data: Data, suffix: String): String = {
-    if (dataset contains data) dataset(data)
+    if(data.isEmpty) ""
+    else if (dataset contains data) dataset(data)
     else {
       val nameWithSuffix: String = {
         if (data.name == "" || data.name == null) {

@@ -2,6 +2,7 @@ package de.dreambeam.veusz.data
 
 trait Data {
   val name: String
+  def isEmpty: Boolean
 }
 
 object Data {

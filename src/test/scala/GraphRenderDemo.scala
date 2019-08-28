@@ -31,13 +31,5 @@ object GraphRenderDemo extends App {
   graph.axis(0).min = Some(2)
   graph.show("newTest")
 
-  var x = Random.nextInt(1000)
-  var y = Random.nextInt(1000)
-  for(i <- 0 to 1000){
-    val i = Random.nextInt(1000)
-    //(x,y) = 1
-  }
-
-
 
 }
