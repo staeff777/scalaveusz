@@ -1,6 +1,6 @@
 package de.dreambeam.veusz.components
 
-import de.dreambeam.veusz.data.{Data, DateTime, Numerical}
+import de.dreambeam.veusz.data.{BarChartData, Data, DateTime, Numerical}
 import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
 import de.dreambeam.veusz.format._
 
@@ -31,7 +31,7 @@ object Barchart {
 }
 
 case class Barchart(lengths: Vector[Numerical],
-                    positions: Either[Numerical, DateTime],
+                    positions: BarChartData,
                     direction: Direction.Value,
                     mode: BarchartMode.Value,
                     keys: Vector[String],

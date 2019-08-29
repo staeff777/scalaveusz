@@ -18,7 +18,7 @@ case class Numerical(
                       symErrors: Option[Vector[Double]] = None,
                       negErrors: Option[Vector[Double]] = None,
                       posErrors: Option[Vector[Double]] = None
-                    ) extends Data
+                    ) extends Data with BarChartData
 {
   override def hashCode(): Int =
     (31 * data.hashCode) ^ (59 * symErrors.hashCode) ^ (283 * negErrors.hashCode) ^ (911 * posErrors.hashCode)

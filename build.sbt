@@ -15,7 +15,7 @@ inThisBuild(List(
 name := "scalaveusz"
 organization := "de.dreambeam"
 
-version := "0.3.5-SNAPSHOT"
+version := "0.3.5"
 
 scalaVersion := "2.12.8"
 
@@ -25,3 +25,5 @@ libraryDependencies ++= Seq(
 )
 
 resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
+
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature", "-Xfatal-warnings")

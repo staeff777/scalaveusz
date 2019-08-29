@@ -113,8 +113,10 @@ object DateTimeConstructor {
   }
 }
 
+
+
 case class DateTime(data: Vector[String],
-                    name: String) extends Data
+                    name: String) extends Data with BarChartData
 {
   override def hashCode(): Int = data.hashCode()
 

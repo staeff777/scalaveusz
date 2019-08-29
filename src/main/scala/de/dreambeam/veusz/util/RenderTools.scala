@@ -41,7 +41,7 @@ object RenderTools {
       case b: Boolean => s"Set('$pre$field', ${getBool(b)})"
       case i: Int => s"Set('$pre$field', $i)"
       case d: Double => s"Set('$pre$field', $d)"
-      case vs: Vector[String] => s"Set('$pre$field', (${vs.map(e => s"'$e',").mkString}))"
+      case vs: Vector[_] => s"Set('$pre$field', (${vs.map(e => s"'$e',").mkString}))"
       case x => s"Set('$pre$field', u'$x')"
     }
   }

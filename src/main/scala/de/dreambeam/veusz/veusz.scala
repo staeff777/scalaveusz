@@ -302,8 +302,6 @@ trait Executable {
 
         val ee = new IOException(newMEssage, e.getCause)
         throw (ee)
-      case e => throw (e)
-
     }
   }
 

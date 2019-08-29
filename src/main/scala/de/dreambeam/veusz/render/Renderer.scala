@@ -607,8 +607,8 @@ class Renderer(dataHandler: DataHandler) {
 
     val lengthNames = bar.lengths.map(dataHandler.uniqueReference(_, ""))
     val positionName = bar.positions match {
-      case Left(n)  => dataHandler.uniqueReference(n, "")
-      case Right(d) => dataHandler.uniqueReference(d, "dt")
+      case n: Numerical  => dataHandler.uniqueReference(n, "")
+      case d: DateTime => dataHandler.uniqueReference(d, "dt")
     }
 
     s"""

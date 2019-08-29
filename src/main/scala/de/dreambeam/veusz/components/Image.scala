@@ -14,12 +14,7 @@ object Image {
             keyText: String = "",
             xAxis: String = "x",
             yAxis: String = "y",
-            name: String = "image") =
-    data match {
-      case d: Map[(Double, Double), Double] => new Image(new NumericalImage(d), min, max, scaling, transData, keyText, xAxis, yAxis, name)
-      case d: NumericalImage => new Image(d, min, max, scaling, transData, keyText, xAxis, yAxis, name)
-    }
-
+            name: String = "image") =  new Image(new NumericalImage(data), min, max, scaling, transData, keyText, xAxis, yAxis, name)
 
 }
 

@@ -5,6 +5,8 @@ trait Data {
   def isEmpty: Boolean
 }
 
+trait BarChartData
+
 object Data {
 
   /* Children */
@@ -12,4 +14,10 @@ object Data {
   val $DateTime = DateTimeConstructor
   val $Text = Text
   val $NumericalImage = NumericalImage
+}
+
+
+object BarChartData{
+  val $Numerical = Numerical
+  val $DateTime = DateTimeConstructor
 }
