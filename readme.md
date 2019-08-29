@@ -34,7 +34,7 @@ object RendererTest extends App {
   graph.axis(0).label = "X Axis" //Axis can also be defined in the Graph constructor
   graph.axis(1).label = "Y Axis" //More than just two axis is possible
 
-  graph.show("newTest")
+  graph.openInVeusz("newTest")
 }
 ```
 

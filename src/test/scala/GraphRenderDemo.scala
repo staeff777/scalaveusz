@@ -42,7 +42,7 @@ object GraphRenderDemo extends App {
   graph.axis(0).min = Some(2)
   */
 
-  graph.show("newTest")
+  graph.openInVeusz("newTest")
 
 
 

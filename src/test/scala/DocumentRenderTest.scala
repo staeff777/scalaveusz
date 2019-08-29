@@ -18,7 +18,6 @@ object DocumentRenderTest extends App{
   val page2 = Page(PolarGraph(nonOrt))
 
   val doc =  Document(page1, page2)
-  doc.setGlobalVueszPath("C:\\Program Files (x86)\\Veusz\\veusz.exe")
-  doc.export("c:\\temp\\document.pdf")
+    doc.exportAndOpen("c:\\temp\\document.pdf")
 
 }

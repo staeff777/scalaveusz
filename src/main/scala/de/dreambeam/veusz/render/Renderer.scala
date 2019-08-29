@@ -559,7 +559,7 @@ class Renderer(dataHandler: DataHandler) {
 
     s"""
        |${R.render("values", dataNames)}
-       |${R.render("posn", labelNames)}
+       |${R.render("posn", positionName)}
        |${R.render("labels", labelNames)}
        |${R.render("whiskermode", bp.whiskerMode)}
        |${R.render("fillfraction", bp.fillFraction)}

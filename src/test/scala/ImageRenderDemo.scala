@@ -10,5 +10,5 @@ object ImageRenderDemo extends App{
   img2d.config.invertColormap = true
 
 
-   img2d.show("image")
+   img2d.openInVeusz("image")
 }
