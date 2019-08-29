@@ -9,6 +9,12 @@ import components._
 import de.dreambeam.veusz.data.{BoxplotData, DateTime, Numerical, NumericalImage, Text}
 import de.dreambeam.veusz.util.DataHandler
 import de.dreambeam.veusz.format._
+import java.io.File
+
+object GlobalVueszSettings {
+  var veuszPath: Option[String] = None
+  def setPath(path: String) = veuszPath = Some(path)
+}
 
 trait DocumentItem extends Item
 
@@ -123,44 +129,63 @@ trait Executable {
     }.mkString(newLine)
   }
 
-  def save(fileName: String, outdir: File = new File(Document.OutPath)): Unit = this match {
+  protected def createDocumentText():String = this match {
 
     case document: Document => {
       val dataHandler = DataHandler()
       val renderedContent = Renderer.renderAllItems(document, dataHandler)
       val text = dataImport(dataHandler) + renderedContent
+      text
+    }
+    case p: Page => Document(p).createDocumentText()
+    case g: Graph => Page(g).createDocumentText()
+    case p: PolarGraph => Page(p).createDocumentText()
+    case g: Graph3D => Scene3D(g).createDocumentText()
+    case s: Scene3D => Page(s).createDocumentText()
+    case a: Axis => Graph(a).createDocumentText()
+    case fun: Function => Graph(fun).createDocumentText()
+    case img: ImageFile => Page(img).createDocumentText()
+    case rect: Rectangle => Page(rect).createDocumentText()
+    case el: Ellipse => Page(el).createDocumentText()
+    case line: Line => Page(line).createDocumentText()
+    case poly: Polygon => Page(poly).createDocumentText()
+    case cb: Colorbar => Graph(cb).createDocumentText()
+    case img2d: Image => Graph(img2d).createDocumentText()
+    case con: Contour => Graph(con).createDocumentText()
+    case vec: Vectorfield => Graph(vec).createDocumentText()
+    case cov: Covariance => Graph(cov).createDocumentText()
+    case no: NonOrthPoint => PolarGraph(no).createDocumentText()
+    case bar: Barchart => bar.positions match {
+      case d: DateTime =>
+        val xAxis = XAxis(mode = AxisMode.DateTime)
+        val yAxis = YAxis()
+        Graph(children = bar, axis = Vector(xAxis, yAxis)).createDocumentText()
+      case n: Numerical => Graph(bar).createDocumentText()
+    }
+    case box: Boxplot => Graph(box).createDocumentText()
+    case x => throw new RuntimeException(x + "can not be processed directly")
+  }
+
+
+  def save(fileName: String, outdir: File = new File(Document.OutPath)): Unit = {
+
+      val text = this.createDocumentText()
+
       if (!outdir.exists()) outdir.mkdirs()
       val target = Paths.get(outdir.getAbsolutePath, s"$fileName.vsz")
       val _ = new PrintWriter(target.toFile) {
         write(text); close
       }
+  }
+
+  private def saveTemp(text:String ): File = {
+    val file = File.createTempFile("scalavuesz_", ".vsz")
+    print(file.getAbsolutePath)
+    val _ = new PrintWriter(file) {
+      write(text); close
     }
-    case p: Page => Document(p).save(fileName)
-    case g: Graph => Page(g).save(fileName)
-    case p: PolarGraph => Page(p).save(fileName)
-    case g: Graph3D => Scene3D(g).save(fileName)
-    case s: Scene3D => Page(s).save(fileName)
-    case a: Axis => Graph(a).save(fileName)
-    case fun: Function => Graph(fun).save(fileName)
-    case img: ImageFile => Page(img).save(fileName)
-    case rect: Rectangle => Page(rect).save(fileName)
-    case el: Ellipse => Page(el).save(fileName)
-    case line: Line => Page(line).save(fileName)
-    case poly: Polygon => Page(poly).save(fileName)
-    case cb: Colorbar => Graph(cb).save(fileName)
-    case img2d: Image => Graph(img2d).save(fileName)
-    case con: Contour => Graph(con).save(fileName)
-    case vec: Vectorfield => Graph(vec).save(fileName)
-    case cov: Covariance => Graph(cov).save(fileName)
-    case no: NonOrthPoint => PolarGraph(no).save(fileName)
-    case bar: Barchart => bar.positions match {
-      case d: DateTime =>
-        val xAxis = XAxis(mode = AxisMode.DateTime)
-        val yAxis = YAxis()
-        Graph(children = bar, axis = Vector(xAxis, yAxis)).save(fileName)
-      case n: Numerical => Graph(bar).save(fileName)
-    }
-    case box: Boxplot => Graph(box).save(fileName)
+  //  file.deleteOnExit()
+    file
   }
 
   def show(fileName: String, outdir: File = new File(Document.OutPath)) = {
@@ -171,4 +196,58 @@ trait Executable {
 
     Desktop.getDesktop().open(target.toFile)
   }
+
+
+
+  def export(filename:String, pages:Vector[Int]=Vector(), color:Boolean=true, dpi:Double=100, antialias:Boolean=true, quality:Int=85, backcolor:String="#ffffff00", pdfdpi:Double=150, svgtextastext:Boolean=false): Unit ={
+
+    val exportOptions = {
+      val dpiSettings = "dpi="+dpi
+      val colorSettings = "color=" + (if(color) "True" else "False")
+      val qualityString = "quality="+quality
+
+      val backcolorSettings = "backcolor='"+backcolor+"'"
+
+      val antialiasSettings = "antialias=" + (if(antialias) "True" else "False")
+      val svgAsTextSettings = "svgtextastext="+ (if(svgtextastext) "True" else "False")
+
+
+      val pageSettings = (this) match{
+        case d:Document if pages.length == 0 => s"page=(${(0 until d.children.get.size).mkString(",")})"
+        case d:Document =>  s"page=(${pages.mkString(",")})"
+        case _ => ""
+      }
+
+      val exportOptionsBaseArray = Array(dpiSettings,colorSettings,qualityString,backcolorSettings,antialiasSettings,svgAsTextSettings)
+      val exportOptionsArray = if(pageSettings.length > 0) exportOptionsBaseArray :+ pageSettings else exportOptionsBaseArray
+      exportOptionsArray.mkString(",")
+    }
+
+    val documentText = this.createDocumentText()
+    val exportCommand =
+      s"""
+         |Export("$filename")
+         |Quit()
+         |""".stripMargin
+    val file = saveTemp(documentText + exportCommand)
+    GlobalVueszSettings.veuszPath match {
+      case Some(p) =>
+        val processBuilder = new ProcessBuilder
+
+
+        processBuilder.command(p,s"--export=$filename",s"--export-option=$exportOptions", file.getAbsolutePath)
+        // --export-option=page=$page --export-option= --export-option=
+        val process = processBuilder.start
+
+        val exitCode = process.waitFor
+        System.out.println("\nExited with error code : " + exitCode)
+      case _ => throw new RuntimeException("Veusz Path is not defined. Use GlobalVueszSettings.setPath(\"path\")")
+    }
+
+
+    //Desktop.getDesktop().open(file)
+  }
+
+  def setGlobalVueszPath = GlobalVueszSettings.setPath(_)
+
 }
