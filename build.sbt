@@ -13,7 +13,7 @@ inThisBuild(List(
       "aleph01",
       "Julian Eger-Benninger",
       "",
-      url("")
+      url("http://github.com")
     )
   )
 ))
