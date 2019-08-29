@@ -21,7 +21,7 @@ inThisBuild(List(
 name := "scalaveusz"
 organization := "de.dreambeam"
 
-version := "0.3.7"
+version := "0.3.8-Snapshot"
 
 scalaVersion := "2.12.9"
 

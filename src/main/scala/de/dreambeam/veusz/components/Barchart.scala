@@ -14,7 +14,7 @@ object Barchart {
             xAxis: String,
             yAxis: String,
             name: String): Barchart = {
-    Barchart(lengths, positions, direction, mode, keys, xAxis, yAxis, name)
+   new Barchart(lengths, positions, direction, mode, keys, xAxis, yAxis, name)
   }
 
   def apply(lengths: Vector[Numerical],
@@ -26,7 +26,7 @@ object Barchart {
             yAxis: String = "y",
             name: String = "bar"): Barchart = {
 
-    Barchart(lengths, positions, direction, mode, keys, xAxis, yAxis, name)
+   new Barchart(lengths, positions, direction, mode, keys, xAxis, yAxis, name)
   }
 }
 
