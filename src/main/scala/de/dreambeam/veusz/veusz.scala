@@ -12,6 +12,7 @@ import de.dreambeam.veusz.format._
 
 object GlobalVeuszSettings {
   var veuszPath: String = "veusz"
+  var defaultSaveDirectory = "veusz"
 }
 
 trait DocumentItem extends Item
@@ -43,7 +44,12 @@ trait Configurable
 trait Executable {
   val NewLine = "\n"
 
-  def dataImport(dataHandler: DataHandler) = {
+  /**
+  * writes all data from the datahandler into the vuesz-Document
+    * @param dataHandler
+    * @return
+    */
+  protected def dataImport(dataHandler: DataHandler) = {
     def createNumericTableHeader(d: Numerical) = {
       (if (d.symErrors.isDefined) ",+-" else "") +
         (if (d.negErrors.isDefined) ",-" else "") +
@@ -126,6 +132,11 @@ trait Executable {
       .mkString(newLine)
   }
 
+  /**
+  * adds all requiered parents until a Document is formed
+  * renders this document as .vsz document text
+  * @return
+  */
   protected def createDocumentText(): String = this match {
 
     case document: Document => {
@@ -164,34 +175,59 @@ trait Executable {
     case x            => throw new RuntimeException(x + "can not be processed directly")
   }
 
-  def save(fileName: String, outdir: File = new File(Document.OutPath)): Unit = {
 
+  /**
+  * Save the current object as Veusz Document
+    * @param fileName filename without the vsz extension
+    * @param outdir directory where to save it
+    *               default directory GlobalVeuszSettings.defaultSaveDirectory is the ./vuesz directory
+    *               directory will be created if it does not exist
+    */
+  def save(fileName: String, outdir: File = new File(GlobalVeuszSettings.defaultSaveDirectory)) = {
     val text = this.createDocumentText()
 
     if (!outdir.exists()) outdir.mkdirs()
     val target = Paths.get(outdir.getAbsolutePath, s"$fileName.vsz")
-    val _ = new PrintWriter(target.toFile) {
+    val targetFile = target.toFile
+    val _ = new PrintWriter(targetFile) {
       write(text); close
     }
+    targetFile
   }
 
   private def saveTemp(text: String): File = {
     val file = File.createTempFile("scalavuesz_", ".vsz")
-    print(file.getAbsolutePath)
     val _ = new PrintWriter(file) {
       write(text); close
     }
-    //  file.deleteOnExit()
     file
   }
 
-  def openInVeusz(fileName: String, outdir: File = new File(Document.OutPath)) = {
+  private def saveTemp():File = {
+    val text = this.createDocumentText()
+    saveTemp(text)
+  }
+
+  /**
+    * Save the current object as Veusz Document and open it in Veusz
+    * @param fileName filename without the vsz extension,
+    *                 if filename is empty a temporary file will be created
+    * @param outdir directory where to save it
+    *               default directory GlobalVeuszSettings.defaultSaveDirectory is the ./vuesz directory
+    *               directory will be created if it does not exist
+    */
+  def openInVeusz(fileName: String = "", outdir: File = new File(GlobalVeuszSettings.defaultSaveDirectory)) = {
     if (!outdir.exists()) outdir.mkdirs()
 
-    save(fileName, outdir)
+    val file =
+      if(fileName != "")
+        save(fileName, outdir)
+      else
+        saveTemp()
+
     val target = Paths.get(outdir.getAbsolutePath, s"$fileName.vsz")
 
-    Desktop.getDesktop().open(target.toFile)
+    Desktop.getDesktop().open(file)
   }
 
 
@@ -297,6 +333,10 @@ trait Executable {
     Desktop.getDesktop().open(new File(filename))
   }
 
+  /***
+   * Shurtcut method the set the GlobalVeuszSettings.veuszPath
+    * @param p
+    */
   def setGlobalVeuszPath(p: String) = GlobalVeuszSettings.veuszPath = p
 
 }

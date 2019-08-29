@@ -6,7 +6,7 @@ import de.dreambeam.veusz.util.SizeUnits._
 
 object Document
 {
-  var OutPath = "veusz"
+
   val defaultName = "document"
 
   def apply(name: String = defaultName) = new Document(name, None)

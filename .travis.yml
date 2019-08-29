@@ -7,7 +7,7 @@ before_install:
   - git fetch --tags
   - sudo add-apt-repository ppa:jeremysanders/ppa -y
   - sudo apt-get update -q
-  - sudo install veusz -y
+  - sudo apg-get install veusz -y
 
 
 stages:
