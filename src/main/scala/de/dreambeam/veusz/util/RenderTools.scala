@@ -1,5 +1,7 @@
 package de.dreambeam.veusz.util
 
+import de.dreambeam.veusz.format.SizeUnit
+
 import scala.collection.mutable
 
 object RenderTools {

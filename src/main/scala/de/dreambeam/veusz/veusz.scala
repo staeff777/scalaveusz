@@ -11,6 +11,7 @@ import de.dreambeam.veusz.util.DataHandler
 import de.dreambeam.veusz.format._
 
 
+
 object GlobalVeuszSettings {
   var veuszPath: String = "veusz"
   var defaultSaveDirectory = "veusz"

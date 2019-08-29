@@ -1,8 +1,8 @@
 package de.dreambeam.veusz.components
 
-import de.dreambeam.veusz.util.SizeUnit
-import de.dreambeam.veusz.util.SizeUnits._
-import de.dreambeam.veusz._
+import de.dreambeam.veusz.{Configurable, DocumentItem, Executable, PageItem, Parent}
+import de.dreambeam.veusz.format.SizeUnits._
+import de.dreambeam.veusz.format.SizeUnit
 
 object Page {
 

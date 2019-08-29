@@ -1,8 +1,7 @@
 import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Axis
 import de.dreambeam.veusz.components
 import de.dreambeam.veusz.components.{Axis, Colorbar, Document, Graph, Image, ImageFile, XY}
-import de.dreambeam.veusz.format.{Direction, Positioning}
-import de.dreambeam.veusz.util.SizeUnits._
+import de.dreambeam.veusz._
 import scala.util.Random
 
 object GraphRenderDemo extends App {
@@ -10,6 +9,7 @@ object GraphRenderDemo extends App {
   val xData = (1.0 to 10.0 by 0.5).toVector
   val yLinear = xData.map(_ * 1.25)
   val ySin = xData.map(2 * Math.sin(_) + 5)
+
 
   // create a linear XY Point Plot with Lines
   val xyLinearPlot = XY(xData, yLinear, colorMarkers = yLinear)

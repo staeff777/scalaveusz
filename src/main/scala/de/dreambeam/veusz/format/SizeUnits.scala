@@ -1,4 +1,4 @@
-package de.dreambeam.veusz.util
+package de.dreambeam.veusz.format
 
 import scala.language.implicitConversions
 

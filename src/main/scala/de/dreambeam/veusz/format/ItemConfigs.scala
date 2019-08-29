@@ -1,7 +1,6 @@
 package de.dreambeam.veusz.format
 
-import de.dreambeam.veusz.util.SizeUnit
-import de.dreambeam.veusz.util.SizeUnits._
+import SizeUnits._
 
 object AutoRange extends Enumeration {
   val Exact = Value("exact")

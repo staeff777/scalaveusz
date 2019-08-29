@@ -1,7 +1,7 @@
 package de.dreambeam.veusz.components
 
+import de.dreambeam.veusz.{Configurable, Executable, GridItem, PageItem, Parent, Scene3DItem}
 import de.dreambeam.veusz.format._
-import de.dreambeam.veusz._
 
 object Scene3D {
   def apply: Scene3D = Scene3D()

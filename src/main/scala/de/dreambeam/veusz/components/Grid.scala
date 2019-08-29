@@ -1,8 +1,8 @@
 package de.dreambeam.veusz.components
 
-import de.dreambeam.veusz._
-import de.dreambeam.veusz.util.SizeUnit
-import de.dreambeam.veusz.util.SizeUnits._
+import de.dreambeam.veusz.{Configurable, Executable, GridItem, PageItem, Parent}
+import de.dreambeam.veusz.format.SizeUnit
+import de.dreambeam.veusz.format.SizeUnits._
 
 case class Grid (children: Option[Vector[GridItem]],
                  rows: Int = 2,
