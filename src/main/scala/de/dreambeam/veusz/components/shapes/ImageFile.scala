@@ -12,7 +12,7 @@ case class ImageFile (filename: String,
                       positioning: Positioning.Value = Positioning.Relative,
                       xAxis: String = "x",
                       yAxis: String = "y",
-                      var name: String = "imagefile",
+                      var name: String = "imagefile"
                      )
   extends GraphItem
     with PageItem

@@ -10,6 +10,7 @@ import de.dreambeam.veusz.data.{BoxplotData, DateTime, Numerical, NumericalImage
 import de.dreambeam.veusz.util.DataHandler
 import de.dreambeam.veusz.format._
 
+
 object GlobalVeuszSettings {
   var veuszPath: String = "veusz"
   var defaultSaveDirectory = "veusz"
@@ -66,7 +67,7 @@ trait Executable {
 
       d.data.zipWithIndex.map {
         case (value, i) =>
-          value +
+          value.toString +
             writeOptional(d.symErrors, i) +
             writeOptional(d.negErrors, i) +
             writeOptional(d.posErrors, i)
@@ -172,7 +173,7 @@ trait Executable {
         case n: Numerical => Graph(bar).createDocumentText()
       }
     case box: Boxplot => Graph(box).createDocumentText()
-    case x            => throw new RuntimeException(x + "can not be processed directly")
+    case x            => throw new RuntimeException(s" $x can not be processed directly")
   }
 
 

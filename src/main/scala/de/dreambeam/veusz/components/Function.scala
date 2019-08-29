@@ -8,7 +8,7 @@ case class Function (function: String,
                      key: String = "",
                      min: Option[Double] = None,
                      max: Option[Double] = None,
-                     var name: String = "function",
+                     var name: String = "function"
                      )
   extends GraphItem
     with PolarGraphItem

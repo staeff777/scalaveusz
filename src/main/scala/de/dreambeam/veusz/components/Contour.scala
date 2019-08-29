@@ -12,7 +12,7 @@ case class Contour(dataset: String = "",
                    levelsInKey: Boolean = false,
                    xAxis: String = "x",
                    yAxis: String = "y",
-                   name: String = "contour",
+                   name: String = "contour"
                    )
   extends GraphItem
     with Configurable

@@ -10,7 +10,7 @@ object Boxplot {
   def apply(data: BoxplotData,
             whiskerMode: WhiskerMode.Value = WhiskerMode.IQP15,
             fillFraction: Double = 0.75,
-            name: String = "boxplot",
+            name: String = "boxplot"
             ): Boxplot = {
 
    new Boxplot(data, whiskerMode, fillFraction, name)

@@ -1,12 +1,5 @@
 package de.dreambeam.veusz.data
 
-object Text {
-  def apply(
-             data: Vector[String],
-             name: String = ""
-           ) =
-    new Text(data, name)
-}
 
 case class Text(
                  data: Vector[String],

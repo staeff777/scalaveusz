@@ -1,14 +1,6 @@
 package de.dreambeam.veusz.data
 
 object Numerical {
-  def apply(
-             data: Vector[Double] = Vector.empty,
-             name: String = "",
-             symErrors: Option[Vector[Double]] = None,
-             negErrors: Option[Vector[Double]] = None,
-             posErrors: Option[Vector[Double]] = None
-           ) =
-    new Numerical(data, name, symErrors, negErrors, posErrors)
 
 }
 

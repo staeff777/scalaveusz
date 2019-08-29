@@ -2,11 +2,11 @@ package de.dreambeam.veusz.data
 
 object BoxplotData {
   def apply(data: Vector[Vector[Double]]) =
-    new BoxplotData(data.map(Numerical(_)), Vector.empty)
+    new BoxplotData(data.map(Numerical(_)), Vector.empty, Numerical())
 
   def apply(data: Vector[Vector[Double]],
             labels: Vector[String]) =
-    new BoxplotData(data.map(Numerical(_)), labels)
+    new BoxplotData(data.map(Numerical(_)), labels, Numerical())
 
   def apply(data: Vector[Vector[Double]],
             labels: Vector[String],
@@ -22,7 +22,7 @@ object BoxplotData {
 
 case class BoxplotData(data: Vector[Numerical],
                        labels: Vector[String],
-                       positions: Numerical = Numerical(),
+                       positions: Numerical,
                        name: String = "") extends Data
 {
   override def hashCode(): Int = data.hashCode()

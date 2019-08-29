@@ -1,5 +1,7 @@
 package de.dreambeam.veusz.util
 
+import scala.language.implicitConversions
+
 trait SizeUnit {
   def value: Double
   def unit: String

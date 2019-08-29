@@ -11,7 +11,7 @@ case class Ellipse (xPositions: Vector[Double] = Vector(0.5),
                     positionMode: Positioning.Value = Positioning.Relative,
                     xAxis: String = "x",
                     yAxis: String = "y",
-                    var name: String = "ellipse",
+                    var name: String = "ellipse"
                    )
     extends PageItem
       with Configurable

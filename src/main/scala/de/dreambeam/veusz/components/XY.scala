@@ -13,7 +13,7 @@ object XY {
             keyText: String = "",
             xAxis: String = "x",
             yAxis: String = "y",
-            name: String = "xy",
+            name: String = "xy"
            ): XY = {
     XY(Numerical(x), Numerical(y), Numerical(scaleMarkers), Numerical(colorMarkers), keyText, xAxis, yAxis, name, XYConfig())
   }

@@ -26,7 +26,7 @@ case class Image(dataset: NumericalImage,
                  keyText: String,
                  xAxis: String,
                  yAxis: String,
-                 name: String,
+                 name: String
                 )
   extends GraphItem
     with Configurable

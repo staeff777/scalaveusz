@@ -6,6 +6,7 @@ import java.time.temporal.ChronoField
 import java.util.Calendar
 
 import scala.collection.immutable.ListMap
+import scala.language.implicitConversions
 
 object DateTimeConstructor {
 

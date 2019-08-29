@@ -251,7 +251,7 @@ case class BarchartMainConfig(
                               )
 
 case class BarchartFillConfig(
-                        var fillStyles: Vector[(FillStyle.Value, String, Boolean)] = Vector((FillStyle.Solid, Colors.Grey, false)),
+                        var fillStyles: Vector[(FillStyle.Value, String, Boolean)] = Vector((FillStyle.Solid, Colors.Grey, false))
                         )
 
 case class BarchartLineConfig(
@@ -391,7 +391,7 @@ case class Axis3DMinorTicksConfig(
                                    var reflectivity: Int = 0,
                                    var hide: Boolean = false,
                                    var length: Double = 20.0,
-                                   var number: Int = 6,
+                                   var number: Int = 6
                                  )
 
 case class Axis3DMajorGridLinesConfig(
@@ -400,7 +400,7 @@ case class Axis3DMajorGridLinesConfig(
                                       var style: String = LineStyle.Solid,
                                       var transparency: Int = 0,
                                       var reflectivity: Int = 0,
-                                      var hide: Boolean = true,
+                                      var hide: Boolean = true
                                       )
 
 case class Axis3DMinorGridLinesConfig(
@@ -409,7 +409,7 @@ case class Axis3DMinorGridLinesConfig(
                                       var style: String = LineStyle.Solid,
                                       var transparency: Int = 0,
                                       var reflectivity: Int = 0,
-                                      var hide: Boolean = true,
+                                      var hide: Boolean = true
                                       )
 
 case class KeyMainConfig(var hide: Boolean = false,
@@ -549,7 +549,7 @@ case class RadialTickLabelsConfig(
                              var format: TickLabelFormat.Value = TickLabelFormat.Auto,
                              var scale: Double = 1.0,
                              var hideRadial: Boolean = false,
-                             var hideSpokes: Boolean = false,
+                             var hideSpokes: Boolean = false
                            )
 
 case class RadialTicksConfig(
@@ -558,7 +558,7 @@ case class RadialTicksConfig(
                              var style: String = LineStyle.Solid,
                              var transparency: Int = 0,
                              var hide: Boolean = false,
-                             var number: Int = 6,
+                             var number: Int = 6
                            )
 
 
@@ -566,7 +566,7 @@ case class NonOrthMainConfig(
                               var markerType: MarkerType.Value = MarkerType.Circle,
                               var markerSize: SizeUnit = 3 pt,
                               var color: String = Colors.Auto,
-                              var hide: Boolean = false,
+                              var hide: Boolean = false
                             )
 
 case class NonOrthFillConfig(var color: String = "foreground",

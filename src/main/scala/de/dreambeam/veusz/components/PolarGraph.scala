@@ -54,7 +54,7 @@ object PolarGraph {
             direction: PolarDirection.Value,
             positionOf0: PolarPositionOf0.Value,
             log: Boolean,
-            children: PolarGraphItem*): PolarGraph = PolarGraph(name, minRadius, maxRadius, unit, direction, positionOf0, log, children = Some(children.toVector))
+            children: PolarGraphItem*): PolarGraph = new PolarGraph(name, minRadius, maxRadius, unit, direction, positionOf0, log, children = Some(children.toVector))
 
 
   def apply(name: String = PolarGraph.defaultName,
@@ -79,7 +79,7 @@ case class PolarGraph(var name: String,
                       var direction: PolarDirection.Value,
                       var positionOf0: PolarPositionOf0.Value,
                       var log: Boolean,
-                      children: Option[Vector[PolarGraphItem]] = None
+                      children: Option[Vector[PolarGraphItem]]
                      ) extends PageItem
   with GridItem
   with Configurable
