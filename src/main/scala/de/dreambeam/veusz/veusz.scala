@@ -194,6 +194,24 @@ trait Executable {
     Desktop.getDesktop().open(target.toFile)
   }
 
+
+  /**
+  * Export to on image file
+    *
+    * To be able to use the export command, you need to have 'vuesz' in your \n Path settings or you can set an absolte path at 'GlobalVeuszSettings.veuszPath
+    *
+    * @param filename  the file extension defines the format (PDF, SVG, EMF, PNG, JPG, BMP, TIFF, XMP)
+    * @param pages Page Numbers starting from 0, starting from 0 (empty Vector means all pages) only works for PDF
+    * @param color use colors
+    * @param dpi resolution for images
+    * @param antialias
+    * @param quality JPG quality
+    * @param backcolor BG Color in #FFFFFF - Format
+    * @param pdfdpi PDF resolution
+    * @param svgtextastext Editable Text in SVG
+    * @param waitForProcess wait until export process is finished
+    * @return process
+    */
   def export(filename: String,
              pages: Vector[Int] = Vector(),
              color: Boolean = true,
@@ -253,6 +271,19 @@ trait Executable {
     }
   }
 
+  /**
+    * Export to on image file and open it using the default viewer
+    * @param filename  the file extension defines the format (PDF, SVG, EMF, PNG, JPG, BMP, TIFF, XMP)
+    * @param pages Page Numbers starting from 0, starting from 0 (empty Vector means all pages) only works for PDF
+    * @param color use colors
+    * @param dpi resolution for images
+    * @param antialias
+    * @param quality JPG quality
+    * @param backcolor BG Color in #FFFFFF - Format
+    * @param pdfdpi PDF resolution
+    * @param svgtextastext Editable Text in SVG
+    * @return
+    */
   def exportAndOpen(filename: String,
                     pages: Vector[Int] = Vector(),
                     color: Boolean = true,
