@@ -10,7 +10,7 @@ inThisBuild(List(
       url("http://dreambeam.de")
     ),
     Developer(
-      "Julian",
+      "aleph01",
       "Julian Eger-Benninger",
       "",
       url("")
@@ -21,7 +21,7 @@ inThisBuild(List(
 name := "scalaveusz"
 organization := "de.dreambeam"
 
-version := "0.3.6"
+version := "0.3.6-SNAPSHOT"
 
 scalaVersion := "2.12.9"
 
