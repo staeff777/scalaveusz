@@ -32,7 +32,7 @@ object Graph {
   val $Function = Function
   val $Boxplot = Boxplot
   val $Image = Image
-  val $Contour = Contour
+  val $Contour = Contours
   val $Vectorfield = Vectorfield
   val $Label = Label
   val $Colorbar = Colorbar

@@ -161,7 +161,7 @@ trait Executable {
     case poly: Polygon    => Page(poly).createDocumentText()
     case cb: Colorbar     => Graph(cb).createDocumentText()
     case img2d: Image     => Graph(img2d).createDocumentText()
-    case con: Contour     => Graph(con).createDocumentText()
+    case con: Contours     => Graph(con).createDocumentText()
     case vec: Vectorfield => Graph(vec).createDocumentText()
     case cov: Covariance  => Graph(cov).createDocumentText()
     case no: NonOrthPoint => PolarGraph(no).createDocumentText()

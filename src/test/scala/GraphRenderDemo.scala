@@ -1,8 +1,4 @@
-import com.sun.org.apache.xerces.internal.impl.xpath.XPath.Axis
-import de.dreambeam.veusz.components
-import de.dreambeam.veusz.components.{Axis, Colorbar, Document, Graph, Image, ImageFile, XY}
 import de.dreambeam.veusz._
-import scala.util.Random
 
 object GraphRenderDemo extends App {
   // XY Plots use 2 one-dimensional datasets
@@ -12,26 +8,27 @@ object GraphRenderDemo extends App {
 
 
   // create a linear XY Point Plot with Lines
-  val xyLinearPlot = XY(xData, yLinear, colorMarkers = yLinear)
+  val xyLinearPlot = GraphItems.XY(xData, yLinear, colorMarkers = yLinear)
   xyLinearPlot.config.plotLine.color = "darkblue"
   xyLinearPlot.config.markerFill.color = "blue"
   xyLinearPlot.config.colorConfig.min = 0
   xyLinearPlot.config.colorConfig.max = 10
   // create a sinus XY Point Plot with Lines
-  val xySinusPlot = XY(xData, ySin)
+  val xySinusPlot = GraphItems.XY(xData, ySin)
   xySinusPlot.config.plotLine.color = "darkred"
   xySinusPlot.config.markerFill.color = "red"
 
 
-  val img = ImageFile("C:/temp/1.png", Vector(4.5303), Vector(4.2213), Vector(0.8614), Vector(0.64532), rotate = 75, positioning = Positioning.Axes)
+  val img = GraphItems.Shapes.ImageFile("C:/temp/1.png", Vector(4.5303), Vector(4.2213), Vector(0.8614), Vector(0.64532), rotate = 75, positioning = Positioning.Axes)
 
-  val cb = Colorbar(widget = "xy", "label")
+  //Todo colorbar is not working
+  val cb = GraphItems.Colorbar(widget = "xy", "label")
   cb.config.main.height = Some(1.0 cm)
 
   // put both XY Plots into a Graph
-  val xAxis = components.XAxis("X", min=Some(1), max=Some(9))
-  val yAxis = components.YAxis("Y")
-  val graph = Graph(Vector(xAxis, yAxis),xyLinearPlot, xySinusPlot, img, cb)
+  val xAxis = GraphItems.XAxis("X", min=Some(1), max=Some(9))
+  val yAxis = GraphItems.YAxis("Y")
+  val graph = PageItems.Graph(Vector(xAxis, yAxis),xyLinearPlot, xySinusPlot, img, cb)
 
   /*
   graph.axis(0).label = "X Axis" //Axis can also be defined in the Graph constructor

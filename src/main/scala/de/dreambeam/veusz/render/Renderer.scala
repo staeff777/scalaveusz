@@ -107,7 +107,7 @@ class Renderer(dataHandler: DataHandler) {
     case poly: Polygon    => render(poly)
     case line: Line       => render(line)
     case cb: Colorbar     => render(cb)
-    case cont: Contour    => render(cont)
+    case cont: Contours    => render(cont)
     case vec: Vectorfield => render(vec)
     case cov: Covariance  => render(cov)
     case no: NonOrthPoint => render(no)
@@ -748,7 +748,7 @@ class Renderer(dataHandler: DataHandler) {
 
      """.stripMargin
 
-  def render(cont: Contour) = {
+  def render(cont: Contours) = {
 
     val manualLevels = cont.manualLevels match {
       case Some(ml) => s"Set('levelsManual', [${ml.asInstanceOf[Vector[Int]].mkString(", ")}])"
