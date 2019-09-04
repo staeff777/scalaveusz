@@ -3,8 +3,8 @@ package de.dreambeam.vuesz
 import java.io.File
 
 import de.dreambeam.veusz._
-import de.dreambeam.veusz.data.{BoxplotData, Numerical}
-import de.dreambeam.veusz.format.BarchartFillConfig
+import de.dreambeam.veusz.components.Image
+import de.dreambeam.veusz.data.Numerical
 import org.scalatest._
 
 import scala.util.Random
@@ -57,6 +57,20 @@ class GraphItemTest extends FlatSpec with Matchers {
     file.delete()
   }
 
+  it should "render an Image" in {
+    val dataset = (for (x <- 0 until 100; y <- 0 until 100) yield
+      (x.toDouble, y.toDouble) -> (x + y).toDouble
+      ).toMap
+
+    val img2d = Image(dataset)
+    img2d.config.colorMap = "heat"
+    img2d.config.invertColormap = true
+    val file = new File("veusz/image.svg")
+    img2d.export(file.getAbsolutePath)
+    file should exist
+    file.delete()
+  }
+
   it should "render a Vectorfield" in {
     val dataset = (for (x <- 0 until 10; y <- 0 until 10) yield
       (x.toDouble, y.toDouble) -> ((x + y).toDouble/10)
@@ -75,4 +89,5 @@ class GraphItemTest extends FlatSpec with Matchers {
     file.delete()
   }
 
+  //TODO Fit
 }

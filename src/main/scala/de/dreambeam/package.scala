@@ -21,12 +21,16 @@ package object veusz {
   val ColorMaps = de.dreambeam.veusz.format.ColorMaps
 
   // provide quick access to enums and prefined values
+
+
+
   val FillStyle = de.dreambeam.veusz.format.FillStyle
   val FillTo = de.dreambeam.veusz.format.FillTo
 
   val LineSteps = de.dreambeam.veusz.format.LineSteps
   val LineStyle = de.dreambeam.veusz.format.LineStyle
 
+  val BarchartFillConfig = de.dreambeam.veusz.format.BarchartFillConfig
   val BarchartMode = de.dreambeam.veusz.format.BarchartMode
   val Positioning = de.dreambeam.veusz.format.Positioning
   val VectorfieldMode = de.dreambeam.veusz.format.VectorfieldMode
@@ -102,6 +106,8 @@ package object veusz {
     val XAxis = veusz.components.XAxis
     val YAxis = veusz.components.XAxis
   }
+
+  val BoxplotData = data.BoxplotData
 
   object PolarItems {
     val Colorbar = veusz.components.Colorbar
