@@ -136,6 +136,7 @@ object ArrowType extends Enumeration {
   val Bar = Value("bar")
   val LineCross = Value("linecross")
   val Asterisk = Value("asterisk")
+
 }
 
 object NonOrthFillType extends Enumeration {

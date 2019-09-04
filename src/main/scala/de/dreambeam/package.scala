@@ -92,7 +92,7 @@ package object veusz {
     val BarChart = veusz.components.Barchart
     val Function = veusz.components.Function
     //TODO val Fit = veusz.components.Fit
-    val BoxPlot = veusz.components.Boxplot
+    val Boxplot = veusz.components.Boxplot
     val Image = veusz.components.Image
     val Contours = veusz.components.Contours
     val VectorField = veusz.components.Vectorfield

@@ -4,3 +4,4 @@ target/
 *.pdf
 *.csv
 RegressOutput*.txt
+veusz/*

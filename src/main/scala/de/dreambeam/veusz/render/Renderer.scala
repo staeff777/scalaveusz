@@ -867,10 +867,19 @@ class Renderer(dataHandler: DataHandler) {
        |
      """.stripMargin
 
-  def render(vec: Vectorfield) =
+  def render(vec: Vectorfield) = {
+    val dxName = dataHandler.uniqueReference(vec.dxOrR, "")
+    val dyName = dataHandler.uniqueReference(vec.dyOrTheta, "")
     s"""
        |# Vectorfield Formatting
-       |
+       |${R.render("data1", dxName)}
+       |${R.render("data2", dyName)}
+       |${R.render("mode", vec.mode)}
+       |${R.render("rotate", vec.rotate)}
+       |${R.render("reflectx", vec.reflectX)}
+       |${R.render("reflecty", vec.reflectY)}
+       |${R.render("xAxis", vec.xAxis)}
+       |${R.render("yAxis", vec.yAxis)}
        |${R.render("baselength", vec.config.main.baseLength)}
        |${R.render("arrowsize", vec.config.main.arrowSize)}
        |${R.render("scalearrow", vec.config.main.scaleArrow)}
@@ -882,6 +891,7 @@ class Renderer(dataHandler: DataHandler) {
        |
        |${renderFillConfig(vec.config.fill)}
      """.stripMargin
+  }
 
   def render(cov: Covariance) =
     s"""
