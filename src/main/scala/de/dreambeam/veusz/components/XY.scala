@@ -33,13 +33,13 @@ object XY {
   }
 }
 
-case class XY(x: Data,
-              y: Data,
-              scaleMarkers: Numerical,
-              colorMarkers: Numerical,
-              keyText: String,
-              xAxis: String,
-              yAxis: String,
+case class XY(var x: Data,
+              var y: Data,
+              var scaleMarkers: Numerical,
+              var colorMarkers: Numerical,
+              var keyText: String,
+              var xAxis: String,
+              var yAxis: String,
               var name: String,
               var config: XYConfig)
   extends GraphItem

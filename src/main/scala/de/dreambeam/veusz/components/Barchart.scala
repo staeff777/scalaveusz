@@ -6,28 +6,31 @@ import de.dreambeam.veusz.format._
 
 object Barchart {
 
-  def apply(lengths: Vector[Numerical],
-            positions: DateTime,
-            direction: Direction.Value,
-            mode: BarchartMode.Value,
-            keys: Vector[String],
-            xAxis: String,
-            yAxis: String,
-            name: String): Barchart = {
-   new Barchart(lengths, positions, direction, mode, keys, xAxis, yAxis, name)
+  def fromSimpleLengthsVector(lengths: Vector[Double],
+                              positions: Vector[Double],
+                              direction: Direction.Value = Direction.Vertical,
+                              mode: BarchartMode.Value = BarchartMode.Grouped,
+                              keys: Vector[String] = Vector.empty,
+                              xAxis: String = "x",
+                              yAxis: String = "y",
+                              name: String = "bar") = {
+    val numLengths = Vector(Numerical(lengths))
+    new Barchart(numLengths, Numerical(positions), direction, mode, keys, xAxis, yAxis, name)
   }
 
-  def apply(lengths: Vector[Numerical],
-            positions: Numerical,
+  def apply(lengths: Vector[Vector[Double]],
+            positions: Vector[Double],
             direction: Direction.Value = Direction.Vertical,
-            mode: BarchartMode.Value = BarchartMode.Stacked,
-            keys: Vector[String] = Vector(""),
+            mode: BarchartMode.Value = BarchartMode.Grouped,
+            keys: Vector[String] = Vector.empty,
             xAxis: String = "x",
             yAxis: String = "y",
-            name: String = "bar"): Barchart = {
-
-   new Barchart(lengths, positions, direction, mode, keys, xAxis, yAxis, name)
+            name: String = "bar"
+           ): Barchart = {
+    val numLengths = lengths.map(l => Numerical(l))
+    new Barchart(numLengths, Numerical(positions), direction, mode, keys, xAxis, yAxis, name)
   }
+
 }
 
 case class Barchart(lengths: Vector[Numerical],
@@ -46,7 +49,7 @@ case class Barchart(lengths: Vector[Numerical],
   var config = BarchartConfig()
 }
 
-case class BarchartConfig(main: BarchartMainConfig = BarchartMainConfig(),
-                          fill: BarchartFillConfig = BarchartFillConfig(),
-                          line: BarchartLineConfig = BarchartLineConfig(),
-                          errorBarLine: BarchartErrorBarLineConfig = BarchartErrorBarLineConfig())
+case class BarchartConfig(var main: BarchartMainConfig = BarchartMainConfig(),
+                          var fill: Vector[BarchartFillConfig] = Vector(BarchartFillConfig()),
+                          var line: Vector[BarchartLineConfig] = Vector(BarchartLineConfig()),
+                          var errorBarLine: BarchartErrorBarLineConfig = BarchartErrorBarLineConfig())

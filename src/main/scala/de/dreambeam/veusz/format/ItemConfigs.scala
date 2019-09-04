@@ -64,7 +64,7 @@ case class GraphMainConfig(
 
 case class BackgroundConfig(
                             var color: String = Colors.Background,
-                            var style: FillStyle.Value = FillStyle.Solid,
+                            var style: String = FillStyle.Solid,
                             var hide: Boolean = false,
                             var transparency: Int = 0
                             )
@@ -190,7 +190,7 @@ case class MarkerBorderConfig(
 
 case class MarkerFillConfig(
                              var color: String = Colors.Auto,
-                             var style: FillStyle.Value = FillStyle.Solid,
+                             var style: String = FillStyle.Solid,
                              var transparency: Int = 0,
                              var hide: Boolean = false,
                              var colorMap: String  = ColorMaps.Grey,
@@ -210,7 +210,7 @@ case class XYErrorBarLineConfig(
 
 case class XYFillConfig(var fillTo: FillTo.Value,
                         var color: String = Colors.Grey,
-                        var style: FillStyle.Value = FillStyle.Solid,
+                        var style: String = FillStyle.Solid,
                         var hide: Boolean = true,
                         var transparency: Int = 0,
                         var hideError: Boolean = false)
@@ -237,7 +237,7 @@ case class FunctionMainConfig(
 
 case class FillConfig(
                       var color: String = Colors.Background,
-                      var style: FillStyle.Value = FillStyle.Solid,
+                      var style: String = FillStyle.Solid,
                       var hide: Boolean = false,
                       var transparency: Int = 0
                      )
@@ -249,13 +249,11 @@ case class BarchartMainConfig(
                               var errorStyle: ErrorType.Value = ErrorType.Bar
                               )
 
-case class BarchartFillConfig(
-                        var fillStyles: Vector[(FillStyle.Value, String, Boolean)] = Vector((FillStyle.Solid, Colors.Grey, false))
-                        )
+case class BarchartFillConfig(style: String = FillStyle.Solid, color: String = Colors.Grey, hide: Boolean = false )
 
-case class BarchartLineConfig(
-                        var lineStyles: Vector[(String, SizeUnit, String, Boolean)] = Vector((LineStyle.Solid, 0.5 pt, Colors.Black, false))
-                        )
+
+case class BarchartLineConfig(style: String = LineStyle.Solid, size: SizeUnit = 0.5 pt, color: String = Colors.Black, hide: Boolean = false)
+
 
 case class BarchartErrorBarLineConfig(
                                       var color: String = Colors.Foreground,
@@ -278,7 +276,7 @@ case class BoxplotMainConfig(
 
 case class BoxplotFillConfig(
                          var color: String = Colors.Background,
-                         var style: FillStyle.Value = FillStyle.Solid,
+                         var style: String = FillStyle.Solid,
                          var hide: Boolean = false,
                          var transparency: Int = 0,
                          var advanced: AdvancedFillStyleConfig = null
@@ -498,7 +496,7 @@ case class ContourLinesConfig(
                              )
 
 case class ContourFillConfig(
-                             var fillStyles: Vector[(FillStyle.Value, String, Boolean)] = Vector((FillStyle.Solid, Colors.Black, false)),
+                             var fillStyles: Vector[(String, String, Boolean)] = Vector((FillStyle.Solid, Colors.Black, false)),
                              var hide: Boolean = false
                              )
 
@@ -569,7 +567,7 @@ case class NonOrthMainConfig(
                             )
 
 case class NonOrthFillConfig(var color: String = "foreground",
-                             var style: FillStyle.Value = FillStyle.Solid,
+                             var style: String = FillStyle.Solid,
                              var transparency: Int = 0,
                              var fillType: NonOrthFillType.Value = NonOrthFillType.Center,
                              var hide: Boolean = true

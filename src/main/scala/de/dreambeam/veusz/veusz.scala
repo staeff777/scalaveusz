@@ -164,6 +164,7 @@ trait Executable {
     case con: Contours     => Graph(con).createDocumentText()
     case vec: Vectorfield => Graph(vec).createDocumentText()
     case cov: Covariance  => Graph(cov).createDocumentText()
+    case xy: XY           => Graph(xy).createDocumentText()
     case no: NonOrthPoint => PolarGraph(no).createDocumentText()
     case bar: Barchart =>
       bar.positions match {
@@ -177,6 +178,18 @@ trait Executable {
     case x            => throw new RuntimeException(s" $x can not be processed directly")
   }
 
+  /**
+    * Save the current object as Veusz Document
+    * @param file file object
+    */
+  def saveAsVuesz(file: File) = {
+    val text = this.createDocumentText()
+
+    val _ = new PrintWriter(file) {
+      write(text); close
+    }
+    file
+  }
 
   /**
   * Save the current object as Veusz Document
@@ -185,7 +198,7 @@ trait Executable {
     *               default directory GlobalVeuszSettings.defaultSaveDirectory is the ./vuesz directory
     *               directory will be created if it does not exist
     */
-  def save(fileName: String, outdir: File = new File(GlobalVeuszSettings.defaultSaveDirectory)) = {
+  def saveAsVuesz(fileName: String, outdir: File = new File(GlobalVeuszSettings.defaultSaveDirectory)) = {
     val text = this.createDocumentText()
 
     if (!outdir.exists()) outdir.mkdirs()
@@ -219,12 +232,13 @@ trait Executable {
     *               directory will be created if it does not exist
     */
   def openInVeusz(fileName: String = "", outdir: File = new File(GlobalVeuszSettings.defaultSaveDirectory)) = {
-    if (!outdir.exists()) outdir.mkdirs()
+
 
     val file =
-      if(fileName != "")
-        save(fileName, outdir)
-      else
+      if(fileName != "") {
+        if (!outdir.exists()) outdir.mkdirs()
+        saveAsVuesz(fileName, outdir)
+      } else
         saveTemp()
 
     val target = Paths.get(outdir.getAbsolutePath, s"$fileName.vsz")
@@ -238,7 +252,7 @@ trait Executable {
     *
     * To be able to use the export command, you need to have 'vuesz' in your \n Path settings or you can set an absolte path at 'GlobalVeuszSettings.veuszPath
     *
-    * @param filename  the file extension defines the format (PDF, SVG, EMF, PNG, JPG, BMP, TIFF, XMP)
+    * @param filePath  the file extension defines the format (PDF, SVG, EMF, PNG, JPG, BMP, TIFF, XMP)
     * @param pages Page Numbers starting from 0, starting from 0 (empty Vector means all pages) only works for PDF
     * @param color use colors
     * @param dpi resolution for images
@@ -250,7 +264,7 @@ trait Executable {
     * @param waitForProcess wait until export process is finished
     * @return process
     */
-  def export(filename: String,
+  def export(filePath: String,
              pages: Vector[Int] = Vector(),
              color: Boolean = true,
              dpi: Double = 100,
@@ -286,14 +300,14 @@ trait Executable {
     val documentText = this.createDocumentText()
     val exportCommand =
       s"""
-         |Export("$filename")
+         |Export("$filePath")
          |Quit()
          |""".stripMargin
     val file = saveTemp(documentText + exportCommand)
 
     try {
       val processBuilder = new ProcessBuilder
-      processBuilder.command(GlobalVeuszSettings.veuszPath, s"--export=$filename", s"--export-option=$exportOptions", file.getAbsolutePath)
+      processBuilder.command(GlobalVeuszSettings.veuszPath, s"--export=$filePath", s"--export-option=$exportOptions", file.getAbsolutePath)
       val process = processBuilder.start
       if (waitForProcess) process.waitFor
       process
@@ -309,7 +323,7 @@ trait Executable {
 
   /**
     * Export to on image file and open it using the default viewer
-    * @param filename  the file extension defines the format (PDF, SVG, EMF, PNG, JPG, BMP, TIFF, XMP)
+    * @param filePath  the file extension defines the format (PDF, SVG, EMF, PNG, JPG, BMP, TIFF, XMP)
     * @param pages Page Numbers starting from 0, starting from 0 (empty Vector means all pages) only works for PDF
     * @param color use colors
     * @param dpi resolution for images
@@ -320,7 +334,7 @@ trait Executable {
     * @param svgtextastext Editable Text in SVG
     * @return
     */
-  def exportAndOpen(filename: String,
+  def exportAndOpen(filePath: String,
                     pages: Vector[Int] = Vector(),
                     color: Boolean = true,
                     dpi: Double = 100,
@@ -329,8 +343,8 @@ trait Executable {
                     backcolor: String = "#ffffff00",
                     pdfdpi: Double = 150,
                     svgtextastext: Boolean = false): Unit = {
-    export(filename, pages, color, dpi, antialias, quality, backcolor, pdfdpi, svgtextastext)
-    Desktop.getDesktop().open(new File(filename))
+    export(filePath, pages, color, dpi, antialias, quality, backcolor, pdfdpi, svgtextastext)
+    Desktop.getDesktop().open(new File(filePath))
   }
 
   /***

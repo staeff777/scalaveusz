@@ -1,19 +1,19 @@
 package de.dreambeam.veusz.format
 
-object FillStyle extends Enumeration {
-  val Solid = Value("solid")
-  val Horizontal = Value("horizontal")
-  val Vertical = Value("vertical")
-  val Cross = Value("cross")
-  val Forwarddiagonals = Value("forward diagonals")
-  val Backwarddiagonals = Value("backward diagonals")
-  val Percent94 = Value("94% dense")
-  val Percent88 = Value("88% dense")
-  val Percent63 = Value("63% dense")
-  val Percent50 = Value("50% dense")
-  val Percent37 = Value("37% dense")
-  val Percent12 = Value("12% dense")
-  val Percent6 = Value("6% dense")
+object FillStyle {
+  val Solid = "solid"
+  val Horizontal = "horizontal"
+  val Vertical = "vertical"
+  val Cross = "cross"
+  val Forwarddiagonals = "forward diagonals"
+  val Backwarddiagonals = "backward diagonals"
+  val Percent94 = "94% dense"
+  val Percent88 = "88% dense"
+  val Percent63 = "63% dense"
+  val Percent50 = "50% dense"
+  val Percent37 = "37% dense"
+  val Percent12 = "12% dense"
+  val Percent6 = "6% dense"
 }
 
 object FillTo extends Enumeration {

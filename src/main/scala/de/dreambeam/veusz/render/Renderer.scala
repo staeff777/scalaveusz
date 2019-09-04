@@ -593,15 +593,15 @@ class Renderer(dataHandler: DataHandler) {
   // TODO
   def render(bar: Barchart) = {
 
-    val fills = bar.config.fill.fillStyles
+    val fills = bar.config.fill
       .map {
-        case (fillStyle, color, enable) => (s"'$fillStyle'", s"'$color'", s"${R.getBool(enable)}")
+        case BarchartFillConfig(fillStyle, color, enable) => (s"'$fillStyle'", s"'$color'", s"${R.getBool(enable)}")
       }
       .mkString(", ")
 
-    val lines = bar.config.line.lineStyles
+    val lines = bar.config.line
       .map {
-        case (lineStyle, size, color, enable) => (s"'$lineStyle'", s"'$size'", s"'$color'", s"${R.getBool(enable)}")
+        case BarchartLineConfig(lineStyle, size, color, enable) => (s"'$lineStyle'", s"'$size'", s"'$color'", s"${R.getBool(enable)}")
       }
       .mkString(", ")
 
