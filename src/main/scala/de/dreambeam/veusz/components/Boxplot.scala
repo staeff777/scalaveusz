@@ -34,7 +34,7 @@ case class Boxplot(data: BoxplotData,
 case class BoxplotConfig(main: BoxplotMainConfig = BoxplotMainConfig(),
                          fill: BoxplotFillConfig = BoxplotFillConfig(),
                          border: BorderConfig = BorderConfig(),
-                         whiskerLine: de.dreambeam.veusz.format.LineConfig = de.dreambeam.veusz.format.LineConfig(),
+                         whiskerLine: de.dreambeam.veusz.format.LineStyleConfig = de.dreambeam.veusz.format.LineStyleConfig(),
                          markersBorder: BorderConfig = BorderConfig(),
                          markersFill: BackgroundConfig = BackgroundConfig()
                          )

@@ -52,7 +52,7 @@ package object veusz {
     val GraphItems = veusz.GraphItems
     val PolarItems = veusz.PolarItems
     val Scene3DItems = veusz.Scene3DItems
-    val graph3DItems = veusz.Graph3DItems
+    val Graph3DItems = veusz.Graph3DItems
   }
 
   object DocumentItems{
@@ -112,6 +112,7 @@ package object veusz {
   object PolarItems {
     val Colorbar = veusz.components.Colorbar
     val NonOrthPoint = veusz.components.NonOrthPoint
+    val NonOrthFunction = veusz.components.NonOrthFunction
     //TODO val NonOrthFunction = veusz.components.NonOrthFunction
   }
 

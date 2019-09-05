@@ -85,7 +85,7 @@ case class AxisMainConfig(
                          var outerTicks: Boolean = false
                          )
 
-case class LineConfig(
+case class LineStyleConfig(
                          var color: String = Colors.Foreground,
                          var width: SizeUnit = 0.5 pt,
                          var style: String = LineStyle.Solid,

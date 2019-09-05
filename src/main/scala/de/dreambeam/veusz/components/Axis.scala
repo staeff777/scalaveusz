@@ -24,7 +24,7 @@ case class Axis (var label: String = "",
 }
 
 case class AxisConfig(main: AxisMainConfig = AxisMainConfig(),
-                      axisLine: de.dreambeam.veusz.format.LineConfig = de.dreambeam.veusz.format.LineConfig(),
+                      axisLine: de.dreambeam.veusz.format.LineStyleConfig = de.dreambeam.veusz.format.LineStyleConfig(),
                       axisLabel: de.dreambeam.veusz.format.LabelConfig = de.dreambeam.veusz.format.LabelConfig(),
                       tickLabels: TickLabelsConfig = TickLabelsConfig(),
                       majorTicks: MajorTicksConfig = MajorTicksConfig(),

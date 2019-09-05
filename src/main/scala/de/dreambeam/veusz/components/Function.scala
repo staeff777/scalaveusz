@@ -21,7 +21,7 @@ case class Function (function: String,
 
 case class FunctionConfig(var notes: String = "",
                           main: FunctionMainConfig = FunctionMainConfig(),
-                          plotLine: de.dreambeam.veusz.format.LineConfig = de.dreambeam.veusz.format.LineConfig(Colors.Auto),
+                          plotLine: de.dreambeam.veusz.format.LineStyleConfig = de.dreambeam.veusz.format.LineStyleConfig(Colors.Auto),
                           fillBelow: FillConfig = FillConfig(hide=true),
                           fillAbove: FillConfig = FillConfig(hide=true)
                          )

@@ -38,7 +38,7 @@ case class Colorbar(widget: String,
 }
 
 case class ColorbarConfig(main: ColorBarMainConfig = ColorBarMainConfig(),
-                          axisLine: de.dreambeam.veusz.format.LineConfig = de.dreambeam.veusz.format.LineConfig(),
+                          axisLine: de.dreambeam.veusz.format.LineStyleConfig = de.dreambeam.veusz.format.LineStyleConfig(),
                           axisLabel: de.dreambeam.veusz.format.LabelConfig = de.dreambeam.veusz.format.LabelConfig(),
                           tickLabels: TickLabelsConfig = TickLabelsConfig(),
                           majorTicks: MajorTicksConfig = MajorTicksConfig(),
@@ -46,6 +46,6 @@ case class ColorbarConfig(main: ColorBarMainConfig = ColorBarMainConfig(),
                           majorGridLines: MajorGridLinesConfig = MajorGridLinesConfig(),
                           minorGridLines: MinorGridLinesConfig = MinorGridLinesConfig(),
                           border: BorderConfig = BorderConfig(),
-                          whiskerLine: de.dreambeam.veusz.format.LineConfig = de.dreambeam.veusz.format.LineConfig(),
+                          whiskerLine: de.dreambeam.veusz.format.LineStyleConfig = de.dreambeam.veusz.format.LineStyleConfig(),
                           markersBorder: BorderConfig = BorderConfig(),
                           markersFill: BackgroundConfig = BackgroundConfig())

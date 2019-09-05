@@ -111,6 +111,7 @@ class Renderer(dataHandler: DataHandler) {
     case vec: Vectorfield => render(vec)
     case cov: Covariance  => render(cov)
     case no: NonOrthPoint => render(no)
+    case nf: NonOrthFunction => render (nf)
     case x                => throw new RuntimeException(x + " is currently not supported")
   }
 
@@ -495,15 +496,6 @@ class Renderer(dataHandler: DataHandler) {
 
   def render(no: NonOrthPoint) = {
 
-    def fill(fillID: Int, fc: NonOrthFillConfig) =
-      s"""
-         |${R.render("Fill" + fillID)("filltype", fc.fillType)}
-         |${R.render("Fill" + fillID)("color", fc.color)}
-         |${R.render("Fill" + fillID)("style", fc.style)}
-         |${R.render("Fill" + fillID)("hide", fc.hide)}
-         |${R.render("Fill" + fillID)("transparency", fc.transparency)}
-       """.stripMargin
-
     //store data in datahandler and receive unique dataset references
     val d1Name = dataHandler.uniqueReference(no.data1, "d1")
     val d2Name = dataHandler.uniqueReference(no.data2, "d2")
@@ -537,6 +529,35 @@ class Renderer(dataHandler: DataHandler) {
        |${xyLabelConfig(no.config.label)}
      """.stripMargin
   }
+
+  def render(nof: NonOrthFunction) = {
+
+    s"""
+       |${R.render("function", nof.function)}
+       |${R.render("variable", nof.variable)}
+       |${R.renderOption("min", nof.min, s"Set('min', u'Auto')")}
+       |${R.renderOption("max", nof.max, s"Set('max', u'Auto')")}
+       |
+       |# Function Formatting
+       |${R.render("steps", nof.config.main.steps)}
+       |${R.render("hide", nof.config.main.hide)}
+       |# Plolt Line Config
+       |${renderLineConfig(nof.config.plotLine)(prefix = "PlotLine")}
+       |
+       |# Fill Config
+       |${fill(1, nof.config.areaFill1)}
+       |${fill(2, nof.config.areaFill2)}
+     """.stripMargin
+  }
+
+  def fill(fillID: Int, fc: NonOrthFillConfig) =
+    s"""
+       |${R.render("Fill" + fillID)("filltype", fc.fillType)}
+       |${R.render("Fill" + fillID)("color", fc.color)}
+       |${R.render("Fill" + fillID)("style", fc.style)}
+       |${R.render("Fill" + fillID)("hide", fc.hide)}
+       |${R.render("Fill" + fillID)("transparency", fc.transparency)}
+       """.stripMargin
 
   def render(bp: Boxplot) = {
 
@@ -1007,7 +1028,7 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render(prefix)("hide", tc.hide)}
      """.stripMargin
 
-  def renderLineConfig(lc: de.dreambeam.veusz.format.LineConfig)(implicit prefix: String = "Line"): String =
+  def renderLineConfig(lc: LineStyleConfig)(implicit prefix: String = "Line"): String =
     s"""
        |${R.render(prefix)("color", lc.color)}
        |${R.render(prefix)("width", lc.width)}

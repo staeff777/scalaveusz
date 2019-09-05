@@ -166,6 +166,7 @@ trait Executable {
     case cov: Covariance  => Graph(cov).createDocumentText()
     case xy: XY           => Graph(xy).createDocumentText()
     case no: NonOrthPoint => PolarGraph(no).createDocumentText()
+    case nf: NonOrthFunction => PolarGraph(nf).createDocumentText()
     case bar: Barchart =>
       bar.positions match {
         case d: DateTime =>

@@ -40,5 +40,5 @@ case class Vectorfield (dxOrR: NumericalImage,
 }
 
 case class VectorfieldConfig(main: VectorfieldMainConfig = VectorfieldMainConfig(),
-                             line: de.dreambeam.veusz.format.LineConfig =  de.dreambeam.veusz.format.LineConfig(),
+                             line: de.dreambeam.veusz.format.LineStyleConfig =  de.dreambeam.veusz.format.LineStyleConfig(),
                              fill: FillConfig = FillConfig())
