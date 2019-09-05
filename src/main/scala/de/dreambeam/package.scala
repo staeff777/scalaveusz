@@ -94,6 +94,7 @@ package object veusz {
 
     val XY = veusz.components.XY
     val BarChart = veusz.components.Barchart
+    val Fit = veusz.components.Fit
     val Function = veusz.components.Function
     //TODO val Fit = veusz.components.Fit
     val Boxplot = veusz.components.Boxplot

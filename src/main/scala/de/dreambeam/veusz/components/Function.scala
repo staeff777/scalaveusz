@@ -8,6 +8,8 @@ case class Function (function: String,
                      key: String = "",
                      min: Option[Double] = None,
                      max: Option[Double] = None,
+                     xAxis: String = "x",
+                     yAxis: String = "y",
                      var name: String = "function"
                      )
   extends GraphItem

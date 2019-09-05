@@ -44,6 +44,7 @@ object RenderTools {
       case i: Int => s"Set('$pre$field', $i)"
       case d: Double => s"Set('$pre$field', $d)"
       case vs: Vector[_] => s"Set('$pre$field', (${vs.map(e => s"'$e',").mkString}))"
+      case m: Map[_,_] => s"Set('$pre$field', {${m.toVector.map{ case (k, v) => s"'$k': $v" }.mkString(",")}})" // supports only String->Double Maps
       case x => s"Set('$pre$field', u'$x')"
     }
   }

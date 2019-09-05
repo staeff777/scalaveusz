@@ -99,6 +99,7 @@ class Renderer(dataHandler: DataHandler) {
     case bp: Boxplot      => render(bp)
     case bar: Barchart    => render(bar)
     case fun: Function    => render(fun)
+    case fit: Fit         => render(fit)
     case img: Image       => render(img)
     case img: ImageFile   => render(img)
     case l: Label         => render(l)
@@ -664,7 +665,32 @@ class Renderer(dataHandler: DataHandler) {
        |${renderFillConfig(fun.config.fillAbove)("FillAbove")}
      """.stripMargin
 
-  // TODO
+  def render(fit: Fit) = {
+    val xName = dataHandler.uniqueReference(fit.xData, "x")
+    val yName = dataHandler.uniqueReference(fit.yData, "y")
+    s"""
+       |${R.render("function", fit.function)}
+       |${R.render("values", fit.parameters)}
+       |${R.render("xData", xName)}
+       |${R.render("yData", yName)}
+       |${R.render("fitRange", fit.fitOnlyRange)}
+       |${R.renderOption("min", fit.min, s"Set('min', u'Auto')")}
+       |${R.renderOption("max", fit.max, s"Set('max', u'Auto')")}
+       |
+       |# Function Formatting
+       |${R.render("steps", fit.config.main.steps)}
+       |${R.render("hide", fit.config.main.hide)}
+       |
+       |${renderLineConfig(fit.config.plotLine)}
+       |
+       |${renderFillConfig(fit.config.fillBelow)("FillBelow")}
+       |
+       |${renderFillConfig(fit.config.fillAbove)("FillAbove")}
+       |Action('fit')
+     """.stripMargin
+    //Action('fit')
+  }
+
   def render(img: Image) = {
 
     val datasetName = dataHandler.uniqueReference(img.dataset, "")

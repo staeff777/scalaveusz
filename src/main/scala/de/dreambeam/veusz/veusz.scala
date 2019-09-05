@@ -154,6 +154,7 @@ trait Executable {
     case s: Scene3D       => Page(s).createDocumentText()
     case a: Axis          => Graph(a).createDocumentText()
     case fun: Function    => Graph(fun).createDocumentText()
+    case fit: Fit         => Graph(fit).createDocumentText()
     case img: ImageFile   => Page(img).createDocumentText()
     case rect: Rectangle  => Page(rect).createDocumentText()
     case el: Ellipse      => Page(el).createDocumentText()
@@ -309,6 +310,7 @@ trait Executable {
     try {
       val processBuilder = new ProcessBuilder
       processBuilder.command(GlobalVeuszSettings.veuszPath, s"--export=$filePath", s"--export-option=$exportOptions", file.getAbsolutePath)
+      // println(GlobalVeuszSettings.veuszPath +s" --export=$filePath " + s" --export-option=$exportOptions " + file.getAbsolutePath)
       val process = processBuilder.start
       if (waitForProcess) process.waitFor
       process
