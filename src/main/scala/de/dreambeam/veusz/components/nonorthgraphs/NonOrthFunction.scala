@@ -1,7 +1,7 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.nonorthgraphs
 
+import de.dreambeam.veusz.format.{FunctionMainConfig, LineStyleConfig, NonOrthFillConfig}
 import de.dreambeam.veusz.{Configurable, Executable, PolarGraphItem}
-import de.dreambeam.veusz.format.{Colors, FunctionMainConfig, LineStyleConfig, NonOrthFillConfig, PlotLineConfig}
 
 case class NonOrthFunction(function: String,
                            variable: String = "a",

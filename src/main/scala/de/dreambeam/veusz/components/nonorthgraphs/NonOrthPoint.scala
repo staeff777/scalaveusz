@@ -1,8 +1,8 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.nonorthgraphs
 
+import de.dreambeam.veusz.data.Numerical
+import de.dreambeam.veusz.format._
 import de.dreambeam.veusz.{Configurable, Executable, PolarGraphItem}
-import de.dreambeam.veusz.data.{Data, Numerical}
-import de.dreambeam.veusz.format.{ColorConfig, MarkerBorderConfig, MarkerFillConfig, NonOrthFillConfig, NonOrthMainConfig, PlotLineConfig, XYLabelConfig}
 
 object NonOrthPoint {
 

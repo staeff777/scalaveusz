@@ -1,6 +1,10 @@
 package de.dreambeam.veusz
 
-import de.dreambeam.veusz.components._
+import de.dreambeam.veusz.components.{graph, _}
+import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Covariance, Fit, Graph, Image, Vectorfield, XY}
+import de.dreambeam.veusz.components.graph3d.{Axis3D, Graph3D, Scene3D}
+import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
+import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, Line, Polygon, Rectangle}
 import de.dreambeam.veusz.data.{DateTime, Numerical, Text}
 import de.dreambeam.veusz.format._
 import de.dreambeam.veusz.util.{DataHandler, RenderTools => R, StringTools => S}
@@ -98,7 +102,7 @@ class Renderer(dataHandler: DataHandler) {
     case xy: XY           => render(xy)
     case bp: Boxplot      => render(bp)
     case bar: Barchart    => render(bar)
-    case fun: Function    => render(fun)
+    case fun: graph.Function    => render(fun)
     case fit: Fit         => render(fit)
     case img: Image       => render(img)
     case img: ImageFile   => render(img)
@@ -647,7 +651,7 @@ class Renderer(dataHandler: DataHandler) {
      """.stripMargin
   }
 
-  def render(fun: Function) =
+  def render(fun: graph.Function) =
     s"""
        |${R.render("function", fun.function)}
        |${R.render("key", fun.key)}

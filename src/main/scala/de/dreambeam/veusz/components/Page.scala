@@ -1,5 +1,6 @@
 package de.dreambeam.veusz.components
 
+import de.dreambeam.veusz.components.graph.Graph
 import de.dreambeam.veusz.{Configurable, DocumentItem, Executable, PageItem, Parent}
 import de.dreambeam.veusz.format.SizeUnits._
 import de.dreambeam.veusz.format.SizeUnit
@@ -20,10 +21,6 @@ object Page {
   def apply(children: PageItem*): Page =
     Page(defaultName, Some(children.toVector))
 
-  /* Children */
-  val $Grid = Grid
-  val $Graph = Graph
-  val $Shape = Shape
 }
 
 case class Page private (name: String, children: Option[Vector[PageItem]])

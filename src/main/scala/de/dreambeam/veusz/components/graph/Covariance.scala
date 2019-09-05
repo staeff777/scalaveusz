@@ -1,7 +1,7 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.graph
 
-import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
 import de.dreambeam.veusz.format._
+import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
 
 case class Covariance(xData: String = "",
                       yData: String = "",

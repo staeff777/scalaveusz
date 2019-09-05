@@ -1,7 +1,7 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.shapes
 
-import de.dreambeam.veusz.{Configurable, Executable, PageItem}
 import de.dreambeam.veusz.format._
+import de.dreambeam.veusz.{Configurable, Executable, PageItem}
 
 case class Ellipse (xPositions: Vector[Double] = Vector(0.5),
                     yPositions: Vector[Double] = Vector(0.5),

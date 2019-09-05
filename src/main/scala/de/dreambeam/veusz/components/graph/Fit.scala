@@ -1,4 +1,4 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.graph
 
 import de.dreambeam.veusz.data.Numerical
 import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PolarGraphItem}

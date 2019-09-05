@@ -1,8 +1,8 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.graph
 
-import de.dreambeam.veusz.{GraphItem, Configurable, Executable}
 import de.dreambeam.veusz.data._
 import de.dreambeam.veusz.format._
+import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
 
 object XY {
 

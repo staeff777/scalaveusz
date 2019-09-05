@@ -1,4 +1,6 @@
-import de.dreambeam.veusz.components.{Document, Graph, NonOrthPoint, Page, PolarGraph, XY}
+import de.dreambeam.veusz.components.graph.{Graph, XY}
+import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthPoint, PolarGraph}
+import de.dreambeam.veusz.components.{Document, Page}
 
 object DocumentRenderTest extends App{
 

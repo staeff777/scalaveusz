@@ -2,13 +2,17 @@ package de.dreambeam.veusz.format
 
 import SizeUnits._
 
-object AutoRange extends Enumeration {
-  val Exact = Value("exact")
-  val NextTick = Value("next-tick")
-  val Plus2percent = Value("+2%")
-  val Plus5percent = Value("+5%")
-  val Plus10percent = Value("+10%")
-  val Plus15percent = Value("+15%")
+object AutoRange  {
+  val Exact = "exact"
+  val NextTick = "next-tick"
+  val Plus2percent = "+2%"
+  val Plus5percent = "+5%"
+  val Plus10percent = "+10%"
+  val Plus15percent = "+15%"
+  val Minus2percent = "+2%"
+  val Minus5percent = "+5%"
+  val Minus10percent = "+10%"
+  val Minus15percent = "+15%"
 }
 
 object TickLabelFormat extends Enumeration {
@@ -79,7 +83,7 @@ case class BorderConfig(
 
 case class AxisMainConfig(
                          var hide: Boolean = false,
-                         var autoRange: AutoRange.Value = AutoRange.NextTick,
+                         var autoRange: String = AutoRange.NextTick,
                          var autoMirror: Boolean = true,
                          var reflect: Boolean = false,
                          var outerTicks: Boolean = false
@@ -332,7 +336,7 @@ case class Graph3DBackConfig(
 
 case class Axis3DMainConfig(
                            var hide: Boolean = false,
-                           var autoRange: AutoRange.Value = AutoRange.NextTick,
+                           var autoRange: String = AutoRange.NextTick,
                            var autoMirror: Boolean = true
                            )
 
@@ -440,7 +444,7 @@ case class LabelMainConfig(
 
 case class ColorBarMainConfig(
                              var hide: Boolean = false,
-                             var autoRange: AutoRange.Value = AutoRange.NextTick,
+                             var autoRange: String = AutoRange.NextTick,
                              var autoMirror: Boolean = true,
                              var reflect: Boolean = false,
                              var outerTicks: Boolean = false,

@@ -3,7 +3,7 @@ package de.dreambeam.vuesz
 import java.io.File
 
 import de.dreambeam.veusz._
-import de.dreambeam.veusz.components.Image
+import de.dreambeam.veusz.components.graph.{Function, Image}
 import de.dreambeam.veusz.data.Numerical
 import org.scalatest._
 
@@ -28,7 +28,7 @@ class GraphItemTest extends FlatSpec with Matchers {
     val positions = (1 to 10).map(_.toDouble).toVector
     val lengthData = positions.map(v => (1 to 10).map(_ * Random.nextDouble() * 10).toVector)
 
-    val barchart = GraphItems.BarChart(lengthData, positions)
+    val barchart = GraphItems.Barchart(lengthData, positions)
     barchart.config.fill = Vector("green", "blue", "red", "cyan", "magenta", "yellow", "darkred", "darkgreen", "darkblue", "darkmagenta").map(c => BarchartFillConfig(color = c))
     val file = new File("veusz/barchart.svg")
     barchart.export(file.getAbsolutePath)
@@ -52,7 +52,7 @@ class GraphItemTest extends FlatSpec with Matchers {
   it should "render a Function" in {
     val positions = (1 to 10).map(_.toDouble).toVector
     val lengthData = positions.map(v => (1 to 10).map(_ * Random.nextDouble() * 10).toVector)
-    val function = components.Function("sin(x)")
+    val function = Function("sin(x)")
     function.config.plotLine.color = Colors.Blue
     val file = new File("veusz/function.svg")
     function.export(file.getAbsolutePath)

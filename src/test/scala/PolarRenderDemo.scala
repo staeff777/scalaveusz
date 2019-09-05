@@ -1,4 +1,4 @@
-import de.dreambeam.veusz.components.{NonOrthPoint, PolarGraph}
+import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthPoint, PolarGraph}
 
 object PolarRenderDemo extends App{
 

@@ -1,4 +1,4 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.graph3d
 
 import de.dreambeam.veusz._
 import de.dreambeam.veusz.format._

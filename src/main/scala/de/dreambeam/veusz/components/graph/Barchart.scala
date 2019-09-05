@@ -1,8 +1,8 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.graph
 
-import de.dreambeam.veusz.data.{BarChartData, Data, DateTime, Numerical}
-import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
+import de.dreambeam.veusz.data.{BarChartData, Numerical}
 import de.dreambeam.veusz.format._
+import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
 
 object Barchart {
 

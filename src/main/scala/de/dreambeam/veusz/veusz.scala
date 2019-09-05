@@ -6,6 +6,10 @@ import java.nio.file.Paths
 
 import util.RenderTools.newLine
 import components._
+import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Covariance, Fit, Function, Graph, Image, Vectorfield, XAxis, XY, YAxis}
+import de.dreambeam.veusz.components.graph3d.{Graph3D, Scene3D}
+import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
+import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, Line, Polygon, Rectangle}
 import de.dreambeam.veusz.data.{BoxplotData, DateTime, Numerical, NumericalImage, Text}
 import de.dreambeam.veusz.util.DataHandler
 import de.dreambeam.veusz.format._

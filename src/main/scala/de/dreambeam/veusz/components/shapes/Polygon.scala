@@ -1,4 +1,4 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.shapes
 
 import de.dreambeam.veusz.format._
 import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PageItem}

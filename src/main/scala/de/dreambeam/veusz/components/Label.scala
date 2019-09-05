@@ -1,6 +1,6 @@
 package de.dreambeam.veusz.components
 
-import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PolarGraphItem}
+import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PageItem, PolarGraphItem}
 import de.dreambeam.veusz.format._
 
 case class Label(label: String,
@@ -11,6 +11,7 @@ case class Label(label: String,
                  yAxis: String = "y",
                  var name: String = "label")
 extends GraphItem
+  with PageItem
   with Configurable
   with Executable
 {

@@ -1,8 +1,8 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.graph
 
 import de.dreambeam.veusz.data.NumericalImage
-import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
 import de.dreambeam.veusz.format.{ColorMaps, Scaling}
+import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
 
 
 object Image {

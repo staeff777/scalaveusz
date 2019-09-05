@@ -1,4 +1,4 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.shapes
 
 import de.dreambeam.veusz.format._
 import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PageItem}
@@ -17,7 +17,7 @@ case class Line(xPositions: Vector[Double] = Vector(0.5),
     with Executable
 {
   val group = "line"
-  var config: LineConfig = de.dreambeam.veusz.components.LineConfig()
+  var config: LineConfig = LineConfig()
 }
 
 case class LineConfig(main: LineMainConfig = LineMainConfig(),

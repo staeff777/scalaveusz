@@ -1,7 +1,9 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.nonorthgraphs
 
+import de.dreambeam.veusz.components.Colorbar
+import de.dreambeam.veusz.components.graph.Function
+import de.dreambeam.veusz.format._
 import de.dreambeam.veusz.{Configurable, Executable, GridItem, PageItem, Parent, PolarGraphItem}
-import de.dreambeam.veusz.format.{BackgroundConfig, BorderConfig, PolarDirection, PolarGraphMainConfig, PolarPositionOf0, PolarUnit, RadialTickLabelsConfig, RadialTicksConfig}
 
 object PolarGraph {
   val defaultName = "polarGraph"

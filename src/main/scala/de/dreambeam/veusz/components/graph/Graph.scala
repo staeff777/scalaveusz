@@ -1,6 +1,7 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.graph
 
 import de.dreambeam.veusz._
+import de.dreambeam.veusz.components.{Colorbar, Key, Label}
 import de.dreambeam.veusz.format._
 
 object Graph {
@@ -22,22 +23,6 @@ object Graph {
 
   def apply(name: String, axis: Vector[Axis], children: Vector[GraphItem]): Graph = Graph(name, axis, Some(children))
 
-  /* Children */
-
-  val $Axis = Axis
-  val $XY = XY
-  val $Key = Key
-  val $Barchart = Barchart
-  //lazy val $Fit = Fit
-  val $Function = Function
-  val $Boxplot = Boxplot
-  val $Image = Image
-  val $Contour = Contours
-  val $Vectorfield = Vectorfield
-  val $Label = Label
-  val $Colorbar = Colorbar
-  val $Covariance = Covariance
-  val $Shape = Shape
 }
 
 case class Graph(var name: String = Graph.defaultName,

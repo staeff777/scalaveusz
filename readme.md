@@ -11,7 +11,7 @@ Create [Veusz](https://veusz.github.io/) charts in Scala.
 
 ```scala
 
-import de.dreambeam.veusz.components.{XY, Graph}
+
 
 object RendererTest extends App {
 

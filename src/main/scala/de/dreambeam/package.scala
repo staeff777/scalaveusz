@@ -1,6 +1,10 @@
 package de.dreambeam
 
-import de.dreambeam.veusz.components.ZAxis3D
+import de.dreambeam.veusz.components.{graph, graph3d, nonorthgraphs}
+import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Function, Graph, Image, Vectorfield, XAxis, XY}
+import de.dreambeam.veusz.components.graph3d.{Axis3D, Graph3D, Scene3D, XAxis3D, YAxis3D, ZAxis3D}
+import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
+import de.dreambeam.veusz.components.shapes.Ellipse
 import de.dreambeam.veusz.format.{Centimeter, Inches, Millimeter, Percent, Point}
 import de.dreambeam.veusz.util._
 
@@ -61,27 +65,27 @@ package object veusz {
 
   object PageItems {
     val Grid = veusz.components.Grid
-    val Graph = veusz.components.Graph
-    val PolarGraph = veusz.components.PolarGraph
-    val Scene3D = veusz.components.Scene3D
+    val Graph = components.graph.Graph
+    val PolarGraph = components.nonorthgraphs.PolarGraph
+    val Scene3D = components.graph3d.Scene3D
 
 
     val Label = veusz.components.Label
 
     object Shapes{
-      val ImageFile = veusz.components.ImageFile
-      val Line = veusz.components.Line
-      val Rectangle = veusz.components.Rectangle
-      val Ellipse = veusz.components.Ellipse
-      val Polygon= veusz.components.Polygon
+      val ImageFile = veusz.components.shapes.ImageFile
+      val Line = veusz.components.shapes.Line
+      val Rectangle = veusz.components.shapes.Rectangle
+      val Ellipse = veusz.components.shapes.Ellipse
+      val Polygon= veusz.components.shapes.Polygon
     }
   }
 
   object GridItems {
     val Grid = veusz.components.Grid
-    val Graph = veusz.components.Graph
-    val PolarGraph = veusz.components.PolarGraph
-    val Scene3D = veusz.components.Scene3D
+    val Graph = graph.Graph
+    val PolarGraph = nonorthgraphs.PolarGraph
+    val Scene3D = graph3d.Scene3D
 
     val Colorbar = veusz.components.Colorbar
   }
@@ -92,42 +96,42 @@ package object veusz {
     val Colorbar = veusz.components.Colorbar
     val Shapes = PageItems.Shapes
 
-    val XY = veusz.components.XY
-    val BarChart = veusz.components.Barchart
-    val Fit = veusz.components.Fit
-    val Function = veusz.components.Function
+    val XY = components.graph.XY
+    val Barchart = veusz.components.graph.Barchart
+    val Fit = veusz.components.graph.Fit
+    val Function = veusz.components.graph.Function
     //TODO val Fit = veusz.components.Fit
-    val Boxplot = veusz.components.Boxplot
-    val Image = veusz.components.Image
-    val Contours = veusz.components.Contours
-    val VectorField = veusz.components.Vectorfield
+    val Boxplot = veusz.components.graph.Boxplot
+    val Image = veusz.components.graph.Image
+    val Contours = veusz.components.graph.Contours
+    val VectorField = veusz.components.graph.Vectorfield
     val Key = veusz.components.Key
 
-    val Axis = veusz.components.Axis
-    val XAxis = veusz.components.XAxis
-    val YAxis = veusz.components.XAxis
+    val Axis = veusz.components.graph.Axis
+    val XAxis = veusz.components.graph.XAxis
+    val YAxis = veusz.components.graph.YAxis
   }
 
   val BoxplotData = data.BoxplotData
 
   object PolarItems {
     val Colorbar = veusz.components.Colorbar
-    val NonOrthPoint = veusz.components.NonOrthPoint
-    val NonOrthFunction = veusz.components.NonOrthFunction
+    val NonOrthPoint = veusz.components.nonorthgraphs.NonOrthPoint
+    val NonOrthFunction = veusz.components.nonorthgraphs.NonOrthFunction
     //TODO val NonOrthFunction = veusz.components.NonOrthFunction
   }
 
   object Scene3DItems {
-    val Graph3D = veusz.components.Graph3D
+    val Graph3D = veusz.components.graph3d.Graph3D
   }
 
   object Graph3DItems {
 
     //Todo Graph3D items
 
-    val Axis3D = veusz.components.Axis3D
-    val YAxis3D = veusz.components.YAxis3D
-    val XAxis3D = veusz.components.XAxis3D
-    val ZAxis3D = veusz.components.ZAxis3D
+    val Axis3D = veusz.components.graph3d.Axis3D
+    val YAxis3D = veusz.components.graph3d.YAxis3D
+    val XAxis3D = veusz.components.graph3d.XAxis3D
+    val ZAxis3D = veusz.components.graph3d.ZAxis3D
   }
 }

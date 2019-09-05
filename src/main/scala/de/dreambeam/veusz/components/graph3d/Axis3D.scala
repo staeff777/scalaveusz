@@ -1,7 +1,7 @@
-package de.dreambeam.veusz.components
+package de.dreambeam.veusz.components.graph3d
 
-import de.dreambeam.veusz.{Graph3DItem, Executable, Configurable}
 import de.dreambeam.veusz.format._
+import de.dreambeam.veusz.{Configurable, Executable, Graph3DItem}
 
 case class Axis3D (label: String = "",
                    min: Option[Double] = None,
