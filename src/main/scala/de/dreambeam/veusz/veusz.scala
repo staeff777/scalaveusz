@@ -7,13 +7,11 @@ import java.nio.file.Paths
 import util.RenderTools.newLine
 import components._
 import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Covariance, Fit, Function, Graph, Image, Vectorfield, XAxis, XY, YAxis}
-import de.dreambeam.veusz.components.graph3d.{Graph3D, Scene3D}
+import de.dreambeam.veusz.components.graph3d.{Graph3D, Point3D, Scene3D}
 import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
 import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, Line, Polygon, Rectangle}
 import de.dreambeam.veusz.data.{BoxplotData, DateTime, Numerical, NumericalImage, Text}
 import de.dreambeam.veusz.util.DataHandler
-import de.dreambeam.veusz.format._
-
 
 
 object GlobalVeuszSettings {
@@ -36,7 +34,7 @@ trait Scene3DItem extends Item
 trait Graph3DItem extends Item
 
 trait Parent {
-  def children: Option[Vector[Item]]
+  def children: Vector[Item]
 }
 
 trait Item {
@@ -170,8 +168,6 @@ trait Executable {
     case vec: Vectorfield => Graph(vec).createDocumentText()
     case cov: Covariance  => Graph(cov).createDocumentText()
     case xy: XY           => Graph(xy).createDocumentText()
-    case no: NonOrthPoint => PolarGraph(no).createDocumentText()
-    case nf: NonOrthFunction => PolarGraph(nf).createDocumentText()
     case bar: Barchart =>
       bar.positions match {
         case d: DateTime =>
@@ -181,6 +177,9 @@ trait Executable {
         case n: Numerical => Graph(bar).createDocumentText()
       }
     case box: Boxplot => Graph(box).createDocumentText()
+    case no: NonOrthPoint => PolarGraph(no).createDocumentText()
+    case nf: NonOrthFunction => PolarGraph(nf).createDocumentText()
+    case p3: Point3D => Graph3D(p3).createDocumentText()
     case x            => throw new RuntimeException(s" $x can not be processed directly")
   }
 
@@ -293,7 +292,7 @@ trait Executable {
       val svgAsTextSettings = "svgtextastext=" + (if (svgtextastext) "True" else "False")
 
       val pageSettings = (this) match {
-        case d: Document if pages.length == 0 => s"page=(${(0 until d.children.get.size).mkString(",")})"
+        case d: Document if pages.length == 0 => s"page=(${(0 until d.children.size).mkString(",")})"
         case d: Document => s"page=(${pages.mkString(",")})"
         case _           => ""
       }

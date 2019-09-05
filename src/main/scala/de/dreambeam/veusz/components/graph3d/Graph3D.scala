@@ -6,43 +6,38 @@ import de.dreambeam.veusz.format._
 object Graph3D {
   val defaultName = "graph3d"
 
-  def apply: Graph3D = Graph3D(defaultName)
 
-  def apply(children: Vector[Graph3DItem]): Graph3D = Graph3D(children = Some(children))
 
-  def apply(name: String, children: Vector[Graph3DItem]): Graph3D = Graph3D(name, Some(children))
+  def apply(name: String, children: Vector[Graph3DItem]): Graph3D = Graph3D(name,children)
 
-  def apply(name: String, children: Graph3DItem*): Graph3D = Graph3D(name, Some(children.toVector))
+  def apply(name: String, children: Graph3DItem*): Graph3D = Graph3D(name, children.toVector)
 
-  def apply(children: Graph3DItem*): Graph3D = Graph3D(children = Some(children.toVector))
+  def apply(children: Graph3DItem*): Graph3D = Graph3D(children = children.toVector)
 
-  /*
-  def apply(name: String = defaultName,
-            children: Vector[Graph3DItem],
+
+  def apply(children: Vector[Graph3DItem],
+            axis: Vector[Axis3D] = Vector(XAxis3D(), YAxis3D(), ZAxis3D()),
             xSize: Int = 1,
             ySize: Int = 1,
             zSize: Int = 1,
             xPosition: Int = 0,
             yPosition: Int = 0,
-            zPosition: Int = 0): Graph3D =
-    Graph3D(name, Some(children), xSize, ySize, zSize, xPosition, yPosition, zPosition)
-  */
-
-  /* Children */
-
-  val $Axis3D = Axis3D
+            zPosition: Int = 0,
+            name: String = defaultName): Graph3D =
+    new Graph3D(name, children, axis, xSize, ySize, zSize, xPosition, yPosition, zPosition)
 
 
 }
 
-case class Graph3D private (var name: String = Graph3D.defaultName,
-                            children: Option[Vector[Graph3DItem]] = None,
-                            xSize: Int = 1,
-                            ySize: Int = 1,
-                            zSize: Int = 1,
-                            xPosition: Int = 0,
-                            yPosition: Int = 0,
-                            zPosition: Int = 0)
+case class Graph3D private (var name: String,
+                            children: Vector[Graph3DItem],
+                            axis: Vector[Axis3D],
+                            xSize: Int,
+                            ySize: Int,
+                            zSize: Int,
+                            xPosition: Int,
+                            yPosition: Int,
+                            zPosition: Int)
   extends Scene3DItem
     with Configurable
     with Executable

@@ -9,21 +9,15 @@ object Page {
 
   val defaultName = "page"
 
-  def apply(name: String = defaultName): Page =
-    Page(name, None)
-
-  def apply(name: String, children: Vector[PageItem]): Page =
-    Page(name, Some(children))
-
   def apply(name: String, children: PageItem*): Page =
-    Page(name, Some(children.toVector))
+    Page(name, children.toVector)
 
   def apply(children: PageItem*): Page =
-    Page(defaultName, Some(children.toVector))
+    Page(defaultName, children.toVector)
 
 }
 
-case class Page private (name: String, children: Option[Vector[PageItem]])
+case class Page private (name: String, children: Vector[PageItem])
   extends DocumentItem
     with Configurable
     with Executable

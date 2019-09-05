@@ -4,7 +4,7 @@ import de.dreambeam.veusz.{Configurable, Executable, GridItem, PageItem, Parent}
 import de.dreambeam.veusz.format.SizeUnit
 import de.dreambeam.veusz.format.SizeUnits._
 
-case class Grid (children: Option[Vector[GridItem]],
+case class Grid (children: Vector[GridItem],
                  rows: Int = 2,
                  columns: Int = 2,
                  scaleRows: String = "",

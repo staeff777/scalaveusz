@@ -2,7 +2,7 @@ package de.dreambeam.veusz
 
 import de.dreambeam.veusz.components.{graph, _}
 import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Covariance, Fit, Graph, Image, Vectorfield, XY}
-import de.dreambeam.veusz.components.graph3d.{Axis3D, Graph3D, Scene3D}
+import de.dreambeam.veusz.components.graph3d.{Axis3D, Graph3D, Point3D, Scene3D}
 import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
 import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, Line, Polygon, Rectangle}
 import de.dreambeam.veusz.data.{DateTime, Numerical, Text}
@@ -28,26 +28,28 @@ class Renderer(dataHandler: DataHandler) {
     *
     * @return the rendered text for the Veusz components
     */
-  def renderDocument(document: Document) = {
+  def renderDocument(document: Document): String = {
     def go(item: Item): String = {
 
       val childRender = item match {
         // a graph must render its axes,
         // since these are not under the category of children
         case g: Graph => {
-          g.axis.map(go).mkString("") + (g.children match {
-            case Some(c) => c.map(go).mkString("")
-            case None    => ""
-          })
+          g.axis.map(go).mkString("") + (g.children.map(go).mkString(""))
+        }
+
+        case g: Graph3D => {
+          g.axis.map(go).mkString("") + (g.children.map(go).mkString(""))
         }
 
         // a parent is a component that has children
         // and thus triggers the recursive render
         case x: Parent => {
-          x.children match {
+          x.children.map(go).mkString("")
+        /* x.children match {
             case Some(c) => c.map(go).mkString("")
             case None    => ""
-          }
+          }*/
         }
 
         // and if no children exist, do nothing
@@ -117,6 +119,7 @@ class Renderer(dataHandler: DataHandler) {
     case cov: Covariance  => render(cov)
     case no: NonOrthPoint => render(no)
     case nf: NonOrthFunction => render (nf)
+    case p3: Point3D => render(p3)
     case x                => throw new RuntimeException(x + " is currently not supported")
   }
 
@@ -194,12 +197,13 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("zSize", g.zSize)}
        |
        |# Graph3D Formatting
-       |${R.render("hide", g.config.main.hide)}
-       |${R.render("width", g.config.border.width)}
-       |${R.render("style", g.config.border.style)}
-       |${R.render("transparency", g.config.border.transparency)}
-       |${R.render("reflectivity", g.config.border.reflectivity)}
-       |${R.render("hide", g.config.border.hide)}
+       |${R.render("Border")("color", g.config.main.hide)}
+       |${R.render("Border")("hide", g.config.main.hide)}
+       |${R.render("Border")("width", g.config.border.width)}
+       |${R.render("Border")("style", g.config.border.style)}
+       |${R.render("Border")("transparency", g.config.border.transparency)}
+       |${R.render("Border")("reflectivity", g.config.border.reflectivity)}
+       |${R.render("Border")("hide", g.config.border.hide)}
        |
        |${R.render("Back")("color", g.config.back.color)}
        |${R.render("Back")("transparency", g.config.back.transparency)}
@@ -377,7 +381,7 @@ class Renderer(dataHandler: DataHandler) {
        |${renderBorderConfig(k.config.border)}
      """.stripMargin
 
-  // TODO: formatting
+
   def render(xy: XY) = {
 
     def fill(fillType: String, fc: XYFillConfig) =
@@ -616,7 +620,6 @@ class Renderer(dataHandler: DataHandler) {
      """.stripMargin
   }
 
-  // TODO
   def render(bar: Barchart) = {
 
     val fills = bar.config.fill
@@ -1074,4 +1077,39 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render(prefix)("hide", fc.hide)}
        |${R.render(prefix)("transparency", fc.transparency)}
      """.stripMargin
+
+
+  def render(p3: Point3D) = {
+
+    def fill(fillType: String, fc: XYFillConfig) =
+      s"""
+         |${R.render("Fill" + fillType)("fillto", fc.fillTo)}
+         |${R.render("Fill" + fillType)("color", fc.color)}
+         |${R.render("Fill" + fillType)("style", fc.style)}
+         |${R.render("Fill" + fillType)("hide", fc.hide)}
+         |${R.render("Fill" + fillType)("hideerror", fc.hideError)}
+         |${R.render("Fill" + fillType)("transparency", fc.transparency)}
+       """.stripMargin
+
+    //store data in datahandler and receive unique dataset references
+    val xName = dataHandler.uniqueReference(p3.x, "x")
+    val yName = dataHandler.uniqueReference(p3.y, "y")
+    val zName = dataHandler.uniqueReference(p3.z, "z")
+    val scaleName = dataHandler.uniqueReference(p3.scaleMarkers, "s")
+    val colorName = dataHandler.uniqueReference(p3.colorMarkers, "c")
+
+    s"""
+       |${R.render("xData", xName)}
+       |${R.render("yData", yName)}
+       |${R.render("zData", zName)}
+       |${R.render("xAxis", p3.xAxis)}
+       |${R.render("yAxis", p3.yAxis)}
+       |${R.render("zAxis", p3.zAxis)}
+       |${R.render("scalePoints", scaleName)}
+       |${R.render("Color")("points", colorName)}
+       |# XY Color Config
+       | ${colorConfig(p3.config.colorConfig)}
+       |# XY Formatting
+     """.stripMargin
+  }
 }
