@@ -3,40 +3,40 @@ package de.dreambeam.veusz.components.nonorthgraphs
 import de.dreambeam.veusz.components.Colorbar
 import de.dreambeam.veusz.components.graph.Function
 import de.dreambeam.veusz.format._
-import de.dreambeam.veusz.{Configurable, Executable, GridItem, PageItem, Parent, PolarGraphItem}
+import de.dreambeam.veusz.{Configurable, Executable, GridItem, PageItem, Parent, NonOrthGraphItem}
 
 object PolarGraph {
   val defaultName = "polarGraph"
 
 
-  def apply(children: PolarGraphItem*): PolarGraph = PolarGraph(children = children.toVector)
+  def apply(children: NonOrthGraphItem*): PolarGraph = PolarGraph(children = children.toVector)
 
 
-  def apply(name: String, children: PolarGraphItem*): PolarGraph = PolarGraph(name, children = children.toVector)
+  def apply(name: String, children: NonOrthGraphItem*): PolarGraph = PolarGraph(name, children = children.toVector)
 
 
   def apply(name: String,
             minRadius: Option[Double],
             maxRadius: Option[Double],
-            children: PolarGraphItem*): PolarGraph = PolarGraph(name, children = children.toVector)
+            children: NonOrthGraphItem*): PolarGraph = PolarGraph(name, children = children.toVector)
 
 
   def apply(name: String,
             minRadius: Option[Double],
             maxRadius: Option[Double],
             unit: PolarUnit.Value,
-            children: PolarGraphItem*): PolarGraph = PolarGraph(name, minRadius, maxRadius, unit, children = children.toVector)
+            children: NonOrthGraphItem*): PolarGraph = PolarGraph(name, minRadius, maxRadius, unit, children = children.toVector)
 
   def apply(name: String,
             unit: PolarUnit.Value,
-            children: PolarGraphItem*): PolarGraph = PolarGraph(name, unit = unit, children = children.toVector)
+            children: NonOrthGraphItem*): PolarGraph = PolarGraph(name, unit = unit, children = children.toVector)
 
   def apply(name: String,
             minRadius: Option[Double],
             maxRadius: Option[Double],
             unit: PolarUnit.Value,
             direction: PolarDirection.Value,
-            children: PolarGraphItem*): PolarGraph = PolarGraph(name, minRadius, maxRadius, unit, direction, children = children.toVector)
+            children: NonOrthGraphItem*): PolarGraph = PolarGraph(name, minRadius, maxRadius, unit, direction, children = children.toVector)
 
 
   def apply(name: String,
@@ -45,7 +45,7 @@ object PolarGraph {
             unit: PolarUnit.Value,
             direction: PolarDirection.Value,
             positionOf0: PolarPositionOf0.Value,
-            children: PolarGraphItem*): PolarGraph = PolarGraph(name, minRadius, maxRadius, unit, direction, positionOf0, children = children.toVector)
+            children: NonOrthGraphItem*): PolarGraph = PolarGraph(name, minRadius, maxRadius, unit, direction, positionOf0, children = children.toVector)
 
   def apply(name: String,
             minRadius: Option[Double],
@@ -54,7 +54,7 @@ object PolarGraph {
             direction: PolarDirection.Value,
             positionOf0: PolarPositionOf0.Value,
             log: Boolean,
-            children: PolarGraphItem*): PolarGraph = new PolarGraph(name, minRadius, maxRadius, unit, direction, positionOf0, log, children = children.toVector)
+            children: NonOrthGraphItem*): PolarGraph = new PolarGraph(name, minRadius, maxRadius, unit, direction, positionOf0, log, children = children.toVector, config = PolarGraphConfig())
 
 
   def apply(name: String = PolarGraph.defaultName,
@@ -64,8 +64,8 @@ object PolarGraph {
             direction: PolarDirection.Value = PolarDirection.clockwise,
             positionOf0: PolarPositionOf0.Value = PolarPositionOf0.top,
             log: Boolean = false,
-            children: Vector[PolarGraphItem] = Vector.empty): PolarGraph =
-    new PolarGraph(name, minRadius, maxRadius, unit, direction, positionOf0, log, children)
+            children: Vector[NonOrthGraphItem] = Vector.empty): PolarGraph =
+    new PolarGraph(name, minRadius, maxRadius, unit, direction, positionOf0, log, children, config = PolarGraphConfig())
 
 
   val $Function = Function
@@ -79,14 +79,14 @@ case class PolarGraph(var name: String,
                       var direction: PolarDirection.Value,
                       var positionOf0: PolarPositionOf0.Value,
                       var log: Boolean,
-                      children: Vector[PolarGraphItem]
+                      children: Vector[NonOrthGraphItem],
+                      var config: PolarGraphConfig
                      ) extends PageItem
   with GridItem
   with Configurable
   with Executable
   with Parent {
   val group = "polar"
-  var config: PolarGraphConfig = PolarGraphConfig()
 }
 
 case class PolarGraphConfig(var notes: String = "",

@@ -2,7 +2,7 @@ package de.dreambeam.veusz.components.nonorthgraphs
 
 import de.dreambeam.veusz.data.Numerical
 import de.dreambeam.veusz.format._
-import de.dreambeam.veusz.{Configurable, Executable, PolarGraphItem}
+import de.dreambeam.veusz.{Configurable, Executable, NonOrthGraphItem}
 
 object NonOrthPoint {
 
@@ -19,7 +19,7 @@ case class NonOrthPoint(data1: Numerical,
                         scaleMarkers: Numerical,
                         colorMarkers: Numerical,
                         keyText: String,
-                        var name: String) extends PolarGraphItem with Configurable with Executable {
+                        var name: String) extends NonOrthGraphItem with Configurable with Executable {
 
   val group = "nonorthpoint"
   var config: NonOrthPointConfig = NonOrthPointConfig()

@@ -97,7 +97,7 @@ case class LineStyleConfig(
                          var hide: Boolean = false
                          )
 
-case class LabelConfig(
+case class AxisLabelConfig(
                         var font: String = "Times New Roman",
                         var size: SizeUnit = 14 pt,
                         var color: String = Colors.Foreground,

@@ -1,6 +1,6 @@
 package de.dreambeam.veusz.components
 
-import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PolarGraphItem}
+import de.dreambeam.veusz.{Configurable, Executable, GraphItem, NonOrthGraphItem}
 import de.dreambeam.veusz.format._
 
 object Colorbar {
@@ -32,14 +32,14 @@ case class Colorbar(widget: String,
                     maxPosition: Double,
                     axisPosition: Int,
                     var name: String)
-    extends GraphItem with PolarGraphItem with Configurable with Executable {
+    extends GraphItem with NonOrthGraphItem with Configurable with Executable {
   val group = "colorbar"
   var config: ColorbarConfig = ColorbarConfig()
 }
 
 case class ColorbarConfig(main: ColorBarMainConfig = ColorBarMainConfig(),
                           axisLine: de.dreambeam.veusz.format.LineStyleConfig = de.dreambeam.veusz.format.LineStyleConfig(),
-                          axisLabel: de.dreambeam.veusz.format.LabelConfig = de.dreambeam.veusz.format.LabelConfig(),
+                          axisLabel: de.dreambeam.veusz.format.AxisLabelConfig = de.dreambeam.veusz.format.AxisLabelConfig(),
                           tickLabels: TickLabelsConfig = TickLabelsConfig(),
                           majorTicks: MajorTicksConfig = MajorTicksConfig(),
                           minorTicks: MinorTicksConfig = MinorTicksConfig(),

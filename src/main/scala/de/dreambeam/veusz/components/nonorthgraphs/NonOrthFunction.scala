@@ -1,7 +1,7 @@
 package de.dreambeam.veusz.components.nonorthgraphs
 
 import de.dreambeam.veusz.format.{FunctionMainConfig, LineStyleConfig, NonOrthFillConfig}
-import de.dreambeam.veusz.{Configurable, Executable, PolarGraphItem}
+import de.dreambeam.veusz.{Configurable, Executable, NonOrthGraphItem}
 
 case class NonOrthFunction(function: String,
                            variable: String = "a",
@@ -9,9 +9,11 @@ case class NonOrthFunction(function: String,
                            max: Option[Double] = None,
                            var name: String = "nonorthfunc",
                            var config: NonOrthFunctionConfig = NonOrthFunctionConfig())
-    extends PolarGraphItem with Configurable with Executable {
+    extends NonOrthGraphItem with Configurable with Executable {
   override def group: String = "nonorthfunc"
 }
+
+
 
 case class NonOrthFunctionConfig(
           var main: FunctionMainConfig = FunctionMainConfig(),

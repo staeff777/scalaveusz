@@ -1,6 +1,6 @@
 package de.dreambeam.veusz.components
 
-import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PageItem, PolarGraphItem}
+import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PageItem, NonOrthGraphItem}
 import de.dreambeam.veusz.format._
 
 case class Label(label: String,

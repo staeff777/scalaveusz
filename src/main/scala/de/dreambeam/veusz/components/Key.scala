@@ -1,6 +1,6 @@
 package de.dreambeam.veusz.components
 
-import de.dreambeam.veusz.{Configurable, GraphItem, Item, PolarGraphItem}
+import de.dreambeam.veusz.{Configurable, GraphItem, Item, NonOrthGraphItem}
 import de.dreambeam.veusz.format._
 
 case class Key(title: String = "",

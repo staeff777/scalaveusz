@@ -27,7 +27,7 @@ trait GridItem extends Item
 
 trait GraphItem extends Item
 
-trait PolarGraphItem extends Item
+trait NonOrthGraphItem extends Item
 
 trait Scene3DItem extends Item
 

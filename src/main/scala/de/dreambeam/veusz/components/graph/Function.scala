@@ -1,7 +1,7 @@
 package de.dreambeam.veusz.components.graph
 
 import de.dreambeam.veusz.format._
-import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PolarGraphItem}
+import de.dreambeam.veusz.{Configurable, Executable, GraphItem, NonOrthGraphItem}
 
 
 case class Function (function: String,
@@ -13,7 +13,7 @@ case class Function (function: String,
                      var name: String = "function"
                      )
   extends GraphItem
-    with PolarGraphItem
+    with NonOrthGraphItem
     with Configurable
     with Executable
 {

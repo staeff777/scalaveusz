@@ -7,7 +7,6 @@ class PolarItemsTest extends FlatSpec with Matchers {
 
   "Scala Veusz" should "render a NonOrthPoint" in {
     val nonOrthPoint = PolarItems.NonOrthPoint(Vector(1.0, 10.0), Vector(1.0, 1.0))
-    nonOrthPoint.saveAsVuesz("polar.vsz")
     val file = new File("veusz/nonorthpoint.svg")
     nonOrthPoint.export(file.getAbsolutePath)
     file should exist

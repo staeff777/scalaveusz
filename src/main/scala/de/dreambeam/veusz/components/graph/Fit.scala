@@ -1,7 +1,7 @@
 package de.dreambeam.veusz.components.graph
 
 import de.dreambeam.veusz.data.Numerical
-import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PolarGraphItem}
+import de.dreambeam.veusz.{Configurable, Executable, GraphItem, NonOrthGraphItem}
 
 object Fit {
 
@@ -44,7 +44,7 @@ case class Fit(xData: Numerical,
                min: Option[Double],
                max: Option[Double],
                name: String)
-    extends GraphItem with PolarGraphItem with Configurable with Executable {
+    extends GraphItem with NonOrthGraphItem with Configurable with Executable {
   var config = FunctionConfig()
 
   override def group: String = "fit"

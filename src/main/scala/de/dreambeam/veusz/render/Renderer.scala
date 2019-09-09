@@ -981,7 +981,7 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render(prefix)("transparency", bc.transparency)}
      """.stripMargin
 
-  def renderLabelConfig(lc: de.dreambeam.veusz.format.LabelConfig)(implicit prefix: String = "Label"): String =
+  def renderLabelConfig(lc: de.dreambeam.veusz.format.AxisLabelConfig)(implicit prefix: String = "Label"): String =
     s"""
        |${R.render(prefix)("font", lc.font)}
        |${R.render(prefix)("size", lc.size)}
