@@ -17,9 +17,28 @@ class Graph3dItemsTest extends FlatSpec with Matchers {
     val yColor = xData.map(z => z * 0.1)
     val p3d = Graph3DItems.Point3D(xData, yData, zData, yScale, yColor)
     p3d.config.markerFill.colorMap = ColorMaps.Heat
-    p3d.openInVeusz()
     val file = new File("veusz/p3d.svg")
     p3d.export(file.getAbsolutePath)
+    file should exist
+    file.delete()
+  }
+
+  it should "render a Function3D" in {
+
+    val f3d = Graph3DItems.Function3D(
+      x_func = "t*t*t-t*t",
+      y_func = "t*t-t",
+      z_func = "t",
+      mode = Function3DMode.XYZ_FNS_T,
+      color_func = "t")
+
+    f3d.config.main.lineSteps = 80
+    f3d.config.plotLine.colorMap = ColorMaps.Hot_Desaturated
+    f3d.config.plotLine.width = 5
+    f3d.config.gridLine.width = 2
+    f3d.config.surface.hide = true
+    val file = new File("veusz/f3d.svg")
+    f3d.export(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -38,23 +57,22 @@ class Graph3dItemsTest extends FlatSpec with Matchers {
     file.delete()
   }
 
-
   /**
-  * this vis looks ugly since axis min max need to be set to -0,5 and 2,5
-  */
+    * this vis looks ugly since axis min max need to be set to -0,5 and 2,5
+    */
   it should "render a Volume3D" in {
 
     val n = 10
     val gen_seq = for {
-        x <- 1 to n
-        y <- 1 to n
-        z <- 1 to n
-      } yield (x.toDouble, y.toDouble, z.toDouble)
+      x <- 1 to n
+      y <- 1 to n
+      z <- 1 to n
+    } yield (x.toDouble, y.toDouble, z.toDouble)
 
-    val (x,y,z) = gen_seq.toVector.unzip3
-    val c = (0 to (n*n*n -1)).map(v => v.toDouble / (n*n*n -1).toDouble).toVector
+    val (x, y, z) = gen_seq.toVector.unzip3
+    val c = (0 to (n * n * n - 1)).map(v => v.toDouble / (n * n * n - 1).toDouble).toVector
 
-    val s3d = Graph3DItems.Volume3D(x,y,z,c)
+    val s3d = Graph3DItems.Volume3D(x, y, z, c)
     s3d.config.main.colorMap = "yellow-green-blue"
     s3d.config.main.transparency = 0
     s3d.config.main.reflectivity = 10

@@ -41,7 +41,7 @@ case class Point3D(var x: Data,
 }
 
 case class Point3DConfig(main: Point3DMainConfig = Point3DMainConfig(),
-                         lineStyle: LineStyle3DConfig = LineStyle3DConfig(),
+                         plotLine: PlotLine3DConfig = PlotLine3DConfig(),
                          markerFill: MarkerFill3DConfig = MarkerFill3DConfig(),
                          markerBorder: MarkerBorder3DConfig = MarkerBorder3DConfig(),
                          errorBar: ErrorBar3DConfig = ErrorBar3DConfig(),
@@ -49,7 +49,7 @@ case class Point3DConfig(main: Point3DMainConfig = Point3DMainConfig(),
 
 case class Point3DMainConfig(autoRange: String = AutoRange.NextTick, hide: Boolean = false)
 
-case class LineStyle3DConfig(
+case class PlotLine3DConfig(
           var color: String = Colors.Auto,
           var width: Double = 1.0,
           var style: String = LineStyle.Solid,

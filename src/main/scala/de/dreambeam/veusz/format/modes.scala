@@ -30,3 +30,13 @@ object Surface3DMode extends Enumeration {
   val Z_XY = Value("z(x,y)")
   val Z_YX = Value("z(y,x)")
 }
+
+object Function3DMode extends Enumeration {
+  val X_FNS_YZ = Value("x=fn(y,z)")
+  val Y_FNS_XZ = Value("y=fn(x,z)")
+  val Z_FNS_XY = Value("z=fn(x,y)")
+  val XYZ_FNS_T =Value( "x,y,z=fns(t)")
+  val XY_FNS_Z = Value("x,y=fns(z)")
+  val YZ_FNS_X = Value("y,z=fns(x)")
+  val XZ_FNS_Y = Value("x,z=fns(y)")
+}

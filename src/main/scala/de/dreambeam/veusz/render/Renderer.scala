@@ -2,7 +2,7 @@ package de.dreambeam.veusz
 
 import de.dreambeam.veusz.components.{graph, _}
 import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Covariance, Fit, Graph, Image, Vectorfield, XY}
-import de.dreambeam.veusz.components.graph3d.{Axis3D, Graph3D, Point3D, Scene3D, Surface3D, Volume3D}
+import de.dreambeam.veusz.components.graph3d.{Axis3D, Function3D, Graph3D, PlotLine3DConfig, Point3D, Scene3D, Surface3D, Surface3DGridLineConfig, Surface3DSurfaceConfig, Volume3D}
 import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
 import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, Line, Polygon, Rectangle}
 import de.dreambeam.veusz.data.{DateTime, Numerical, Text}
@@ -46,7 +46,7 @@ class Renderer(dataHandler: DataHandler) {
         // and thus triggers the recursive render
         case x: Parent => {
           x.children.map(go).mkString("")
-        /* x.children match {
+          /* x.children match {
             case Some(c) => c.map(go).mkString("")
             case None    => ""
           }*/
@@ -68,9 +68,9 @@ class Renderer(dataHandler: DataHandler) {
         case x => {
 
           val name = x match {
-            case axis: Axis  => S.noBlanks(item.name)
+            case axis: Axis   => S.noBlanks(item.name)
             case axis: Axis3D => S.noBlanks(item.name)
-            case _          => S.uniqueName(S.noBlanks(item.name))
+            case _            => S.uniqueName(S.noBlanks(item.name))
           }
 
           val entry = s"Add('${item.group}', name='$name', autoadd=False)"
@@ -92,38 +92,39 @@ class Renderer(dataHandler: DataHandler) {
   }
 
   def render(item: Item): String = item match {
-    case d: Document      => render(d)
-    case p: Page          => render(p)
-    case g: Grid          => render(g)
-    case g: Graph         => render(g)
-    case p: PolarGraph    => render(p)
-    case g: Graph3D       => render(g)
-    case a: Axis          => render(a)
-    case a: Axis3D        => render(a)
-    case s: Scene3D       => render(s)
-    case k: Key           => render(k)
-    case xy: XY           => render(xy)
-    case bp: Boxplot      => render(bp)
-    case bar: Barchart    => render(bar)
-    case fun: graph.Function    => render(fun)
-    case fit: Fit         => render(fit)
-    case img: Image       => render(img)
-    case img: ImageFile   => render(img)
-    case l: Label         => render(l)
-    case rect: Rectangle  => render(rect)
-    case el: Ellipse      => render(el)
-    case poly: Polygon    => render(poly)
-    case line: Line       => render(line)
-    case cb: Colorbar     => render(cb)
-    case cont: Contours    => render(cont)
-    case vec: Vectorfield => render(vec)
-    case cov: Covariance  => render(cov)
-    case no: NonOrthPoint => render(no)
-    case nf: NonOrthFunction => render (nf)
-    case p3: Point3D => render(p3)
-    case s3: Surface3D => render(s3)
-    case v3: Volume3D => render(v3)
-    case x                => throw new RuntimeException(x + " is currently not supported")
+    case d: Document   => render(d)
+    case p: Page       => render(p)
+    case g: Grid       => render(g)
+    case g: Graph      => render(g)
+    case p: PolarGraph => render(p)
+    case g: Graph3D    => render(g)
+    case a: Axis       => render(a)
+    case a: Axis3D     => render(a)
+    case s: Scene3D    => render(s)
+    case k: Key        => render(k)
+    case xy: XY        => render(xy)
+    case bp: Boxplot   => render(bp)
+    case bar: Barchart => render(bar)
+    case fun: graph.Function => render(fun)
+    case fit: Fit            => render(fit)
+    case img: Image          => render(img)
+    case img: ImageFile      => render(img)
+    case l: Label            => render(l)
+    case rect: Rectangle     => render(rect)
+    case el: Ellipse         => render(el)
+    case poly: Polygon       => render(poly)
+    case line: Line          => render(line)
+    case cb: Colorbar        => render(cb)
+    case cont: Contours      => render(cont)
+    case vec: Vectorfield    => render(vec)
+    case cov: Covariance     => render(cov)
+    case no: NonOrthPoint    => render(no)
+    case nf: NonOrthFunction => render(nf)
+    case p3: Point3D         => render(p3)
+    case s3: Surface3D       => render(s3)
+    case v3: Volume3D        => render(v3)
+    case f3: Function3D      => render(f3)
+    case x                   => throw new RuntimeException(x + " is currently not supported")
   }
 
   def render(d: Document) =
@@ -383,7 +384,6 @@ class Renderer(dataHandler: DataHandler) {
        |${renderBorderConfig(k.config.border)}
      """.stripMargin
 
-
   def render(xy: XY) = {
 
     def fill(fillType: String, fc: XYFillConfig) =
@@ -476,7 +476,7 @@ class Renderer(dataHandler: DataHandler) {
        |""".stripMargin
   }
 
-  def plotLineConfig(plotLineConfig: PlotLineConfig) ={
+  def plotLineConfig(plotLineConfig: PlotLineConfig) = {
     s"""
        |# Plot Line
        |${R.render("PlotLine")("steps", plotLineConfig.steps)}
@@ -638,8 +638,8 @@ class Renderer(dataHandler: DataHandler) {
 
     val lengthNames = bar.lengths.map(dataHandler.uniqueReference(_, ""))
     val positionName = bar.positions match {
-      case n: Numerical  => dataHandler.uniqueReference(n, "")
-      case d: DateTime => dataHandler.uniqueReference(d, "dt")
+      case n: Numerical => dataHandler.uniqueReference(n, "")
+      case d: DateTime  => dataHandler.uniqueReference(d, "dt")
     }
 
     s"""
@@ -781,8 +781,8 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("outerticks", cb.config.main.outerTicks)}
        |${R.render("horzPosn", cb.config.main.horzPosition)}
        |${R.render("vertPosn", cb.config.main.vertPosition)}
-       |${R.renderSizeOption("width", cb.config.main.width,"Set('width', u'Auto')")}
-       |${R.renderSizeOption("height", cb.config.main.height,"Set('height', u'Auto')")}
+       |${R.renderSizeOption("width", cb.config.main.width, "Set('width', u'Auto')")}
+       |${R.renderSizeOption("height", cb.config.main.height, "Set('height', u'Auto')")}
        |${R.renderOption("horzManual", cb.config.main.horzManual, "")}
        |${R.renderOption("vertManual", cb.config.main.vertManual, "")}
        |
@@ -1080,7 +1080,6 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render(prefix)("transparency", fc.transparency)}
      """.stripMargin
 
-
   def render(p3: Point3D) = {
 
     //store data in datahandler and receive unique dataset references
@@ -1101,14 +1100,7 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("Color")("points", colorName)}
        |# XY Color Config
        | ${colorConfig(p3.config.colorConfig)}
-       |# Plotline
-       |${R.render("PlotLine")("color", p3.config.lineStyle.color)}
-       |${R.render("PlotLine")("width", p3.config.lineStyle.width)}
-       |${R.render("PlotLine")("transparency", p3.config.lineStyle.transparency)}
-       |${R.render("PlotLine")("reflectivity", p3.config.lineStyle.reflectivity)}
-       |${R.render("PlotLine")("hide", p3.config.lineStyle.hide)}
-       |${R.render("PlotLine")("colorMap", p3.config.lineStyle.colorMap)}
-       |${R.render("PlotLine")("colorMapInvert", p3.config.lineStyle.invertMap)}
+       | ${plotLineConfig(p3.config.plotLine)}
        |# Marker Fill
        |${R.render("MarkerFill")("color", p3.config.markerFill.color)}
        |${R.render("MarkerFill")("transparency", p3.config.markerFill.transparency)}
@@ -1133,10 +1125,7 @@ class Renderer(dataHandler: DataHandler) {
      """.stripMargin
   }
 
-
   def render(s3: Surface3D) = {
-
-
 
     //store data in datahandler and receive unique dataset references
     val datasetName = dataHandler.uniqueReference(s3.dataset, "")
@@ -1155,24 +1144,47 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("DataColor")("min", s3.config.colorConfig.min)}
        |${R.render("DataColor")("max", s3.config.colorConfig.max)}
        |${R.render("DataColor")("scaling", s3.config.colorConfig.scaling)}
-       |# Plotline
-       |${R.render("Line")("color", s3.config.gridLine.color)}
-       |${R.render("Line")("width", s3.config.gridLine.width)}
-       |${R.render("Line")("transparency", s3.config.gridLine.transparency)}
-       |${R.render("Line")("reflectivity", s3.config.gridLine.reflectivity)}
-       |${R.render("Line")("hide", s3.config.gridLine.hide)}
-       |${R.render("Line")("hidehorz", s3.config.gridLine.hideHorz)}
-       |${R.render("Line")("hidevert", s3.config.gridLine.hideVert)}
-       |# Marker Fill
-       |${R.render("Surface")("color", s3.config.surface.color)}
-       |${R.render("Surface")("transparency", s3.config.surface.transparency)}
-       |${R.render("Surface")("reflectivity", s3.config.surface.reflectivity)}
-       |${R.render("Surface")("colorMapInvert", s3.config.surface.invertMap)}
-       |${R.render("Surface")("colorMap", s3.config.surface.colorMap)}
-       |${R.render("Surface")("hide", s3.config.surface.hide)}
+       |${gridLineConfig(s3.config.gridLine)}
+       |${surfaceConfig(s3.config.surface)}
+
      """.stripMargin
   }
 
+  def plotLineConfig(c: PlotLine3DConfig, prefix: String = "PlotLine") =
+    s"""
+       |# Plotline
+       |${R.render(prefix)("color", c.color)}
+       |${R.render(prefix)("width", c.width)}
+       |${R.render(prefix)("transparency", c.transparency)}
+       |${R.render(prefix)("reflectivity", c.reflectivity)}
+       |${R.render(prefix)("hide", c.hide)}
+       |${R.render(prefix)("colorMap", c.colorMap)}
+       |${R.render(prefix)("colorMapInvert", c.invertMap)}
+       |""".stripMargin
+
+  def gridLineConfig(c: Surface3DGridLineConfig, prefix: String = "Line") =
+    s"""
+     |# SurfaceGrid
+     |${R.render(prefix)("color", c.color)}
+     |${R.render(prefix)("width", c.width)}
+     |${R.render(prefix)("transparency", c.transparency)}
+     |${R.render(prefix)("reflectivity", c.reflectivity)}
+     |${R.render(prefix)("hide", c.hide)}
+     |${R.render(prefix)("hidehorz", c.hideHorz)}
+     |${R.render(prefix)("hidevert", c.hideVert)}
+    """.stripMargin
+
+  def surfaceConfig(c: Surface3DSurfaceConfig) =
+    s"""
+       |# SurfaceGrid
+       |# Surface Config
+       |${R.render("Surface")("color", c.color)}
+       |${R.render("Surface")("transparency", c.transparency)}
+       |${R.render("Surface")("reflectivity", c.reflectivity)}
+       |${R.render("Surface")("colorMapInvert", c.invertMap)}
+       |${R.render("Surface")("colorMap", c.colorMap)}
+       |${R.render("Surface")("hide", c.hide)}     
+    """.stripMargin
 
   def render(v3: Volume3D) = {
 
@@ -1207,6 +1219,24 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("Line")("transparency", v3.config.line.transparency)}
        |${R.render("Line")("hide", v3.config.line.hide)}
 
+     """.stripMargin
+  }
+
+  def render(f: Function3D) = {
+
+    s"""
+       |${R.render("fnx", f.x_func)}
+       |${R.render("fny", f.y_func)}
+       |${R.render("fnz", f.z_func)}
+       |${R.render("fncolor", f.color_func)}
+       |${R.render("mode", f.mode)}
+       |${R.render("color", f.config.main.color)}
+       |${R.render("linesteps", f.config.main.lineSteps)}
+       |${R.render("surfacesteps", f.config.main.surfaceSteps)}
+       |${R.render("hide", f.config.main.hide)}
+       |${plotLineConfig(f.config.plotLine, "Line")}
+       |${gridLineConfig(f.config.gridLine, "GridLine")}
+       |${surfaceConfig(f.config.surface)}
      """.stripMargin
   }
 }

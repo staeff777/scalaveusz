@@ -39,6 +39,8 @@ package object veusz {
   val Positioning = de.dreambeam.veusz.format.Positioning
   val VectorfieldMode = de.dreambeam.veusz.format.VectorfieldMode
   val AxisMode = de.dreambeam.veusz.format.AxisMode
+  val Surface3DMode = de.dreambeam.veusz.format.Surface3DMode
+  val Function3DMode = de.dreambeam.veusz.format.Function3DMode
 
   val MarkerType = de.dreambeam.veusz.format.MarkerType
   val ErrorType = de.dreambeam.veusz.format.ErrorType
@@ -127,8 +129,8 @@ package object veusz {
 
   object Graph3DItems {
 
-    //Todo Graph3D items
     val Point3D = veusz.components.graph3d.Point3D
+    val Function3D = veusz.components.graph3d.Function3D
     val Surface3D = veusz.components.graph3d.Surface3D
     val Volume3D = veusz.components.graph3d.Volume3D
 
