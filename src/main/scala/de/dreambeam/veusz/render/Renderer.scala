@@ -2,7 +2,7 @@ package de.dreambeam.veusz
 
 import de.dreambeam.veusz.components.{graph, _}
 import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Covariance, Fit, Graph, Image, Vectorfield, XY}
-import de.dreambeam.veusz.components.graph3d.{Axis3D, Graph3D, Point3D, Scene3D}
+import de.dreambeam.veusz.components.graph3d.{Axis3D, Graph3D, Point3D, Scene3D, Surface3D}
 import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
 import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, Line, Polygon, Rectangle}
 import de.dreambeam.veusz.data.{DateTime, Numerical, Text}
@@ -121,6 +121,7 @@ class Renderer(dataHandler: DataHandler) {
     case no: NonOrthPoint => render(no)
     case nf: NonOrthFunction => render (nf)
     case p3: Point3D => render(p3)
+    case s3: Surface3D => render(s3)
     case x                => throw new RuntimeException(x + " is currently not supported")
   }
 
@@ -1081,16 +1082,6 @@ class Renderer(dataHandler: DataHandler) {
 
   def render(p3: Point3D) = {
 
-    def fill(fillType: String, fc: XYFillConfig) =
-      s"""
-         |${R.render("Fill" + fillType)("fillto", fc.fillTo)}
-         |${R.render("Fill" + fillType)("color", fc.color)}
-         |${R.render("Fill" + fillType)("style", fc.style)}
-         |${R.render("Fill" + fillType)("hide", fc.hide)}
-         |${R.render("Fill" + fillType)("hideerror", fc.hideError)}
-         |${R.render("Fill" + fillType)("transparency", fc.transparency)}
-       """.stripMargin
-
     //store data in datahandler and receive unique dataset references
     val xName = dataHandler.uniqueReference(p3.x, "x")
     val yName = dataHandler.uniqueReference(p3.y, "y")
@@ -1138,6 +1129,46 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("Error")("width", p3.config.errorBar.width)}
        |${R.render("Error")("style", p3.config.errorBar.style)}
        |${R.render("Error")("hide", p3.config.errorBar.hide)}
+     """.stripMargin
+  }
+
+
+  def render(s3: Surface3D) = {
+
+
+
+    //store data in datahandler and receive unique dataset references
+    val datasetName = dataHandler.uniqueReference(s3.dataset, "")
+    val colorName = dataHandler.uniqueReference(s3.colorMarkers, "c")
+
+    s"""
+       |${R.render("mode", s3.mode)}
+       |${R.render("data", datasetName)}
+       |${R.render("xAxis", s3.xAxis)}
+       |${R.render("yAxis", s3.yAxis)}
+       |${R.render("zAxis", s3.zAxis)}
+       |${R.render("hide", s3.config.main.hide)}
+       |${R.render("highres", s3.config.main.highres)}
+       |# XY Color Config
+       |${R.render("DataColor")("points", colorName)}
+       |${R.render("DataColor")("min", s3.config.colorConfig.min)}
+       |${R.render("DataColor")("max", s3.config.colorConfig.max)}
+       |${R.render("DataColor")("scaling", s3.config.colorConfig.scaling)}
+       |# Plotline
+       |${R.render("Line")("color", s3.config.gridLine.color)}
+       |${R.render("Line")("width", s3.config.gridLine.width)}
+       |${R.render("Line")("transparency", s3.config.gridLine.transparency)}
+       |${R.render("Line")("reflectivity", s3.config.gridLine.reflectivity)}
+       |${R.render("Line")("hide", s3.config.gridLine.hide)}
+       |${R.render("Line")("hidehorz", s3.config.gridLine.hideHorz)}
+       |${R.render("Line")("hidevert", s3.config.gridLine.hideVert)}
+       |# Marker Fill
+       |${R.render("Surface")("color", s3.config.surface.color)}
+       |${R.render("Surface")("transparency", s3.config.surface.transparency)}
+       |${R.render("Surface")("reflectivity", s3.config.surface.reflectivity)}
+       |${R.render("Surface")("colorMapInvert", s3.config.surface.invertMap)}
+       |${R.render("Surface")("colorMap", s3.config.surface.colorMap)}
+       |${R.render("Surface")("hide", s3.config.surface.hide)}
      """.stripMargin
   }
 }

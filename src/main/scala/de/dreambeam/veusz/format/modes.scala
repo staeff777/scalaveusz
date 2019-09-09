@@ -21,3 +21,12 @@ object AxisMode extends Enumeration {
   val DateTime = Value("datetime")
   val Labels = Value("labels")
 }
+
+object Surface3DMode extends Enumeration {
+  val X_YZ = Value("x(y,z)")
+  val X_ZY = Value("x(z,y)")
+  val Y_XZ = Value("y(x,z)")
+  val Y_ZX = Value("y(z,x)")
+  val Z_XY = Value("z(x,y)")
+  val Z_YX = Value("z(y,x)")
+}

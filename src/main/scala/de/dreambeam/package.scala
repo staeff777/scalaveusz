@@ -129,6 +129,7 @@ package object veusz {
 
     //Todo Graph3D items
     val Point3D = veusz.components.graph3d.Point3D
+    val Surface3D = veusz.components.graph3d.Surface3D
     val Axis3D = veusz.components.graph3d.Axis3D
     val YAxis3D = veusz.components.graph3d.YAxis3D
     val XAxis3D = veusz.components.graph3d.XAxis3D
