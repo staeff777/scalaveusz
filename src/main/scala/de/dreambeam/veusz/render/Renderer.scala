@@ -68,7 +68,8 @@ class Renderer(dataHandler: DataHandler) {
         case x => {
 
           val name = x match {
-            case axis: Axis => S.noBlanks(item.name)
+            case axis: Axis  => S.noBlanks(item.name)
+            case axis: Axis3D => S.noBlanks(item.name)
             case _          => S.uniqueName(S.noBlanks(item.name))
           }
 
@@ -197,8 +198,8 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("zSize", g.zSize)}
        |
        |# Graph3D Formatting
-       |${R.render("Border")("color", g.config.main.hide)}
-       |${R.render("Border")("hide", g.config.main.hide)}
+       |${R.render("hide", g.config.main.hide)}
+       |${R.render("Border")("color", g.config.border.color)}
        |${R.render("Border")("width", g.config.border.width)}
        |${R.render("Border")("style", g.config.border.style)}
        |${R.render("Border")("transparency", g.config.border.transparency)}
@@ -209,7 +210,6 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("Back")("transparency", g.config.back.transparency)}
        |${R.render("Back")("reflectivity", g.config.back.reflectivity)}
        |${R.render("Back")("hide", g.config.back.hide)}
-
      """.stripMargin
 
   def render(a: Axis) =
@@ -253,8 +253,8 @@ class Renderer(dataHandler: DataHandler) {
     s"""
        |${R.render("direction", a.direction)}
        |${R.render("label", a.label)}
-       |${R.render("min", a.min)}
-       |${R.render("max", a.max)}
+       |${R.renderOption("min", a.min, s"Set('min', u'Auto')")}
+       |${R.renderOption("max", a.max, s"Set('max', u'Auto')")}
        |${R.render("mode", a.mode)}
        |${R.render("datascale", a.scale)}
        |${R.render("lowerPosition", a.minPos)}
@@ -1109,7 +1109,35 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("Color")("points", colorName)}
        |# XY Color Config
        | ${colorConfig(p3.config.colorConfig)}
-       |# XY Formatting
+       |# Plotline
+       |${R.render("PlotLine")("color", p3.config.lineStyle.color)}
+       |${R.render("PlotLine")("width", p3.config.lineStyle.width)}
+       |${R.render("PlotLine")("transparency", p3.config.lineStyle.transparency)}
+       |${R.render("PlotLine")("reflectivity", p3.config.lineStyle.reflectivity)}
+       |${R.render("PlotLine")("hide", p3.config.lineStyle.hide)}
+       |${R.render("PlotLine")("colorMap", p3.config.lineStyle.colorMap)}
+       |${R.render("PlotLine")("colorMapInvert", p3.config.lineStyle.invertMap)}
+       |# Marker Fill
+       |${R.render("MarkerFill")("color", p3.config.markerFill.color)}
+       |${R.render("MarkerFill")("transparency", p3.config.markerFill.transparency)}
+       |${R.render("MarkerFill")("colorMapInvert", p3.config.markerFill.invertMap)}
+       |${R.render("MarkerFill")("colorMap", p3.config.markerFill.colorMap)}
+       |${R.render("MarkerFill")("hide", p3.config.markerFill.hide)}
+       |# Marker Line
+       |${R.render("MarkerLine")("color", p3.config.markerBorder.color)}
+       |${R.render("MarkerLine")("transparency", p3.config.markerBorder.transparency)}
+       |${R.render("MarkerLine")("reflectivity", p3.config.markerBorder.reflectivity)}
+       |${R.render("MarkerLine")("width", p3.config.markerBorder.width)}
+       |${R.render("MarkerLine")("style", p3.config.markerBorder.style)}
+       |${R.render("MarkerLine")("scale", p3.config.markerBorder.scale)}
+       |${R.render("MarkerLine")("hide", p3.config.markerBorder.hide)}
+       |# Error bar
+       |${R.render("Error")("color", p3.config.errorBar.color)}
+       |${R.render("Error")("transparency", p3.config.errorBar.transparency)}
+       |${R.render("Error")("reflectivity", p3.config.errorBar.reflectivity)}
+       |${R.render("Error")("width", p3.config.errorBar.width)}
+       |${R.render("Error")("style", p3.config.errorBar.style)}
+       |${R.render("Error")("hide", p3.config.errorBar.hide)}
      """.stripMargin
   }
 }

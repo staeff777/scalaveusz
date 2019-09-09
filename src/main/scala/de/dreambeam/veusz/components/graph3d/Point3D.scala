@@ -52,7 +52,7 @@ case class Point3DMainConfig(autoRange: String = AutoRange.NextTick, hide: Boole
 
 case class LineStyle3DConfig(
                             var color: String = Colors.Auto,
-                            var width: SizeUnit = 1 pt,
+                            var width: Double = 1.0,
                             var style: String = LineStyle.Solid,
                             var transparency: Int = 0,
                             var reflectivity: Int = 0,
@@ -72,7 +72,7 @@ case class MarkerFill3DConfig(
 
 case class MarkerBorder3DConfig(
                                var color: String = Colors.Foreground,
-                               var width: SizeUnit = 1 pt,
+                               var width: Double =  1.0,
                                var style: String = LineStyle.Solid,
                                var transparency: Int = 0,
                                var scale: Boolean = true,
@@ -82,7 +82,7 @@ case class MarkerBorder3DConfig(
 
 case class ErrorBar3DConfig(
                                var color: String = Colors.Foreground,
-                               var width: SizeUnit = 1 pt,
+                               var width: Double = 1.0,
                                var style: String = LineStyle.Solid,
                                var transparency: Int = 0,
                                var reflectivity: Int = 0,
