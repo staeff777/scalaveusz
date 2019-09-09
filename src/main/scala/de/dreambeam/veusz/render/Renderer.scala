@@ -2,7 +2,7 @@ package de.dreambeam.veusz
 
 import de.dreambeam.veusz.components.{graph, _}
 import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Covariance, Fit, Graph, Image, Vectorfield, XY}
-import de.dreambeam.veusz.components.graph3d.{Axis3D, Graph3D, Point3D, Scene3D, Surface3D}
+import de.dreambeam.veusz.components.graph3d.{Axis3D, Graph3D, Point3D, Scene3D, Surface3D, Volume3D}
 import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
 import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, Line, Polygon, Rectangle}
 import de.dreambeam.veusz.data.{DateTime, Numerical, Text}
@@ -122,6 +122,7 @@ class Renderer(dataHandler: DataHandler) {
     case nf: NonOrthFunction => render (nf)
     case p3: Point3D => render(p3)
     case s3: Surface3D => render(s3)
+    case v3: Volume3D => render(v3)
     case x                => throw new RuntimeException(x + " is currently not supported")
   }
 
@@ -1169,6 +1170,43 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("Surface")("colorMapInvert", s3.config.surface.invertMap)}
        |${R.render("Surface")("colorMap", s3.config.surface.colorMap)}
        |${R.render("Surface")("hide", s3.config.surface.hide)}
+     """.stripMargin
+  }
+
+
+  def render(v3: Volume3D) = {
+
+    //store data in datahandler and receive unique dataset references
+    val xName = dataHandler.uniqueReference(v3.x, "x")
+    val yName = dataHandler.uniqueReference(v3.y, "y")
+    val zName = dataHandler.uniqueReference(v3.z, "z")
+    val colorName = dataHandler.uniqueReference(v3.colorMarkers, "c")
+    val transparencyName = dataHandler.uniqueReference(v3.transparency, "t")
+
+    s"""
+       |${R.render("xData", xName)}
+       |${R.render("yData", yName)}
+       |${R.render("zData", zName)}
+       |${R.render("xAxis", v3.xAxis)}
+       |${R.render("yAxis", v3.yAxis)}
+       |${R.render("zAxis", v3.zAxis)}
+       |${R.render("transData", transparencyName)}
+       |${R.render("colorMap", v3.config.main.colorMap)}
+       |${R.render("colorInvert", v3.config.main.invertMap)}
+       |${R.render("transparency", v3.config.main.transparency)}
+       |${R.render("reflectivity", v3.config.main.reflectivity)}
+       |${R.render("fillfactor", v3.config.main.fillFactor)}
+       |${R.render("DataColor")("points", colorName)}
+       |${R.render("DataColor")("min", v3.config.colorConfig.min)}
+       |${R.render("DataColor")("max", v3.config.colorConfig.max)}
+       |${R.render("DataColor")("scaling", v3.config.colorConfig.scaling)}
+       |# Plotline
+       |${R.render("Line")("color", v3.config.line.color)}
+       |${R.render("Line")("width", v3.config.line.width)}
+       |${R.render("Line")("style", v3.config.line.style)}
+       |${R.render("Line")("transparency", v3.config.line.transparency)}
+       |${R.render("Line")("hide", v3.config.line.hide)}
+
      """.stripMargin
   }
 }

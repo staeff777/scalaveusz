@@ -26,18 +26,42 @@ class Graph3dItemsTest extends FlatSpec with Matchers {
 
   it should "render a Surface3d" in {
 
-    val dataset = (for (x <- 0 until 100; y <- 0 until 100) yield
-      (x.toDouble, y.toDouble) -> { (Math.sin(0.1*(x+y))) + 0.5}
-      ).toMap
+    val dataset = (for (x <- 0 until 100; y <- 0 until 100) yield (x.toDouble, y.toDouble) -> { (Math.sin(0.1 * (x + y))) + 0.5 }).toMap
 
     val s3d = Graph3DItems.Surface3D(dataset, dataset)
     s3d.config.gridLine.reflectivity = 50
     s3d.config.surface.colorMap = ColorMaps.Blue_Darkred
     s3d.config.surface.transparency = 30
-
     val file = new File("veusz/s3d.svg")
     s3d.export(file.getAbsolutePath)
     file should exist
-    //file.delete()
+    file.delete()
+  }
+
+
+  /**
+  * this vis looks ugly since axis min max need to be set to -0,5 and 2,5
+  */
+  it should "render a Volume3D" in {
+
+    val n = 10
+    val gen_seq = for {
+        x <- 1 to n
+        y <- 1 to n
+        z <- 1 to n
+      } yield (x.toDouble, y.toDouble, z.toDouble)
+
+    val (x,y,z) = gen_seq.toVector.unzip3
+    val c = (0 to (n*n*n -1)).map(v => v.toDouble / (n*n*n -1).toDouble).toVector
+
+    val s3d = Graph3DItems.Volume3D(x,y,z,c)
+    s3d.config.main.colorMap = "yellow-green-blue"
+    s3d.config.main.transparency = 0
+    s3d.config.main.reflectivity = 10
+    s3d.config.main.fillFactor = 0.7
+    val file = new File("veusz/v3d.png")
+    s3d.export(file.getAbsolutePath, dpi = 100)
+    file should exist
+    file.delete()
   }
 }

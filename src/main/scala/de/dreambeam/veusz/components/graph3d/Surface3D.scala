@@ -26,7 +26,7 @@ case class Surface3D(dataset: NumericalImage,
                      yAxis: String,
                      zAxis: String,
                      name: String,
-                     config: Surface3DConfig)
+                     var config: Surface3DConfig)
     extends Graph3DItem with Configurable with Executable {
   override def group: String = "surface3d"
 }
@@ -36,7 +36,8 @@ case class Surface3DConfig(main: Surface3DMainConfig = Surface3DMainConfig(),
                            surface: Surface3DSurfaceConfig = Surface3DSurfaceConfig(),
                            colorConfig: ColorConfig = ColorConfig())
 
-case class Surface3DMainConfig(highres: Boolean = false, hide: Boolean = false)
+case class Surface3DMainConfig(var highres: Boolean = false,
+                               var hide: Boolean = false)
 
 case class Surface3DGridLineConfig(var color: String = Colors.Auto,
                                    var width: Double = 1.0,

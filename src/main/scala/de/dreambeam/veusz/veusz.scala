@@ -7,7 +7,7 @@ import java.nio.file.Paths
 import util.RenderTools.newLine
 import components._
 import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Covariance, Fit, Function, Graph, Image, Vectorfield, XAxis, XY, YAxis}
-import de.dreambeam.veusz.components.graph3d.{Graph3D, Point3D, Scene3D, Surface3D}
+import de.dreambeam.veusz.components.graph3d.{Graph3D, Point3D, Scene3D, Surface3D, Volume3D}
 import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
 import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, Line, Polygon, Rectangle}
 import de.dreambeam.veusz.data.{BoxplotData, DateTime, Numerical, NumericalImage, Text}
@@ -181,6 +181,7 @@ trait Executable {
     case nf: NonOrthFunction => PolarGraph(nf).createDocumentText()
     case p3: Point3D => Graph3D(p3).createDocumentText()
     case s3: Surface3D => Graph3D(s3).createDocumentText()
+    case v3: Volume3D => Graph3D(v3).createDocumentText()
     case x            => throw new RuntimeException(s" $x can not be processed directly")
   }
 
