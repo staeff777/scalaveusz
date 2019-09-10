@@ -3,7 +3,7 @@ package de.dreambeam.veusz
 import de.dreambeam.veusz.components.{graph, _}
 import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Covariance, Fit, Graph, Image, Vectorfield, XY}
 import de.dreambeam.veusz.components.graph3d.{Axis3D, Function3D, Graph3D, PlotLine3DConfig, Point3D, Scene3D, Surface3D, Surface3DGridLineConfig, Surface3DSurfaceConfig, Volume3D}
-import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
+import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph, TernaryGraph}
 import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, Line, Polygon, Rectangle}
 import de.dreambeam.veusz.data.{DateTime, Numerical, Text}
 import de.dreambeam.veusz.format._
@@ -97,6 +97,7 @@ class Renderer(dataHandler: DataHandler) {
     case g: Grid       => render(g)
     case g: Graph      => render(g)
     case p: PolarGraph => render(p)
+    case t: TernaryGraph => render(t)
     case g: Graph3D    => render(g)
     case a: Axis       => render(a)
     case a: Axis3D     => render(a)
@@ -192,6 +193,35 @@ class Renderer(dataHandler: DataHandler) {
        |${renderBackgroundConfig(p.config.background)}
        |
        |${renderBorderConfig(p.config.border)}
+     """.stripMargin
+
+  def render(t: TernaryGraph) =
+    s"""
+       |${R.render("mode", t.mode)}
+       |${R.render("coords", t.coord_System)}
+       |${R.render("labelbottom", t.label_bottom)}
+       |${R.render("labelleft", t.label_left)}
+       |${R.render("labelright", t.label_right)}
+       |${R.render("originleft", t.left_origin)}
+       |${R.render("originbottom", t.bottom_origin)}
+       |${R.render("fracsize", t.size)}
+       |${R.render("reverse", t.reverse)}
+       |
+       |# Graph Formatting
+       |${R.render("hide", t.config.main.hide)}
+       |${R.render("leftMargin", t.config.main.leftMargin)}
+       |${R.render("rightMargin", t.config.main.rightMargin)}
+       |${R.render("topMargin", t.config.main.topMargin)}
+       |${R.render("bottomMargin", t.config.main.bottomMargin)}
+       |
+       |${renderBackgroundConfig(t.config.background)}
+       |${renderBorderConfig(t.config.border)}
+       |${renderLabelConfig(t.config.axisLabel)}
+       |${renderTickLabelsConfig(t.config.tickLabelsConfig)}
+       |${renderMajorTicksConfig(t.config.majorTicks)}
+       |${renderMinorTicksConfig(t.config.minorTicks)}
+       |${renderMajorGridLinesConfig(t.config.majorGridLines)}
+       |${renderMinorGridLinesConfig(t.config.minorGridLines)}
      """.stripMargin
 
   def render(g: Graph3D) =
@@ -976,9 +1006,15 @@ class Renderer(dataHandler: DataHandler) {
   def renderBackgroundConfig(bc: BackgroundConfig)(implicit prefix: String = "Background"): String =
     s"""
        |${R.render(prefix)("color", bc.color)}
-       |${R.render(prefix)("style", bc.style)}
+       |${R.render(prefix)("style", bc.fillStyle)}
        |${R.render(prefix)("hide", bc.hide)}
        |${R.render(prefix)("transparency", bc.transparency)}
+       |${R.render(prefix)("linewidth", bc.lineWidth)}
+       |${R.render(prefix)("linestyle", bc.lineStyle)}
+       |${R.render(prefix)("patternspacing", bc.spacing)}
+       |${R.render(prefix)("backcolor", bc.backColor)}
+       |${R.render(prefix)("backtransparency", bc.backTransparency)}
+       |${R.render(prefix)("backhide", bc.backHide)}
      """.stripMargin
 
   def renderLabelConfig(lc: de.dreambeam.veusz.format.AxisLabelConfig)(implicit prefix: String = "Label"): String =

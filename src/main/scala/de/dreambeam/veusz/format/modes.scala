@@ -40,3 +40,17 @@ object Function3DMode extends Enumeration {
   val YZ_FNS_X = Value("y,z=fns(x)")
   val XZ_FNS_Y = Value("x,z=fns(y)")
 }
+
+object TernaryGraphMode extends Enumeration {
+  val Percentage = Value("percentage")
+  val Fraction = Value("fraction")
+}
+
+object TernaryCoordSystem extends Enumeration {
+  val Bottom_Left = Value("bottom-left")
+  val Bottom_Right = Value("bottom-right")
+  val Left_Bottom = Value("left-bottom")
+  val Left_Right = Value("left-right")
+  val Right_Left = Value("right-left")
+  val Right_Bottom = Value("right-bottom")
+}

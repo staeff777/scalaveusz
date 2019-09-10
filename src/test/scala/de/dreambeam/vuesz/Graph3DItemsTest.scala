@@ -7,7 +7,7 @@ import org.scalatest.{FlatSpec, Matchers}
 
 import scala.util.Random
 
-class Graph3dItemsTest extends FlatSpec with Matchers {
+class Graph3DItemsTest extends FlatSpec with Matchers {
 
   "Scala Veusz" should "render a Point3d" in {
     val xData = (BigDecimal(1.0) to 10.0 by 0.1).map(_.toDouble).toVector
