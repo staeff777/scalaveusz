@@ -559,6 +559,8 @@ class Renderer(dataHandler: DataHandler) {
        |
        |${xyLabelConfig(no.config.label)}
        |
+       |${renderLineConfig(no.config.plotLine)("PlotLine")}
+       |
        |${markerBorderConfig(no.config.markerBorder)}
        |
        |${markerFillConfig(no.config.markerFill)}

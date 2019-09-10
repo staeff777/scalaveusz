@@ -26,7 +26,7 @@ case class NonOrthPoint(data1: Numerical,
 }
 
 case class NonOrthPointConfig(main: NonOrthMainConfig = NonOrthMainConfig(),
-                              plotLine: PlotLineConfig = PlotLineConfig(),
+                              plotLine: LineStyleConfig = LineStyleConfig(),
                               markerBorder: MarkerBorderConfig = MarkerBorderConfig(),
                               markerFill: MarkerFillConfig = MarkerFillConfig(),
                               areaFill1: NonOrthFillConfig = NonOrthFillConfig(),

@@ -3,7 +3,7 @@ package de.dreambeam.vuesz
 import java.io.File
 
 import de.dreambeam.veusz._
-import de.dreambeam.veusz.components.nonorthgraphs.{PolarGraph, TernaryGraph}
+import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph, TernaryGraph}
 import de.dreambeam.veusz.format.{PolarDirection, PolarPositionOf0}
 import org.scalatest.{FlatSpec, Matchers}
 
@@ -48,8 +48,15 @@ class GraphsTest extends FlatSpec with Matchers {
   }
 
   it should "render a configured TeraryGraph with multiple Children" in {
-
-    val ternaryGraph = TernaryGraph()
+    val f1 = NonOrthFunction("30","a")
+    val f2 = NonOrthFunction("30","b")
+    val (a,b,s) = (1 to 100).map(_ => (Random.nextDouble() * 100.0, Random.nextDouble() * 100.0, Random.nextDouble() * 2)).toVector.unzip3
+    val p = NonOrthPoint(a,b,s)
+    p.config.plotLine.color = Colors.DarkGreen // TODO
+    p.config.plotLine.hide = true // TODO
+    p.config.markerFill.color = Colors.Magenta
+    p.config.markerBorder.hide = true
+    val ternaryGraph = TernaryGraph(f1, f2, p)
     ternaryGraph.openInVeusz("ternaryGraph")
   }
 

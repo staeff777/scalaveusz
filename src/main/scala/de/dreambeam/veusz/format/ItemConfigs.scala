@@ -203,6 +203,7 @@ case class PlotLineConfig(
                            var hide: Boolean = false
                            )
 
+
 case class MarkerBorderConfig(
                                var color: String = Colors.Foreground,
                                var width: SizeUnit = 0.5 pt,
