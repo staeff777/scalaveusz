@@ -217,7 +217,7 @@ class Renderer(dataHandler: DataHandler) {
        |${renderBackgroundConfig(t.config.background)}
        |${renderBorderConfig(t.config.border)}
        |${renderLabelConfig(t.config.axisLabel)}
-       |${renderTickLabelsConfig(t.config.tickLabelsConfig)}
+       |${renderTernaryTickLabelsConfig(t.config.tickLabelsConfig)}
        |${renderMajorTicksConfig(t.config.majorTicks)}
        |${renderMinorTicksConfig(t.config.minorTicks)}
        |${renderMajorGridLinesConfig(t.config.majorGridLines)}
@@ -1032,6 +1032,8 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render(prefix)("position", lc.position)}
      """.stripMargin
 
+
+
   def renderTickLabelsConfig(tlc: TickLabelsConfig)(implicit prefix: String = "TickLabels"): String =
     s"""
        |${R.render(prefix)("font", tlc.font)}
@@ -1042,6 +1044,20 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render(prefix)("underline", tlc.underline)}
        |${R.render(prefix)("hide", tlc.hide)}
        |${R.render(prefix)("rotate", tlc.rotate)}
+       |${R.render(prefix)("format", tlc.format)}
+       |${R.render(prefix)("scale", tlc.scale)}
+       |${R.render(prefix)("offset", tlc.offset)}
+     """.stripMargin
+
+  def renderTernaryTickLabelsConfig(tlc: TernaryTickLabelsConfig)(implicit prefix: String = "TickLabels"): String =
+    s"""
+       |${R.render(prefix)("font", tlc.font)}
+       |${R.render(prefix)("size", tlc.size)}
+       |${R.render(prefix)("color", tlc.color)}
+       |${R.render(prefix)("italic", tlc.italic)}
+       |${R.render(prefix)("bold", tlc.bold)}
+       |${R.render(prefix)("underline", tlc.underline)}
+       |${R.render(prefix)("hide", tlc.hide)}
        |${R.render(prefix)("format", tlc.format)}
        |${R.render(prefix)("scale", tlc.scale)}
        |${R.render(prefix)("offset", tlc.offset)}

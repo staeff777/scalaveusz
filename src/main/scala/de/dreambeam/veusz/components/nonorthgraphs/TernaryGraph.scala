@@ -1,18 +1,6 @@
 package de.dreambeam.veusz.components.nonorthgraphs
 
-import de.dreambeam.veusz.format.{
-  AxisLabelConfig,
-  BackgroundConfig,
-  BorderConfig,
-  MajorGridLinesConfig,
-  MajorTicksConfig,
-  MinorGridLinesConfig,
-  MinorTicksConfig,
-  PolarGraphMainConfig,
-  TernaryCoordSystem,
-  TernaryGraphMode,
-  TickLabelsConfig
-}
+import de.dreambeam.veusz.format.{AxisLabelConfig, BackgroundConfig, BorderConfig, MajorGridLinesConfig, MajorTicksConfig, MinorGridLinesConfig, MinorTicksConfig, PolarGraphMainConfig, TernaryCoordSystem, TernaryGraphMode, TernaryTickLabelsConfig, TickLabelsConfig}
 import de.dreambeam.veusz.{Configurable, Executable, GridItem, NonOrthGraphItem, PageItem, Parent}
 
 object TernaryGraph {
@@ -59,8 +47,8 @@ case class TernaryGraphConfig(var main: PolarGraphMainConfig = PolarGraphMainCon
                               var background: BackgroundConfig = BackgroundConfig(),
                               var border: BorderConfig = BorderConfig(),
                               var axisLabel: AxisLabelConfig = AxisLabelConfig(),
-                              var tickLabelsConfig: TickLabelsConfig = TickLabelsConfig(),
-                              var majorTicks: MajorTicksConfig = MajorTicksConfig(),
-                              var minorTicks: MinorTicksConfig = MinorTicksConfig(),
-                              var majorGridLines: MajorGridLinesConfig = MajorGridLinesConfig(),
+                              var tickLabelsConfig: TernaryTickLabelsConfig = TernaryTickLabelsConfig(),
+                              var majorTicks: MajorTicksConfig = MajorTicksConfig(number = 10),
+                              var minorTicks: MinorTicksConfig = MinorTicksConfig(number = 50),
+                              var majorGridLines: MajorGridLinesConfig = MajorGridLinesConfig(hide = false),
                               var minorGridLines: MinorGridLinesConfig = MinorGridLinesConfig())

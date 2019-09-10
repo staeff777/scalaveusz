@@ -8,7 +8,7 @@ import util.RenderTools.newLine
 import components._
 import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Covariance, Fit, Function, Graph, Image, Vectorfield, XAxis, XY, YAxis}
 import de.dreambeam.veusz.components.graph3d.{Function3D, Graph3D, Point3D, Scene3D, Surface3D, Volume3D}
-import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
+import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph, TernaryGraph}
 import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, Line, Polygon, Rectangle}
 import de.dreambeam.veusz.data.{BoxplotData, DateTime, Numerical, NumericalImage, Text}
 import de.dreambeam.veusz.util.DataHandler
@@ -152,6 +152,7 @@ trait Executable {
     case p: Page          => Document(p).createDocumentText()
     case g: Graph         => Page(g).createDocumentText()
     case p: PolarGraph    => Page(p).createDocumentText()
+    case t: TernaryGraph   => Page(t).createDocumentText()
     case g: Graph3D       => Scene3D(g).createDocumentText()
     case s: Scene3D       => Page(s).createDocumentText()
     case a: Axis          => Graph(a).createDocumentText()

@@ -132,6 +132,19 @@ case class TickLabelsConfig(
                                var offset: SizeUnit = 0 pt
                                )
 
+case class TernaryTickLabelsConfig(
+                             var font: String = "Times New Roman",
+                             var size: SizeUnit = 14 pt,
+                             var color: String = Colors.Foreground,
+                             var italic: Boolean = false,
+                             var bold: Boolean = false,
+                             var underline: Boolean = false,
+                             var hide: Boolean = false,
+                             var format: TickLabelFormat.Value = TickLabelFormat.Auto,
+                             var scale: Double = 1.0,
+                             var offset: SizeUnit = 0 pt
+                           )
+
 case class MajorTicksConfig(
                                var color: String = Colors.Foreground,
                                var width: SizeUnit = 0.5 pt,
@@ -540,10 +553,10 @@ case class ContourEllipseLineConfig(
 
 case class PolarGraphMainConfig(
                                  var hide: Boolean = false,
-                                 var leftMargin: SizeUnit = 1.7 cm,
-                                 var rightMargin: SizeUnit = 0.2 cm,
-                                 var topMargin: SizeUnit = 0.2 cm,
-                                 var bottomMargin: SizeUnit = 1.7 cm
+                                 var leftMargin: SizeUnit = 1.0 cm,
+                                 var rightMargin: SizeUnit = 1.0 cm,
+                                 var topMargin: SizeUnit = 1.0 cm,
+                                 var bottomMargin: SizeUnit = 1.0 cm
                                )
 
 
@@ -561,12 +574,12 @@ case class RadialTickLabelsConfig(
                            )
 
 case class RadialTicksConfig(
-                             var color: String = Colors.Foreground,
-                             var width: SizeUnit = 0.5 pt,
-                             var style: String = LineStyle.Solid,
-                             var transparency: Int = 0,
-                             var hide: Boolean = false,
-                             var number: Int = 6
+                              var color: String = Colors.Foreground,
+                              var width: SizeUnit = 0.5 pt,
+                              var lineStyle: String = LineStyle.Solid,
+                              var transparency: Int = 0,
+                              var hide: Boolean = false,
+                              var number: Int = 6
                            )
 
 
