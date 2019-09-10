@@ -5,7 +5,7 @@ import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, F
 import de.dreambeam.veusz.components.graph3d.{Axis3D, Graph3D, Scene3D, XAxis3D, YAxis3D, ZAxis3D}
 import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
 import de.dreambeam.veusz.components.shapes.Ellipse
-import de.dreambeam.veusz.format.{Centimeter, Inches, Millimeter, Percent, Point}
+import de.dreambeam.veusz.format.{Centimeter, Inches, Millimeter, Percent, Point, PolarPositionOf0}
 import de.dreambeam.veusz.util._
 
 package object veusz {
@@ -42,6 +42,7 @@ package object veusz {
   val Surface3DMode = de.dreambeam.veusz.format.Surface3DMode
   val Function3DMode = de.dreambeam.veusz.format.Function3DMode
 
+
   val MarkerType = de.dreambeam.veusz.format.MarkerType
   val ErrorType = de.dreambeam.veusz.format.ErrorType
   val BarchartErrorType = de.dreambeam.veusz.format.BarchartErrorType
@@ -49,6 +50,8 @@ package object veusz {
   val ArrowType = de.dreambeam.veusz.format.ArrowType
   val NonOrthFillType = de.dreambeam.veusz.format.NonOrthFillType
 
+  val PolarDirection = de.dreambeam.veusz.format.PolarDirection
+  val PolarPositionOf0 = de.dreambeam.veusz.format.PolarPositionOf0
 
   object Veusz {
     val Document = veusz.components.Document
@@ -69,6 +72,7 @@ package object veusz {
     val Grid = veusz.components.Grid
     val Graph = components.graph.Graph
     val PolarGraph = components.nonorthgraphs.PolarGraph
+    val TernaryGraph = components.nonorthgraphs.TernaryGraph
     val Scene3D = components.graph3d.Scene3D
     val Label = veusz.components.Label
 
@@ -100,7 +104,7 @@ package object veusz {
     val Barchart = veusz.components.graph.Barchart
     val Fit = veusz.components.graph.Fit
     val Function = veusz.components.graph.Function
-    //TODO val Fit = veusz.components.Fit
+     //val Fit = veusz.components.Fit
     val Boxplot = veusz.components.graph.Boxplot
     val Image = veusz.components.graph.Image
     val Contours = veusz.components.graph.Contours
@@ -118,8 +122,11 @@ package object veusz {
     val Colorbar = veusz.components.Colorbar
     val NonOrthPoint = veusz.components.nonorthgraphs.NonOrthPoint
     val NonOrthFunction = veusz.components.nonorthgraphs.NonOrthFunction
-    //TODO val NonOrthFunction = veusz.components.NonOrthFunction
+
   }
+
+  val TernaryItems = PolarItems
+  val NonOrthItems = PolarItems
 
   object Scene3DItems {
     val Graph3D = veusz.components.graph3d.Graph3D

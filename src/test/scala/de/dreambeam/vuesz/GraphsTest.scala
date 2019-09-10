@@ -1,12 +1,8 @@
 package de.dreambeam.vuesz
 
 import java.io.File
-
 import de.dreambeam.veusz._
-import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph, TernaryGraph}
-import de.dreambeam.veusz.format.{PolarDirection, PolarPositionOf0}
 import org.scalatest.{FlatSpec, Matchers}
-
 import scala.util.Random
 
 class GraphsTest extends FlatSpec with Matchers {
@@ -34,7 +30,7 @@ class GraphsTest extends FlatSpec with Matchers {
     val nonOrthFunction = PolarItems.NonOrthFunction("1000 * sin(a)")
     nonOrthFunction.config.main.steps = 1000
 
-    val polarGraph = PolarGraph(nonOrthPoint, nonOrthFunction)
+    val polarGraph = PageItems.PolarGraph(nonOrthPoint, nonOrthFunction)
     polarGraph.minRadius = Some(0)
     polarGraph.maxRadius = Some(3)
     polarGraph.direction = PolarDirection.anticlockwise
@@ -53,14 +49,14 @@ class GraphsTest extends FlatSpec with Matchers {
   }
 
   it should "render a configured TeraryGraph with multiple Children" in {
-    val f1 = NonOrthFunction("30","a")
-    val f2 = NonOrthFunction("30","b")
+    val f1 = TernaryItems.NonOrthFunction("30","a")
+    val f2 = TernaryItems.NonOrthFunction("30","b")
     val (a,b,s) = (1 to 100).map(_ => (Random.nextDouble() * 100.0, Random.nextDouble() * 100.0, Random.nextDouble() * 2)).toVector.unzip3
-    val p = NonOrthPoint(a,b,s)
+    val p = TernaryItems.NonOrthPoint(a,b,s)
     p.config.plotLine.hide = true
     p.config.markerFill.color = Colors.Magenta
     p.config.markerBorder.hide = true
-    val ternaryGraph = TernaryGraph(f1, f2, p)
+    val ternaryGraph = PageItems.TernaryGraph(f1, f2, p)
 
     val file = new File("veusz/ternaryGraph.svg")
     ternaryGraph.export(file.getAbsolutePath)
