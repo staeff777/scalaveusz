@@ -17,12 +17,12 @@ object Scene3D {
              name: String = "scene3d") = new Scene3D(children , xRotation, yRotation, zRotation, distance, renderMethod, name)
 }
 
-case class Scene3D (children: Vector[Scene3DItem],
-                    xRotation: Int = 0,
-                    yRotation: Int = 35,
-                    zRotation: Int = 0,
-                    distance: Int = 5,
-                    renderMethod: RenderMethod.Value = RenderMethod.Fast,
+case class Scene3D (var children: Vector[Scene3DItem],
+                    var xRotation: Int = 0,
+                    var yRotation: Int = 35,
+                    var zRotation: Int = 0,
+                    var distance: Int = 5,
+                    var renderMethod: RenderMethod.Value = RenderMethod.Fast,
                     var name: String = "scene3d")
   extends PageItem
     with GridItem

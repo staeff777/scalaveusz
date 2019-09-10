@@ -70,8 +70,6 @@ package object veusz {
     val Graph = components.graph.Graph
     val PolarGraph = components.nonorthgraphs.PolarGraph
     val Scene3D = components.graph3d.Scene3D
-
-
     val Label = veusz.components.Label
 
     object Shapes{

@@ -330,9 +330,9 @@ case class Scene3DLightingConfig(
                                  var enable: Boolean,
                                  var color: String,
                                  var intensity: Int = 100,
-                                 var xPosition: Int,
-                                 var yPosition: Int,
-                                 var zPosition: Int
+                                 var xPosition: Double,
+                                 var yPosition: Double,
+                                 var zPosition: Double
                                  )
 
 case class Graph3DMainConfig(
