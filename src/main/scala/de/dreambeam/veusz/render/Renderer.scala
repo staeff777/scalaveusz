@@ -189,6 +189,30 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("rightMargin", p.config.main.rightMargin)}
        |${R.render("topMargin", p.config.main.topMargin)}
        |${R.render("bottomMargin", p.config.main.bottomMargin)}
+       |#Tick Labels
+       |${R.render("TickLabels")("font", p.config.tickLabels.font)}
+       |${R.render("TickLabels")("size", p.config.tickLabels.size)}
+       |${R.render("TickLabels")("color", p.config.tickLabels.color)}
+       |${R.render("TickLabels")("italic", p.config.tickLabels.italic)}
+       |${R.render("TickLabels")("bold", p.config.tickLabels.bold)}
+       |${R.render("TickLabels")("underline", p.config.tickLabels.underline)}
+       |${R.render("TickLabels")("format", p.config.tickLabels.format)}
+       |${R.render("TickLabels")("scale", p.config.tickLabels.scale)}
+       |${R.render("TickLabels")("hideradial", p.config.tickLabels.hideRadial)}
+       |${R.render("TickLabels")("hidetangential", p.config.tickLabels.hideRadial)}
+       |#Spoke Line
+       |${R.render("SpokeLine")("color", p.config.spokeLine.color)}
+       |${R.render("SpokeLine")("width", p.config.spokeLine.width)}
+       |${R.render("SpokeLine")("style", p.config.spokeLine.lineStyle)}
+       |${R.render("SpokeLine")("transparency", p.config.spokeLine.transparency)}
+       |${R.render("SpokeLine")("hide", p.config.spokeLine.hide)}
+       |#Radii Line
+       |${R.render("RadiiLine")("color", p.config.radiiLine.color)}
+       |${R.render("RadiiLine")("width", p.config.radiiLine.width)}
+       |${R.render("RadiiLine")("style", p.config.radiiLine.lineStyle)}
+       |${R.render("RadiiLine")("transparency", p.config.radiiLine.transparency)}
+       |${R.render("RadiiLine")("number", p.config.radiiLine.number)}
+       |${R.render("RadiiLine")("hide", p.config.radiiLine.hide)}
        |
        |${renderBackgroundConfig(p.config.background)}
        |

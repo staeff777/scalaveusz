@@ -37,10 +37,9 @@ class GraphsTest extends FlatSpec with Matchers {
     polarGraph.positionOf0 = PolarPositionOf0.bottom
     polarGraph.config.background.color = Colors.LightGrey
     polarGraph.config.border.width = 1 pt()
-    polarGraph.config.tickLabels.italic = true  // TODO
-    polarGraph.config.spokeLine.lineStyle = LineStyle.Dotted //TODO
-    polarGraph.config.radiiLine.lineStyle = LineStyle.Dash1 //TODO
-   // polarGraph.openInVeusz("polargraph")
+    polarGraph.config.tickLabels.italic = true
+    polarGraph.config.spokeLine.lineStyle = LineStyle.Dotted
+    polarGraph.config.radiiLine.lineStyle = LineStyle.Dash1
 
     val file = new File("veusz/polarGraph.svg")
     polarGraph.export(file.getAbsolutePath)
