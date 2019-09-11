@@ -125,7 +125,12 @@ package object veusz {
 
   }
 
-  val TernaryItems = PolarItems
+  object TernaryItems {
+    val Colorbar = veusz.components.Colorbar
+    val NonOrthPoint =  veusz.components.nonorthgraphs.TernaryPoint
+    val NonOrthFunction =  veusz.components.nonorthgraphs.TernaryFunction
+  }
+
   val NonOrthItems = PolarItems
 
   object Scene3DItems {

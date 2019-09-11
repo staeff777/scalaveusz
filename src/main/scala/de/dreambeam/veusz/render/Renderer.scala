@@ -47,6 +47,7 @@ class Renderer(dataHandler: DataHandler) {
           x.children.map{
             case g: GridItem => go(g)
             case g: GraphItem => go(Graph(g)).mkString("")
+            case n: WrapInTernaryGraph => go(TernaryGraph(n)).mkString("")
             case n: NonOrthGraphItem => go(PolarGraph(n)).mkString("")
             case s: Scene3DItem => go(Scene3D(s)).mkString("")
             case g: Graph3DItem => go(Scene3D(Graph3D(g))).mkString("")

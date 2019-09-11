@@ -27,13 +27,12 @@ class GridTest extends FlatSpec with Matchers{
     val dataset = (for (x <- 0 until 100; y <- 0 until 100) yield (x.toDouble, y.toDouble) -> { (Math.sin(0.1 * (x + y))) + 0.5 }).toMap
     val s3d = Graph3DItems.Surface3D(dataset, dataset)
     val graph3D = Scene3DItems.Graph3D(s3d)
-
     val scene3D = PageItems.Scene3D(graph3D)
 
     val grid = PageItems.Grid(2,2, Vector(1.1, 1), Vector(1.2,2), polarGraph, graph, ternaryGraph, scene3D)
     grid.config.leftMargin = 0.0 cm()
     grid.config.bottomMargin = 0.5 cm()
-    grid.openInVeusz()
+
     val file = new File("veusz/grid.png")
     grid.export(file.getAbsolutePath)
     file should exist
@@ -56,12 +55,11 @@ class GridTest extends FlatSpec with Matchers{
     val dataset = (for (x <- 0 until 100; y <- 0 until 100) yield (x.toDouble, y.toDouble) -> { (Math.sin(0.1 * (x + y))) + 0.5 }).toMap
     val s3d = Graph3DItems.Surface3D(dataset, dataset)
 
-    
     val grid = PageItems.Grid(2,2, Vector(1.1, 1), Vector(1.2,2), nonOrthFunction, xy1, p, s3d)
     grid.config.leftMargin = 0.0 cm()
     grid.config.bottomMargin = 0.5 cm()
-    grid.openInVeusz()
-    val file = new File("veusz/grid.png")
+
+    val file = new File("veusz/wrappedgrid.png")
     grid.export(file.getAbsolutePath)
     file should exist
     file.delete()

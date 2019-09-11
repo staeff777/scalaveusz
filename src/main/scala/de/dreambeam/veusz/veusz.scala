@@ -34,6 +34,11 @@ trait GridItem extends WrappedGridItem
 
 trait GraphItem extends WrappedGridItem
 
+/**
+  * a NonOrthGraphItem can be used for Polar and Ternary Graphs
+  * for an item is not put into one of those graphs it will automatically seen as PolarGraph Item
+  * unless the trait WrapInTernaryGraph is used
+  */
 trait NonOrthGraphItem extends WrappedGridItem
 
 trait Scene3DItem extends WrappedGridItem
@@ -46,14 +51,19 @@ trait Parent {
 
 trait Item {
   def group: String
-
   def name: String
 }
+
+/**
+* a tagging trait to handle a NonOrthGraphItem as TernaryGraph
+  */
+trait WrapInTernaryGraph extends NonOrthGraphItem
 
 trait Configurable
 
 trait Executable {
   val NewLine = "\n"
+
 
   /**
   * writes all data from the datahandler into the vuesz-Document
@@ -186,8 +196,8 @@ trait Executable {
         case n: Numerical => Graph(bar).createDocumentText()
       }
     case box: Boxplot => Graph(box).createDocumentText()
-    case no: NonOrthPoint => PolarGraph(no).createDocumentText()
-    case nf: NonOrthFunction => PolarGraph(nf).createDocumentText()
+    case n: WrapInTernaryGraph => TernaryGraph(n).createDocumentText()
+    case n: NonOrthGraphItem => PolarGraph(n).createDocumentText()
     case p3: Point3D => Graph3D(p3).createDocumentText()
     case s3: Surface3D => Graph3D(s3).createDocumentText()
     case v3: Volume3D => Graph3D(v3).createDocumentText()
