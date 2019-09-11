@@ -34,13 +34,17 @@ class PageTests extends FlatSpec with Matchers {
     label.config.border.color = Colors.DarkMagenta
 
     val rect = PageItems.Shapes.Rectangle(0.35, 0.65, 0.3, 0.3, rotate = 45)
+    rect.config.border.style = LineStyle.Dotted
 
     val ellipse = PageItems.Shapes.Ellipse(Vector(0.7), Vector(0.9), Vector(0.2), Vector(0.1))
+    ellipse.config.fill.color = Colors.DarkGreen
+    ellipse.config.fill.fillStyle = FillStyle.DoubleDiagonalCross
+    ellipse.config.fill.hide = false
 
     val line = PageItems.Shapes.Line(Vector(0.4),Vector(0.24), Vector(0.2))
     line.config.main.arrowLeft = ArrowType.ArrowReverse
     line.config.main.arrowRight = ArrowType.Arrow
-    line.config.arrowFill.color = Colors.Black
+    line.config.arrowFill.color = Colors.DarkRed
     val imageFile = PageItems.Shapes.ImageFile("src/test/resources/logo.png", xPosition = 0.8, yPosition = 0.23, width = 0.3, height = 0.2)
 
     val polygon = PageItems.Shapes.Polygon(Vector(
@@ -54,8 +58,6 @@ class PageTests extends FlatSpec with Matchers {
     polygon.config.fill.color = Colors.DarkMagenta
 
     val p = DocumentItems.Page(label, imageFile, rect,ellipse,line,polygon, graph)
-
-    p.openInVeusz("shapes")
 
     val file = new File("veusz/pagetest_withMore.svg")
     p.export(file.getAbsolutePath)
