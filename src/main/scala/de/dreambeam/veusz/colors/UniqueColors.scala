@@ -1,7 +1,6 @@
 package de.dreambeam.veusz.colors
 
 /**
-  * Created by Kaufmann on 08.12.2016.
   * based on http://stackoverflow.com/questions/1168260/algorithm-for-generating-unique-colors
   */
 

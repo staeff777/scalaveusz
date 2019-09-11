@@ -22,4 +22,4 @@ case class Line(xPositions: Vector[Double] = Vector(0.5),
 
 case class LineConfig(main: LineMainConfig = LineMainConfig(),
                       line: BorderConfig = BorderConfig(color = Colors.Foreground),
-                      arrowFill: BackgroundConfig = BackgroundConfig())
+                      arrowFill: SimpleFill = SimpleFill())

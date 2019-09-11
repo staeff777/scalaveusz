@@ -130,13 +130,19 @@ object ArrowType extends Enumeration {
   val None = Value("none")
   val Arrow = Value("arrow")
   val ArrowNarrow = Value("arrownarrow")
-  val ArrowTriangle = Value("arrowreverse")
+  val ArrowReverse = Value("arrowreverse")
+  val ArrowTriangle = Value("arrowtriangle")
   val LineArrow = Value("linearrow")
   val LineArrowReverse = Value("linearrowreverse")
   val Bar = Value("bar")
   val LineCross = Value("linecross")
   val Asterisk = Value("asterisk")
-
+  val Circle = Value("circle")
+  val Square = Value("square")
+  val Diamond = Value("diamond")
+  val Lineup = Value("lineup")
+  val Linedown = Value("linedown")
+  val Lineextend = Value("lineextend")
 }
 
 object NonOrthFillType extends Enumeration {

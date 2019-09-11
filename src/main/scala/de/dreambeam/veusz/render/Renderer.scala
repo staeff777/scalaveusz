@@ -808,7 +808,7 @@ class Renderer(dataHandler: DataHandler) {
 
   def render(l: Label) =
     s"""
-       |${R.render("label", l.label)}
+       |${R.render("label", l.text)}
        |Set('xPos', [${l.xPositions.mkString(", ")}])
        |Set('yPos', [${l.yPositions.mkString(", ")}])
        |${R.render("positioning", l.positionMode)}
@@ -973,7 +973,7 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("hide", line.config.main.hide)}
        |
        |${renderBorderConfig(line.config.line)("Line")}
-       |${renderBackgroundConfig(line.config.arrowFill)("Fill")}
+       |${renderSimpleFillConfig(line.config.arrowFill)("Fill")}
      """.stripMargin
 
   def render(poly: Polygon) =
@@ -983,7 +983,11 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("positioning", poly.positionMode)}
        |${R.render("xAxis", poly.xAxis)}
        |${R.render("yAxis", poly.yAxis)}
-       |
+       |${R.render("hide", poly.config.hide)}
+       |${R.render("hide", poly.config.hide)}
+       |${R.render("hide", poly.config.hide)}
+       |${renderBorderConfig(poly.config.line)("Line")}
+       |${renderBackgroundConfig(poly.config.fill)("Fill")}
      """.stripMargin
 
   def render(vec: Vectorfield) = {
@@ -1048,6 +1052,14 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render(prefix)("backcolor", bc.backColor)}
        |${R.render(prefix)("backtransparency", bc.backTransparency)}
        |${R.render(prefix)("backhide", bc.backHide)}
+     """.stripMargin
+
+  def renderSimpleFillConfig(bc: SimpleFill)(implicit prefix: String = "Background"): String =
+    s"""
+       |${R.render(prefix)("color", bc.color)}
+       |${R.render(prefix)("style", bc.fillStyle)}
+       |${R.render(prefix)("hide", bc.hide)}
+       |${R.render(prefix)("transparency", bc.transparency)}
      """.stripMargin
 
   def renderLabelConfig(lc: de.dreambeam.veusz.format.AxisLabelConfig)(implicit prefix: String = "Label"): String =
