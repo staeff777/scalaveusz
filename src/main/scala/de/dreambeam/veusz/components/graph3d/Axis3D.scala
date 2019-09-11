@@ -14,13 +14,13 @@ case class Axis3D (label: String = "",
                    maxPos: Double = 1,
                    axisPosition1: Double = 0,
                    axisPosition2: Double = 0,
-                   name: String = "")
+                   name: String = "",
+                   var config: Axis3DConfig = Axis3DConfig())
   extends Graph3DItem
     with Configurable
     with Executable
 {
   val group = "axis3d"
-  var config: Axis3DConfig = Axis3DConfig()
 }
 
 case class Axis3DConfig(main: Axis3DMainConfig = Axis3DMainConfig(),

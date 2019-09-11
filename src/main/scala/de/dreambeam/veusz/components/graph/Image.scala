@@ -4,8 +4,8 @@ import de.dreambeam.veusz.data.NumericalImage
 import de.dreambeam.veusz.format.{ColorMaps, Scaling}
 import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
 
-
 object Image {
+
   def apply(data: Map[(Double, Double), Double],
             min: Option[Double] = None,
             max: Option[Double] = None,
@@ -14,29 +14,24 @@ object Image {
             keyText: String = "",
             xAxis: String = "x",
             yAxis: String = "y",
-            name: String = "image") =  new Image(new NumericalImage(data), min, max, scaling, transData, keyText, xAxis, yAxis, name)
+            name: String = "image",
+            config: ImageConfig = ImageConfig()) = new Image(NumericalImage(data), min, max, scaling, transData, keyText, xAxis, yAxis, name, config)
 
 }
 
-case class Image(dataset: NumericalImage,
-                 min: Option[Double],
-                 max: Option[Double],
-                 scaling: Scaling.Value,
-                 transData: Option[Vector[Vector[Double]]],
-                 keyText: String,
-                 xAxis: String,
-                 yAxis: String,
-                 name: String
-                )
-  extends GraphItem
-    with Configurable
-    with Executable {
+case class Image(var dataset: NumericalImage,
+                 var min: Option[Double],
+                 var max: Option[Double],
+                 var scaling: Scaling.Value,
+                 var transData: Option[Vector[Vector[Double]]],
+                 var keyText: String,
+                 var xAxis: String,
+                 var yAxis: String,
+                 var name: String,
+                 var config: ImageConfig)
+    extends GraphItem with Configurable with Executable {
   val group = "image"
-  var config = ImageConfig()
+
 }
 
-case class ImageConfig(var colorMap: String = ColorMaps.Grey,
-                       var invertColormap: Boolean = false,
-                       var transparency: Int = 0,
-                       var hide: Boolean = false,
-                       var smooth: Boolean = true)
+case class ImageConfig(var colorMap: String = ColorMaps.Grey, var invertColormap: Boolean = false, var transparency: Int = 0, var hide: Boolean = false, var smooth: Boolean = true)

@@ -14,29 +14,31 @@ object Vectorfield {
             keyText: String = "",
             xAxis: String = "x",
             yAxis: String = "y",
-            name: String = "vectorfield"): Vectorfield = {
+            name: String = "vectorfield",
+   config: VectorfieldConfig = VectorfieldConfig()): Vectorfield = {
 
-    new Vectorfield(NumericalImage(dxOrR), NumericalImage(dyOrTheta), mode, rotate, reflectX, reflectY, keyText, xAxis, yAxis, name)
+    new Vectorfield(NumericalImage(dxOrR), NumericalImage(dyOrTheta), mode, rotate, reflectX, reflectY, keyText, xAxis, yAxis, name, config)
   }
 
 }
 
-case class Vectorfield (dxOrR: NumericalImage,
-                        dyOrTheta: NumericalImage,
-                        mode: VectorfieldMode.Value,
-                        rotate: Double,
-                        reflectX: Boolean,
-                        reflectY: Boolean,
-                        keyText: String,
-                        xAxis: String,
-                        yAxis: String,
-                        name: String )
+case class Vectorfield (var dxOrR: NumericalImage,
+                        var dyOrTheta: NumericalImage,
+                        var mode: VectorfieldMode.Value,
+                        var rotate: Double,
+                        var reflectX: Boolean,
+                        var reflectY: Boolean,
+                        var keyText: String,
+                        var xAxis: String,
+                        var yAxis: String,
+                        var name: String,
+                        var config: VectorfieldConfig)
   extends GraphItem
     with Configurable
     with Executable
 {
   val group = "vectorfield"
-  var config: VectorfieldConfig = VectorfieldConfig()
+
 }
 
 case class VectorfieldConfig(main: VectorfieldMainConfig = VectorfieldMainConfig(),

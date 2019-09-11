@@ -17,24 +17,16 @@ object Label {
   def apply(text: String, xPosition: Double, yPosition: Double, positionMode: Positioning.Value, xAxis: String, yAxis: String, name: String, config: LabelConfig): Label =
     Label(text, Vector(xPosition), Vector(yPosition), positionMode, xAxis, yAxis, name, config)
 
-  def apply(text: String,
-            xPositions: Vector[Double] = Vector(0.5),
-            yPositions: Vector[Double] = Vector(0.5),
-            positionMode: Positioning.Value = Positioning.Relative,
-            xAxis: String = "x",
-            yAxis: String = "y",
-            name: String = "label",
-            config: LabelConfig = LabelConfig()): Label = new Label(text, xPositions, yPositions, positionMode, xAxis, yAxis, name, LabelConfig())
 }
 
-case class Label(text: String,
-                 xPositions: Vector[Double],
-                 yPositions: Vector[Double],
-                 positionMode: Positioning.Value,
-                 xAxis: String,
-                 yAxis: String,
+case class Label(var text: String,
+                 var xPositions: Vector[Double] = Vector(0.5),
+                 var yPositions: Vector[Double] = Vector(0.5),
+                 var positionMode: Positioning.Value = Positioning.Relative,
+                 var xAxis: String = "x",
+                 var yAxis: String = "y",
                  var name: String = "label",
-                 var config: LabelConfig)
+                 var config: LabelConfig = LabelConfig())
     extends GraphItem with PageItem with Configurable with Executable {
   val group = "label"
 

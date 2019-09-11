@@ -22,6 +22,20 @@ object Point3D {
   def apply(x: Data, y: Data, z: Data, scaleMarkers: Numerical, colorMarkers: Numerical, keyText: String, xAxis: String, yAxis: String, zAxis: String, name: String): Point3D =
     new Point3D(x, y, z, scaleMarkers, colorMarkers, keyText, xAxis, yAxis, zAxis, name, Point3DConfig())
 
+  def apply(x: Data, y: Data, z: Data, scaleMarkers: Numerical, colorMarkers: Numerical, keyText: String, xAxis: String, yAxis: String, zAxis: String): Point3D =
+    new Point3D(x, y, z, scaleMarkers, colorMarkers, keyText, xAxis, yAxis, zAxis, "point3d", Point3DConfig())
+
+  def apply(x: Data, y: Data, z: Data, scaleMarkers: Numerical, colorMarkers: Numerical, keyText: String): Point3D =
+    new Point3D(x, y, z, scaleMarkers, colorMarkers, keyText, "x", "y", "z", "point3d", Point3DConfig())
+
+  def apply(x: Data, y: Data, z: Data, scaleMarkers: Numerical, colorMarkers: Numerical): Point3D =
+    new Point3D(x, y, z, scaleMarkers, colorMarkers, "", "x", "y", "z", "point3d", Point3DConfig())
+
+  def apply(x: Data, y: Data, z: Data, scaleMarkers: Numerical): Point3D =
+    new Point3D(x, y, z, scaleMarkers, Numerical(), "", "x", "y", "z", "point3d", Point3DConfig())
+
+  def apply(x: Data, y: Data, z: Data): Point3D =
+    new Point3D(x, y, z, Numerical(), Numerical(), "", "x", "y", "z", "point3d", Point3DConfig())
 }
 
 case class Point3D(var x: Data,

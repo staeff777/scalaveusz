@@ -13,9 +13,10 @@ object Barchart {
                               keys: Vector[String] = Vector.empty,
                               xAxis: String = "x",
                               yAxis: String = "y",
-                              name: String = "bar") = {
+                              name: String = "bar",
+                              config: BarchartConfig = BarchartConfig()) = {
     val numLengths = Vector(Numerical(lengths))
-    new Barchart(numLengths, Numerical(positions), direction, mode, keys, xAxis, yAxis, name)
+    new Barchart(numLengths, Numerical(positions), direction, mode, keys, xAxis, yAxis, name, config)
   }
 
   def apply(lengths: Vector[Vector[Double]],
@@ -25,28 +26,25 @@ object Barchart {
             keys: Vector[String] = Vector.empty,
             xAxis: String = "x",
             yAxis: String = "y",
-            name: String = "bar"
-           ): Barchart = {
+            name: String = "bar",
+            config: BarchartConfig = BarchartConfig()): Barchart = {
     val numLengths = lengths.map(l => Numerical(l))
-    new Barchart(numLengths, Numerical(positions), direction, mode, keys, xAxis, yAxis, name)
+    new Barchart(numLengths, Numerical(positions), direction, mode, keys, xAxis, yAxis, name, config)
   }
 
 }
 
-case class Barchart(lengths: Vector[Numerical],
-                    positions: BarChartData,
-                    direction: Direction.Value,
-                    mode: BarchartMode.Value,
-                    keys: Vector[String],
-                    xAxis: String,
-                    yAxis: String,
-                    name: String)
-    extends GraphItem
-      with Configurable
-      with Executable
-{
+case class Barchart(var lengths: Vector[Numerical],
+                    var positions: BarChartData,
+                    var direction: Direction.Value,
+                    var mode: BarchartMode.Value,
+                    var keys: Vector[String],
+                    var xAxis: String,
+                    var yAxis: String,
+                    var name: String,
+                    var config: BarchartConfig)
+    extends GraphItem with Configurable with Executable {
   val group = "bar"
-  var config = BarchartConfig()
 }
 
 case class BarchartConfig(var main: BarchartMainConfig = BarchartMainConfig(),

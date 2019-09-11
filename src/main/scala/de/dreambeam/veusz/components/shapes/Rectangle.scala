@@ -50,14 +50,14 @@ object Rectangle {
 
 }
 
-case class Rectangle(xPositions: Vector[Double] = Vector(0.5),
-                     yPositions: Vector[Double] = Vector(0.5),
-                     widths: Vector[Double] = Vector(1.0),
-                     heights: Vector[Double] = Vector(1.0),
-                     rotate: Double = 0.0,
-                     positionMode: Positioning.Value = Positioning.Relative,
-                     xAxis: String = "x",
-                     yAxis: String = "y",
+case class Rectangle(var xPositions: Vector[Double] = Vector(0.5),
+                     var yPositions: Vector[Double] = Vector(0.5),
+                     var widths: Vector[Double] = Vector(1.0),
+                     var heights: Vector[Double] = Vector(1.0),
+                     var rotate: Double = 0.0,
+                     var positionMode: Positioning.Value = Positioning.Relative,
+                     var xAxis: String = "x",
+                     var yAxis: String = "y",
                      var name: String = "rect",
                      var config: RectangleConfig = RectangleConfig())
     extends GraphItem with PageItem with Configurable with Executable {

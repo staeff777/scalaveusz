@@ -10,7 +10,8 @@ case class Function (function: String,
                      max: Option[Double] = None,
                      xAxis: String = "x",
                      yAxis: String = "y",
-                     var name: String = "function"
+                     var name: String = "function",
+                     var config:FunctionConfig = FunctionConfig()
                      )
   extends GraphItem
     with NonOrthGraphItem
@@ -18,7 +19,6 @@ case class Function (function: String,
     with Executable
 {
   val group = "function"
-  var config = FunctionConfig()
 }
 
 case class FunctionConfig(var notes: String = "",

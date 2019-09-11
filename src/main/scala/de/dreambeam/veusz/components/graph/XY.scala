@@ -13,9 +13,10 @@ object XY {
             keyText: String = "",
             xAxis: String = "x",
             yAxis: String = "y",
-            name: String = "xy"
+            name: String = "xy",
+            config: XYConfig = XYConfig()
            ): XY = {
-    XY(Numerical(x), Numerical(y), Numerical(scaleMarkers), Numerical(colorMarkers), keyText, xAxis, yAxis, name, XYConfig())
+    XY(Numerical(x), Numerical(y), Numerical(scaleMarkers), Numerical(colorMarkers), keyText, xAxis, yAxis, name, config)
   }
 
 

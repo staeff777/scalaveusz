@@ -5,30 +5,19 @@ import de.dreambeam.veusz.format._
 import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
 
 
-object Boxplot {
 
-  def apply(data: BoxplotData,
-            whiskerMode: WhiskerMode.Value = WhiskerMode.IQP15,
-            fillFraction: Double = 0.75,
-            name: String = "boxplot"
-            ): Boxplot = {
-
-   new Boxplot(data, whiskerMode, fillFraction, name)
-  }
-
-}
-
-case class Boxplot(data: BoxplotData,
-                   whiskerMode: WhiskerMode.Value,
-                   fillFraction: Double,
-                   name: String
+case class Boxplot(var data: BoxplotData,
+                   var whiskerMode: WhiskerMode.Value = WhiskerMode.IQP15,
+                   var fillFraction: Double = 0.75,
+                   var name: String = "boxplot",
+                   var config: BoxplotConfig = BoxplotConfig()
                    )
   extends GraphItem
     with Configurable
     with Executable
 {
   val group = "boxplot"
-  var config = BoxplotConfig()
+
 }
 
 case class BoxplotConfig(main: BoxplotMainConfig = BoxplotMainConfig(),

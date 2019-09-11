@@ -3,23 +3,23 @@ package de.dreambeam.veusz.components.graph
 import de.dreambeam.veusz.format._
 import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
 
-case class Contours(dataset: String = "",
-                    min: Option[Double] = None,
-                    max: Option[Double] = None,
-                    numberLevels: Int = 5,
-                    scaling: Scaling.Value = Scaling.Linear,
-                    manualLevels: Option[Int] = None,
-                    levelsInKey: Boolean = false,
-                    xAxis: String = "x",
-                    yAxis: String = "y",
-                    name: String = "contour"
+case class Contours(var dataset: String = "",
+                    var min: Option[Double] = None,
+                    var max: Option[Double] = None,
+                    var numberLevels: Int = 5,
+                    var scaling: Scaling.Value = Scaling.Linear,
+                    var manualLevels: Option[Int] = None,
+                    var levelsInKey: Boolean = false,
+                    var xAxis: String = "x",
+                    var yAxis: String = "y",
+                    var name: String = "contour",
+                    var config: ContoursConfig = ContoursConfig()
                    )
   extends GraphItem
     with Configurable
     with Executable
 {
   val group = "contours"
-  var config = ContoursConfig()
 }
 
 case class ContoursConfig(var hide: Boolean = false,

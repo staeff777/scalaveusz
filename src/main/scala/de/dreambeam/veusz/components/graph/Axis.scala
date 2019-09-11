@@ -13,14 +13,15 @@ case class Axis (var label: String = "",
                  var minPos: Double = 0,
                  var maxPos: Double = 1,
                  var axisPosition: Double = 0,
-                 var name: String = ""
+                 var name: String = "",
+                 var config: AxisConfig = AxisConfig()
                 )
   extends GraphItem
     with Configurable
     with Executable
 {
   val group = "axis"
-  var config: AxisConfig = AxisConfig()
+
 }
 
 case class AxisConfig(main: AxisMainConfig = AxisMainConfig(),

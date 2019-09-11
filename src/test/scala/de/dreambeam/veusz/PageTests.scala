@@ -43,7 +43,14 @@ class PageTests extends FlatSpec with Matchers {
     line.config.arrowFill.color = Colors.Black
     val imageFile = PageItems.Shapes.ImageFile("src/test/resources/logo.png", xPosition = 0.8, yPosition = 0.23, width = 0.3, height = 0.2)
 
-    val polygon = PageItems.Shapes.Polygon(Vector(0.4,0.4,0.5,0.6,0.6,0.5), Vector(0.4,0.5,0.5,0.5,0.3, 0.45))
+    val polygon = PageItems.Shapes.Polygon(Vector(
+      (0.7,0.5),
+      (0.7,0.6),
+      (0.8,0.6),
+      (0.9,0.6),
+      (0.9,0.4),
+      (0.8,0.55),
+    ))
     polygon.config.fill.color = Colors.DarkMagenta
 
     val p = DocumentItems.Page(label, imageFile, rect,ellipse,line,polygon, graph)

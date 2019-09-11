@@ -7,31 +7,22 @@ import de.dreambeam.veusz._
 object Document
 {
 
-  val defaultName = "document"
-
-
   def apply(name: String, children: DocumentItem*) = {
-      new Document(name, children.toVector)
+      new Document( children.toVector, name = name)
   }
 
   def apply(children: DocumentItem*) = {
-       new Document(defaultName, children.toVector)
+       new Document( children.toVector)
   }
-
-  /* Children */
-  val $Page = Page
 }
 
-
-class Document private (val name: String, val children: Vector[DocumentItem])
+case class Document (var children: Vector[DocumentItem], var config: DocumentConfig = DocumentConfig(), var name: String = "document")
   extends Item
   with Configurable
   with Executable
   with Parent
 {
   val group = ""
-
-  var config: DocumentConfig = DocumentConfig()
 }
 
 case class DocumentConfig(var width: SizeUnit = 15 cm,

@@ -7,24 +7,22 @@ import de.dreambeam.veusz.format.SizeUnit
 
 object Page {
 
-  val defaultName = "page"
-
   def apply(name: String, children: PageItem*): Page =
-    Page(name, children.toVector)
+    Page(children.toVector, name = name)
 
   def apply(children: PageItem*): Page =
-    Page(defaultName, children.toVector)
+    Page(children.toVector, name = "page")
 
 }
 
-case class Page private (name: String, children: Vector[PageItem])
+case class Page (var children: Vector[PageItem] = Vector.empty, var name: String, var config: PageConfig = PageConfig())
   extends DocumentItem
     with Configurable
     with Executable
     with Parent
 {
   val group = "page"
-  var config: PageConfig = PageConfig()
+
 }
 
 case class PageConfig(var notes: String = "",
