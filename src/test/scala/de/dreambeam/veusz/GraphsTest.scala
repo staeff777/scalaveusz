@@ -1,4 +1,4 @@
-package de.dreambeam.vuesz
+package de.dreambeam.veusz
 
 import java.io.File
 import de.dreambeam.veusz._
@@ -7,7 +7,7 @@ import scala.util.Random
 
 class GraphsTest extends FlatSpec with Matchers {
 
-  "Scala Veusz" should "render a configured Graph with multiple Children" in {
+  "scalaveusz" should "render a configured Graph with multiple Children" in {
     val xData = (BigDecimal(1.0) to 10.0 by 0.5).map(_.toDouble).toVector
     val yData = xData.map(_ * 1.25)
     val xy1 = GraphItems.XY(xData, yData)
@@ -86,7 +86,7 @@ class GraphsTest extends FlatSpec with Matchers {
   }
 
 
-  it should "render a configured Scene3D with a Graph3D with multiple Children" in {
+  it should "render a configured Scene3D with a Graph3D and one Item" in {
     val dataset = (for (x <- 0 until 100; y <- 0 until 100) yield (x.toDouble, y.toDouble) -> { (Math.sin(0.1 * (x + y))) + 0.5 }).toMap
 
     val s3d = Graph3DItems.Surface3D(dataset, dataset)

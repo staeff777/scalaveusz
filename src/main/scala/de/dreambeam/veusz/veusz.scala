@@ -155,6 +155,7 @@ trait Executable {
     case t: TernaryGraph   => Page(t).createDocumentText()
     case g: Graph3D       => Scene3D(g).createDocumentText()
     case s: Scene3D       => Page(s).createDocumentText()
+    case g: Grid       =>  Page(g).createDocumentText()
     case a: Axis          => Graph(a).createDocumentText()
     case fun: Function    => Graph(fun).createDocumentText()
     case fit: Fit         => Graph(fit).createDocumentText()

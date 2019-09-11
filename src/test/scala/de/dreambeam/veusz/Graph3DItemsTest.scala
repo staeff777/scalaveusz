@@ -1,4 +1,4 @@
-package de.dreambeam.vuesz
+package de.dreambeam.veusz
 
 import java.io.File
 
@@ -9,7 +9,7 @@ import scala.util.Random
 
 class Graph3DItemsTest extends FlatSpec with Matchers {
 
-  "Scala Veusz" should "render a Point3d" in {
+  "scalaveusz" should "render a Point3d" in {
     val xData = (BigDecimal(1.0) to 10.0 by 0.1).map(_.toDouble).toVector
     val yData = xData.map(d => Math.sin(d) * 1.25)
     val zData = xData.map(_ * 1.25)

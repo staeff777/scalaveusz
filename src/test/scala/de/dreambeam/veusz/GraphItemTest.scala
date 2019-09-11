@@ -1,4 +1,4 @@
-package de.dreambeam.vuesz
+package de.dreambeam.veusz
 
 import java.io.File
 
@@ -11,7 +11,7 @@ import scala.util.Random
 
 class GraphItemTest extends FlatSpec with Matchers {
 
-  "Scala Veusz" should "render a XY" in {
+  "scalaveusz" should "render a XY" in {
     val xData = (BigDecimal(1.0) to 10.0 by 0.5).map(_.toDouble).toVector
     val yData = xData.map(_ * 1.25)
     val yScale = xData.map(_ / 1.25)

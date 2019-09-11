@@ -146,8 +146,8 @@ class Renderer(dataHandler: DataHandler) {
     s"""
        |${R.render("rows", g.rows)}
        |${R.render("columns", g.columns)}
-       |Set('scaleRows', [${g.scaleRows}])
-       |Set('scaleCols', [${g.scaleCols}])
+       |Set('scaleRows', [${g.scaleRows.mkString(",")}])
+       |Set('scaleCols', [${g.scaleCols.mkString(",")}])
        |
        |# Grid Formatting
        |${R.render("leftMargin", g.config.leftMargin)}
