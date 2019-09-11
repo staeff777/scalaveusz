@@ -42,14 +42,20 @@ class Renderer(dataHandler: DataHandler) {
           g.axis.map(go).mkString("") + (g.children.map(go).mkString(""))
         }
 
+        // allow other children than griditems
+        case x: Grid => {
+          x.children.map{
+            case g: GridItem => go(g)
+            case g: GraphItem => go(Graph(g)).mkString("")
+            case n: NonOrthGraphItem => go(PolarGraph(n)).mkString("")
+            case s: Scene3DItem => go(Scene3D(s)).mkString("")
+            case g: Graph3DItem => go(Scene3D(Graph3D(g))).mkString("")
+          }.mkString("")
+        }
         // a parent is a component that has children
         // and thus triggers the recursive render
         case x: Parent => {
           x.children.map(go).mkString("")
-          /* x.children match {
-            case Some(c) => c.map(go).mkString("")
-            case None    => ""
-          }*/
         }
 
         // and if no children exist, do nothing

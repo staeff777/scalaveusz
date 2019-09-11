@@ -23,15 +23,22 @@ trait DocumentItem extends Item
 
 trait PageItem extends Item
 
-trait GridItem extends Item
 
-trait GraphItem extends Item
+/**
+  * This content may be within a grid, but as a child of some other Item
+  * For Example an XY Plot in a graph
+  */
+sealed trait WrappedGridItem extends Item
 
-trait NonOrthGraphItem extends Item
+trait GridItem extends WrappedGridItem
 
-trait Scene3DItem extends Item
+trait GraphItem extends WrappedGridItem
 
-trait Graph3DItem extends Item
+trait NonOrthGraphItem extends WrappedGridItem
+
+trait Scene3DItem extends WrappedGridItem
+
+trait Graph3DItem extends WrappedGridItem
 
 trait Parent {
   def children: Vector[Item]

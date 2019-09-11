@@ -9,7 +9,7 @@ import scala.util.Random
 
 class GridTest extends FlatSpec with Matchers{
 
-  "scalaveusz" should "render a Grid with multiple Graphs" in {
+  "scalaveusz" should "render a Grid with multiple GridItems" in {
 
     val nonOrthFunction = PolarItems.NonOrthFunction("1000 * sin(a)")
     nonOrthFunction.config.main.steps = 1000
@@ -33,7 +33,7 @@ class GridTest extends FlatSpec with Matchers{
     val grid = PageItems.Grid(2,2, Vector(1.1, 1), Vector(1.2,2), polarGraph, graph, ternaryGraph, scene3D)
     grid.config.leftMargin = 0.0 cm()
     grid.config.bottomMargin = 0.5 cm()
-
+    grid.openInVeusz()
     val file = new File("veusz/grid.png")
     grid.export(file.getAbsolutePath)
     file should exist
