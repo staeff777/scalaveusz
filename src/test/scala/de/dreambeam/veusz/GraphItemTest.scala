@@ -41,7 +41,7 @@ class GraphItemTest extends FlatSpec with Matchers {
     val yData = xData.map(_ * 1.25 * (Random.nextDouble() + 0.5))
     val fit = GraphItems.Fit(xData, yData, "c+b*x+a*x*x", Map("a"->1.0,"b"->1.0, "c"->1.0))
     fit.config.plotLine.color = Colors.DarkGreen
-    fit.saveAsVuesz("fit")
+    fit.saveAsVeusz("fit")
     //TODO export hangs with Action Fit, but only when started from within Java
    /* val file = new File("veusz/fit.svg")
     fit.export(file.getAbsolutePath)

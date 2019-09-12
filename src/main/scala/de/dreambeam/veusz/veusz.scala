@@ -212,36 +212,33 @@ trait Executable {
     case x            => throw new RuntimeException(s" $x can not be processed directly")
   }
 
-  /**
-    * Save the current object as Veusz Document
-    * @param file file object
-    */
-  def saveAsVuesz(file: File) = {
-    val text = this.createDocumentText()
 
-    val _ = new PrintWriter(file) {
-      write(text); close
-    }
-    file
-  }
 
   /**
   * Save the current object as Veusz Document
-    * @param fileName filename without the vsz extension
+    * @param title filename without the vsz extension
     * @param outdir directory where to save it
     *               default directory GlobalVeuszSettings.defaultSaveDirectory is the ./vuesz directory
     *               directory will be created if it does not exist
     */
-  def saveAsVuesz(fileName: String, outdir: File = new File(GlobalVeuszSettings.defaultSaveDirectory)) = {
-    val text = this.createDocumentText()
+  def saveAsVeusz(title: String, outdir: File = new File(GlobalVeuszSettings.defaultSaveDirectory)):File = {
 
     if (!outdir.exists()) outdir.mkdirs()
-    val target = Paths.get(outdir.getAbsolutePath, s"$fileName.vsz")
+    val target = Paths.get(outdir.getAbsolutePath, s"$title.vsz")
     val targetFile = target.toFile
-    val _ = new PrintWriter(targetFile) {
+    saveAsVeusz(targetFile)
+  }
+
+  /**
+    * Save the current object as Veusz Document
+    * @param file the file to save
+    */
+  def saveAsVeusz(file: File):File ={
+    val text = this.createDocumentText()
+    val _ = new PrintWriter(file) {
       write(text); close
     }
-    targetFile
+    file
   }
 
   private def saveTemp(text: String): File = {
@@ -259,27 +256,37 @@ trait Executable {
 
   /**
     * Save the current object as Veusz Document and open it in Veusz
-    * @param fileName filename without the vsz extension,
+    * @param title filename without the vsz extension,
     *                 if filename is empty a temporary file will be created
     * @param outdir directory where to save it
     *               default directory GlobalVeuszSettings.defaultSaveDirectory is the ./vuesz directory
     *               directory will be created if it does not exist
     */
-  def openInVeusz(fileName: String = "", outdir: File = new File(GlobalVeuszSettings.defaultSaveDirectory)) = {
+  def openInVeusz(title: String = "", outdir: File = new File(GlobalVeuszSettings.defaultSaveDirectory)) = {
 
 
     val file =
-      if(fileName != "") {
+      if(title != "") {
         if (!outdir.exists()) outdir.mkdirs()
-        saveAsVuesz(fileName, outdir)
+        saveAsVeusz(title, outdir)
       } else
         saveTemp()
 
-    val target = Paths.get(outdir.getAbsolutePath, s"$fileName.vsz")
+    val target = Paths.get(outdir.getAbsolutePath, s"$title.vsz")
 
     Desktop.getDesktop().open(file)
   }
 
+  /**
+    * Save the current object as Veusz Document and open it in Veusz
+    * @param file file to save
+    *
+    */
+  def openInVeusz(file: File) = {
+
+    saveAsVeusz(file)
+    Desktop.getDesktop().open(file)
+  }
 
   /**
   * Export to on image file
