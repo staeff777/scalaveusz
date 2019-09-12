@@ -58,8 +58,11 @@ class GraphsTest extends FlatSpec with Matchers {
               ))
     polygon.config.fill.color = Colors.DarkMagenta
 
-    val p = PageItems.Graph(label, imageFile, rect, ellipse, line, polygon)
-    p.openInVeusz()
+    val graph = PageItems.Graph(label, imageFile, rect, ellipse, line, polygon)
+    val file = new File("veusz/graphwithshapes.svg")
+    graph.export(file.getAbsolutePath)
+    file should exist
+    file.delete()
   }
 
   it should "render a configured PolarGraph with multiple Children" in {
