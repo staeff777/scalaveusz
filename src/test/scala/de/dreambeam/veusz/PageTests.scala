@@ -72,7 +72,6 @@ class PageTests extends FlatSpec with Matchers {
 
     val p1 = DocumentItems.Page(xy1)
 
-    //p1.openInVeusz()
     val file = new File("veusz/documenttest.pdf")
     p1.export(file.getAbsolutePath)
     file should exist

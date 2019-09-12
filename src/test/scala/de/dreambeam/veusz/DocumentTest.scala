@@ -16,24 +16,20 @@ class DocumentTest extends FlatSpec with Matchers {
     val p2 = DocumentItems.Page(PageItems.Graph(xy2))
 
     val d = Veusz.Document(p1,p2)
-
+    d.openInVeusz()
     val file = new File("veusz/documenttest.pdf")
     d.export(file.getAbsolutePath)
     file should exist
     file.delete()
   }
 
-  it should "render a MultipageDocument" in {
+  it should "render a MultipageDocument using wrapped Items" in {
     val xData = (BigDecimal(1.0) to 10.0 by 0.5).map(_.toDouble).toVector
     val yData = xData.map(_ * 1.25)
     val xy1 = GraphItems.XY(xData, yData)
     val xy2 = GraphItems.XY(xData, yData.map(Math.sin(_)))
 
-    val p1 = DocumentItems.Page(PageItems.Graph(xy1))
-    val p2 = DocumentItems.Page(PageItems.Graph(xy2))
-
-    val d = Veusz.Document(p1,p2)
-
+    val d = Veusz.Document(xy1, xy2)
     val file = new File("veusz/documenttest.pdf")
     d.export(file.getAbsolutePath)
     file should exist

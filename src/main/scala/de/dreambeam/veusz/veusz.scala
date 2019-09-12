@@ -19,9 +19,8 @@ object GlobalVeuszSettings {
   var defaultSaveDirectory = "veusz"
 }
 
-trait DocumentItem extends Item
 
-trait PageItem extends WrappedPageItem
+
 
 
 /**
@@ -32,9 +31,15 @@ sealed trait WrappedGridItem extends Item
 
 sealed trait WrappedPageItem extends WrappedGridItem
 
-trait GridItem extends WrappedGridItem
+sealed trait WrappedDocumentItem extends WrappedPageItem
 
-trait GraphItem extends WrappedPageItem
+trait GridItem extends WrappedDocumentItem
+
+trait GraphItem extends WrappedDocumentItem
+
+trait PageItem extends WrappedDocumentItem
+
+trait DocumentItem extends WrappedDocumentItem
 
 /**
   * a NonOrthGraphItem can be used for Polar and Ternary Graphs

@@ -44,7 +44,6 @@ class GridTest extends FlatSpec with Matchers{
     val nonOrthFunction = PolarItems.NonOrthFunction("1000 * sin(a)")
     nonOrthFunction.config.main.steps = 1000
 
-
     val xData = (BigDecimal(1.0) to 10.0 by 0.5).map(_.toDouble).toVector
     val yData = xData.map(_ * 1.25)
     val xy1 = GraphItems.XY(xData, yData)
@@ -58,7 +57,7 @@ class GridTest extends FlatSpec with Matchers{
     val grid = PageItems.Grid(2,2, Vector(1.1, 1), Vector(1.2,2), nonOrthFunction, xy1, p, s3d)
     grid.config.leftMargin = 0.0 cm()
     grid.config.bottomMargin = 0.5 cm()
-    //grid.openInVeusz()
+
     val file = new File("veusz/wrappedgrid.png")
     grid.export(file.getAbsolutePath)
     file should exist

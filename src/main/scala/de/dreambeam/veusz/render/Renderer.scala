@@ -33,13 +33,29 @@ class Renderer(dataHandler: DataHandler) {
     def go(item: Item): String = {
 
       def autoWrapWrappedGridItem(i: WrappedGridItem) = i match {
-        case g: GridItem => go(g)
-        case g: GraphItem => go(Graph(g)).mkString("")
+        case g: GridItem           => go(g)
+        case g: GraphItem          => go(Graph(g)).mkString("")
         case n: WrapInTernaryGraph => go(TernaryGraph(n)).mkString("")
-        case n: NonOrthGraphItem => go(PolarGraph(n)).mkString("")
-        case s: Scene3DItem => go(Scene3D(s)).mkString("")
-        case g: Graph3DItem => go(Scene3D(Graph3D(g))).mkString("")
-        case g: Grid => go(g)
+        case n: NonOrthGraphItem   => go(PolarGraph(n)).mkString("")
+        case s: Scene3DItem        => go(Scene3D(s)).mkString("")
+        case g: Graph3DItem        => go(Scene3D(Graph3D(g))).mkString("")
+        case g: Grid               => go(g)
+      }
+
+      def autoWrapPageItem(p: WrappedPageItem) = p match {
+        case p: Ellipse         => go(p)
+        case p: ImageFile       => go(p)
+        case p: Line            => go(p)
+        case p: Label           => go(p)
+        case p: Polygon         => go(p)
+        case r: Rectangle       => go(r)
+        case g: Grid            => go(g)
+        case g: Graph           => go(g)
+        case p: PolarGraph      => go(p)
+        case t: TernaryGraph      => go(t)
+        case p: PolarGraph      => go(p)
+        case s: Scene3D        => go(s)
+        case i: WrappedGridItem => autoWrapWrappedGridItem(i)
       }
 
       val childRender = item match {
@@ -56,17 +72,22 @@ class Renderer(dataHandler: DataHandler) {
         // allow other children than griditems
         case g: Grid => g.children.map(autoWrapWrappedGridItem).mkString("")
 
-        case p: Page => {
-          p.children.map {
-            case i: WrappedGridItem => autoWrapWrappedGridItem(i)
-            case p: PageItem => go(p)
-          }
-        }.mkString("")
+        case p: Page =>
+          p.children
+            .map (autoWrapPageItem)
+            .mkString("")
+
+        case d: Document =>
+          d.children
+            .map(c =>
+              c match {
+                case p: Page    => go(p)
+                case p: Item => go(Page(p))
+            })
+            .mkString("")
         // a parent is a component that has children
         // and thus triggers the recursive render
-        case x: Parent => {
-          x.children.map(go).mkString("")
-        }
+        case x: Parent => x.children.map(go).mkString("")
 
         // and if no children exist, do nothing
         case _ => ""
@@ -108,20 +129,20 @@ class Renderer(dataHandler: DataHandler) {
   }
 
   def render(item: Item): String = item match {
-    case d: Document   => render(d)
-    case p: Page       => render(p)
-    case g: Grid       => render(g)
-    case g: Graph      => render(g)
-    case p: PolarGraph => render(p)
+    case d: Document     => render(d)
+    case p: Page         => render(p)
+    case g: Grid         => render(g)
+    case g: Graph        => render(g)
+    case p: PolarGraph   => render(p)
     case t: TernaryGraph => render(t)
-    case g: Graph3D    => render(g)
-    case a: Axis       => render(a)
-    case a: Axis3D     => render(a)
-    case s: Scene3D    => render(s)
-    case k: Key        => render(k)
-    case xy: XY        => render(xy)
-    case bp: Boxplot   => render(bp)
-    case bar: Barchart => render(bar)
+    case g: Graph3D      => render(g)
+    case a: Axis         => render(a)
+    case a: Axis3D       => render(a)
+    case s: Scene3D      => render(s)
+    case k: Key          => render(k)
+    case xy: XY          => render(xy)
+    case bp: Boxplot     => render(bp)
+    case bar: Barchart   => render(bar)
     case fun: graph.Function => render(fun)
     case fit: Fit            => render(fit)
     case img: Image          => render(img)
@@ -1085,8 +1106,6 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render(prefix)("offset", lc.offset)}
        |${R.render(prefix)("position", lc.position)}
      """.stripMargin
-
-
 
   def renderTickLabelsConfig(tlc: TickLabelsConfig)(implicit prefix: String = "TickLabels"): String =
     s"""

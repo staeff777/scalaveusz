@@ -7,16 +7,16 @@ import de.dreambeam.veusz._
 object Document
 {
 
-  def apply(name: String, children: DocumentItem*) = {
+  def apply(name: String, children: WrappedDocumentItem*) = {
       new Document( children.toVector, name = name)
   }
 
-  def apply(children: DocumentItem*) = {
+  def apply(children: WrappedDocumentItem*) = {
        new Document( children.toVector)
   }
 }
 
-case class Document (var children: Vector[DocumentItem], var config: DocumentConfig = DocumentConfig(), var name: String = "document")
+case class Document (var children: Vector[WrappedDocumentItem], var config: DocumentConfig = DocumentConfig(), var name: String = "document")
   extends Item
   with Configurable
   with Executable
