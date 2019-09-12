@@ -1,7 +1,7 @@
 package de.dreambeam.veusz.components.shapes
 
 import de.dreambeam.veusz.format._
-import de.dreambeam.veusz.{Configurable, Executable, PageItem}
+import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PageItem}
 
 object Ellipse {
   def apply(xPosition: Double, yPosition: Double): Ellipse = Ellipse(Vector(xPosition), Vector(yPosition))
@@ -62,7 +62,7 @@ case class Ellipse(var xPositions: Vector[Double] = Vector(0.5),
                    var yAxis: String = "y",
                    var name: String = "ellipse",
                    var config: EllipseConfig = EllipseConfig())
-    extends PageItem with Configurable with Executable {
+    extends PageItem with GraphItem with Configurable with Executable {
   val group = "ellipse"
 
 }

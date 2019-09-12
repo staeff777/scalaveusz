@@ -25,6 +25,43 @@ class GraphsTest extends FlatSpec with Matchers {
     file.delete()
   }
 
+  it should "render a a Graph with Shapes" in {
+
+    val label = PageItems.Label("Hello Veusz", 0.2, 0.9)
+    label.config.text.font = "Verdana"
+    label.config.text.color = Colors.White
+    label.config.background.color = Colors.Black
+    label.config.border.color = Colors.DarkMagenta
+
+    val rect = PageItems.Shapes.Rectangle(0.35, 0.65, 0.3, 0.3, rotate = 45)
+    rect.config.border.style = LineStyle.Dotted
+
+    val ellipse = PageItems.Shapes.Ellipse(Vector(0.7), Vector(0.9), Vector(0.2), Vector(0.1))
+    ellipse.config.fill.color = Colors.DarkGreen
+    ellipse.config.fill.fillStyle = FillStyle.DoubleDiagonalCross
+    ellipse.config.fill.hide = false
+
+    val line = PageItems.Shapes.Line(Vector(0.4), Vector(0.24), Vector(0.2))
+    line.config.main.arrowLeft = ArrowType.ArrowReverse
+    line.config.main.arrowRight = ArrowType.Arrow
+    line.config.arrowFill.color = Colors.DarkRed
+    val imageFile = PageItems.Shapes.ImageFile("src/test/resources/logo.png", xPosition = 0.8, yPosition = 0.23, width = 0.3, height = 0.2)
+
+    val polygon = PageItems.Shapes.Polygon(
+              Vector(
+                        (0.7, 0.5),
+                        (0.7, 0.6),
+                        (0.8, 0.6),
+                        (0.9, 0.6),
+                        (0.9, 0.4),
+                        (0.8, 0.55),
+              ))
+    polygon.config.fill.color = Colors.DarkMagenta
+
+    val p = PageItems.Graph(label, imageFile, rect, ellipse, line, polygon)
+    p.openInVeusz()
+  }
+
   it should "render a configured PolarGraph with multiple Children" in {
     val nonOrthPoint = PolarItems.NonOrthPoint(Vector(1.0, 10.0), Vector(1.0, 1.0))
     val nonOrthFunction = PolarItems.NonOrthFunction("1000 * sin(a)")
@@ -36,7 +73,7 @@ class GraphsTest extends FlatSpec with Matchers {
     polarGraph.direction = PolarDirection.anticlockwise
     polarGraph.positionOf0 = PolarPositionOf0.bottom
     polarGraph.config.background.color = Colors.LightGrey
-    polarGraph.config.border.width = 1 pt()
+    polarGraph.config.border.width = 1 pt ()
     polarGraph.config.tickLabels.italic = true
     polarGraph.config.spokeLine.lineStyle = LineStyle.Dotted
     polarGraph.config.radiiLine.lineStyle = LineStyle.Dash1
@@ -48,10 +85,10 @@ class GraphsTest extends FlatSpec with Matchers {
   }
 
   it should "render a configured TeraryGraph with multiple Children" in {
-    val f1 = TernaryItems.NonOrthFunction("30","a")
-    val f2 = TernaryItems.NonOrthFunction("30","b")
-    val (a,b,s) = (1 to 100).map(_ => (Random.nextDouble() * 100.0, Random.nextDouble() * 100.0, Random.nextDouble() * 2)).toVector.unzip3
-    val p = TernaryItems.NonOrthPoint(a,b,s)
+    val f1 = TernaryItems.NonOrthFunction("30", "a")
+    val f2 = TernaryItems.NonOrthFunction("30", "b")
+    val (a, b, s) = (1 to 100).map(_ => (Random.nextDouble() * 100.0, Random.nextDouble() * 100.0, Random.nextDouble() * 2)).toVector.unzip3
+    val p = TernaryItems.NonOrthPoint(a, b, s)
     p.config.plotLine.hide = true
     p.config.markerFill.color = Colors.Magenta
     p.config.markerBorder.hide = true
@@ -69,10 +106,7 @@ class GraphsTest extends FlatSpec with Matchers {
     val zData = xData.map(_ * 1.25)
     val p3d = Graph3DItems.Point3D(xData, yData, zData)
 
-    val f3d = Graph3DItems.Function3D(
-      x_func = "t*t*t-t*t",
-      y_func = "t*t-t",
-      z_func = "t")
+    val f3d = Graph3DItems.Function3D(x_func = "t*t*t-t*t", y_func = "t*t-t", z_func = "t")
 
     val graph3D = Scene3DItems.Graph3D(f3d, p3d)
     graph3D.config.border.color = Colors.DarkGreen
@@ -84,7 +118,6 @@ class GraphsTest extends FlatSpec with Matchers {
     file should exist
     file.delete()
   }
-
 
   it should "render a configured Scene3D with a Graph3D and one Item" in {
     val dataset = (for (x <- 0 until 100; y <- 0 until 100) yield (x.toDouble, y.toDouble) -> { (Math.sin(0.1 * (x + y))) + 0.5 }).toMap
