@@ -48,6 +48,8 @@ For further examples see [scalaveusz-examples](https://github.com/staeff777/scal
 
 # Structure
 
+![Excerpt of ScalaVeusz Architecture](documentation/document.svg)
+
 - Document
   - Page
     - Grid

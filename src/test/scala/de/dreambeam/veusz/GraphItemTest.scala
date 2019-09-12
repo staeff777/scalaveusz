@@ -3,7 +3,6 @@ package de.dreambeam.veusz
 import java.io.File
 
 import de.dreambeam.veusz._
-import de.dreambeam.veusz.components.graph.{Function, Image}
 import de.dreambeam.veusz.data.Numerical
 import org.scalatest._
 
@@ -52,7 +51,7 @@ class GraphItemTest extends FlatSpec with Matchers {
   it should "render a Function" in {
     val positions = (1 to 10).map(_.toDouble).toVector
     val lengthData = positions.map(v => (1 to 10).map(_ * Random.nextDouble() * 10).toVector)
-    val function = Function("sin(x)")
+    val function = GraphItems.Function("sin(x)")
     function.config.plotLine.color = Colors.Blue
     val file = new File("veusz/function.svg")
     function.export(file.getAbsolutePath)
@@ -75,7 +74,7 @@ class GraphItemTest extends FlatSpec with Matchers {
       (x.toDouble, y.toDouble) -> (x + y).toDouble
       ).toMap
 
-    val img2d = Image(dataset)
+    val img2d = GraphItems.Image(dataset)
     img2d.config.colorMap = "heat"
     img2d.config.invertColormap = true
     val file = new File("veusz/image.svg")

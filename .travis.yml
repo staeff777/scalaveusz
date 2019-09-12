@@ -8,6 +8,7 @@ before_install:
   - sudo add-apt-repository ppa:jeremysanders/ppa -y
   - sudo apt-get update -q
   - sudo apt-get install veusz -y
+  - sbt sonatypeRelease
 
 
 stages:
@@ -20,8 +21,6 @@ jobs:
     # stage="test" if no stage is specified
     - env: TEST="compile"
       script: sbt +compile
-    #- env: TEST="formatting"
-    # script: ./bin/scalafmt --test
     # run ci-release only if previous stages passed
     - stage: release
       script: sbt ci-release
