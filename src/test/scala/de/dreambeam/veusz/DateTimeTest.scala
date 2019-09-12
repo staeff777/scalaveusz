@@ -1,9 +1,10 @@
-import java.time.{LocalDate, LocalDateTime}
-import java.util.Calendar
+package de.dreambeam.veusz
 
-import org.scalatest.{FlatSpec, Matchers}
-import org.scalatest.Inspectors._
+import java.time.{LocalDate, LocalDateTime}
+
 import de.dreambeam.veusz.data.DateTimeConstructor
+import org.scalatest.Inspectors._
+import org.scalatest.{FlatSpec, Matchers}
 
 class DateTimeTest extends FlatSpec with Matchers {
 
