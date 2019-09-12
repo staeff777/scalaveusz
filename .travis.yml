@@ -8,9 +8,6 @@ before_install:
   - sudo add-apt-repository ppa:jeremysanders/ppa -y
   - sudo apt-get update -q
   - sudo apt-get install veusz -y
-# in case of "Multiple repositories are found"
-  - sbt sonatypeDrop
-#  - sbt sonatypeRelease
 
 cache:
   directories:
@@ -40,3 +37,5 @@ jobs:
     # run ci-release only if previous stages passed
     - stage: release
       script: sbt ci-release
+
+# in case of "Multiple repositories are found", go to  https://oss.sonatype.org/#stagingRepositories search for repositories, and drop (try to promote one)

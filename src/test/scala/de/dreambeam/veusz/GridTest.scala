@@ -20,6 +20,7 @@ class GridTest extends FlatSpec with Matchers{
     val xy1 = GraphItems.XY(xData, yData)
     val graph = PageItems.Graph(xy1)
 
+
     val (a,b,s) = (1 to 100).map(_ => (Random.nextDouble() * 100.0, Random.nextDouble() * 100.0, Random.nextDouble() * 2)).toVector.unzip3
     val p = TernaryItems.NonOrthPoint(a,b,s)
     val ternaryGraph = PageItems.TernaryGraph( p)
@@ -58,6 +59,7 @@ class GridTest extends FlatSpec with Matchers{
     grid.config.leftMargin = 0.0 cm()
     grid.config.bottomMargin = 0.5 cm()
 
+    grid.openInVeusz()
     val file = new File("veusz/wrappedgrid.png")
     grid.export(file.getAbsolutePath)
     file should exist

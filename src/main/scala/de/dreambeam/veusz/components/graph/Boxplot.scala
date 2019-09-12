@@ -6,49 +6,49 @@ import de.dreambeam.veusz.{Configurable, Executable, GraphItem}
 
 object Boxplot {
 
-  def apply(data: Vector[Vector[Double]]) = {
+  def apply(data: Vector[Vector[Double]]): Boxplot = {
     val d = new BoxplotData(data.map(Numerical(_)), Vector.empty, Numerical())
     Boxplot(d)
   }
 
-  def apply(data: Vector[Vector[Double]], labels: Vector[String]) = {
+  def apply(data: Vector[Vector[Double]], labels: Vector[String]): Boxplot = {
     val d = new BoxplotData(data.map(Numerical(_)), labels, Numerical())
     Boxplot(d)
   }
 
-  def apply(data: Vector[Vector[Double]], labels: Vector[String], positions: Vector[Double]) = {
+  def apply(data: Vector[Vector[Double]], labels: Vector[String], positions: Vector[Double]): Boxplot = {
     val d = new BoxplotData(data.map(Numerical(_)), labels, Numerical(positions))
     Boxplot(d)
   }
 
-  def apply(data: Vector[Vector[Double]], whiskerMode: WhiskerMode.Value) = {
+  def apply(data: Vector[Vector[Double]], whiskerMode: WhiskerMode.Value): Boxplot = {
     val d = new BoxplotData(data.map(Numerical(_)), Vector.empty, Numerical())
-    Boxplot(d)
+    Boxplot(d, whiskerMode)
   }
 
-  def apply(data: Vector[Vector[Double]], labels: Vector[String], whiskerMode: WhiskerMode.Value) = {
+  def apply(data: Vector[Vector[Double]], labels: Vector[String], whiskerMode: WhiskerMode.Value): Boxplot = {
     val d = new BoxplotData(data.map(Numerical(_)), labels, Numerical())
-    Boxplot(d)
+    Boxplot(d, whiskerMode)
   }
 
-  def apply(data: Vector[Vector[Double]], labels: Vector[String], positions: Vector[Double], whiskerMode: WhiskerMode.Value) = {
+  def apply(data: Vector[Vector[Double]], labels: Vector[String], positions: Vector[Double], whiskerMode: WhiskerMode.Value): Boxplot = {
     val d = new BoxplotData(data.map(Numerical(_)), labels, Numerical(positions))
-    Boxplot(d)
+    Boxplot(d, whiskerMode)
   }
 
-  def apply(data: Vector[Vector[Double]], whiskerMode: WhiskerMode.Value, fillFraction: Double = 0.75) = {
+  def apply(data: Vector[Vector[Double]], whiskerMode: WhiskerMode.Value, fillFraction: Double ): Boxplot = {
     val d = new BoxplotData(data.map(Numerical(_)), Vector.empty, Numerical())
-    Boxplot(d)
+    Boxplot(d, whiskerMode, fillFraction)
   }
 
-  def apply(data: Vector[Vector[Double]], labels: Vector[String], whiskerMode: WhiskerMode.Value, fillFraction: Double = 0.75) = {
+  def apply(data: Vector[Vector[Double]], labels: Vector[String], whiskerMode: WhiskerMode.Value, fillFraction: Double ): Boxplot = {
     val d = new BoxplotData(data.map(Numerical(_)), labels, Numerical())
-    Boxplot(d)
+    Boxplot(d, whiskerMode, fillFraction)
   }
 
-  def apply(data: Vector[Vector[Double]], labels: Vector[String], positions: Vector[Double], whiskerMode: WhiskerMode.Value, fillFraction: Double = 0.75) = {
+  def apply(data: Vector[Vector[Double]], labels: Vector[String], positions: Vector[Double], whiskerMode: WhiskerMode.Value, fillFraction: Double): Boxplot = {
     val d = new BoxplotData(data.map(Numerical(_)), labels, Numerical(positions))
-    Boxplot(d)
+    Boxplot(d, whiskerMode, fillFraction)
   }
 
 }
