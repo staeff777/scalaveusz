@@ -29,7 +29,18 @@ class Renderer(dataHandler: DataHandler) {
     * @return the rendered text for the Veusz components
     */
   def renderDocument(document: Document): String = {
+
     def go(item: Item): String = {
+
+      def autoWrapWrappedGridItem(i: WrappedGridItem) = i match {
+        case g: GridItem => go(g)
+        case g: GraphItem => go(Graph(g)).mkString("")
+        case n: WrapInTernaryGraph => go(TernaryGraph(n)).mkString("")
+        case n: NonOrthGraphItem => go(PolarGraph(n)).mkString("")
+        case s: Scene3DItem => go(Scene3D(s)).mkString("")
+        case g: Graph3DItem => go(Scene3D(Graph3D(g))).mkString("")
+        case g: Grid => go(g)
+      }
 
       val childRender = item match {
         // a graph must render its axes,
@@ -43,16 +54,14 @@ class Renderer(dataHandler: DataHandler) {
         }
 
         // allow other children than griditems
-        case x: Grid => {
-          x.children.map{
-            case g: GridItem => go(g)
-            case g: GraphItem => go(Graph(g)).mkString("")
-            case n: WrapInTernaryGraph => go(TernaryGraph(n)).mkString("")
-            case n: NonOrthGraphItem => go(PolarGraph(n)).mkString("")
-            case s: Scene3DItem => go(Scene3D(s)).mkString("")
-            case g: Graph3DItem => go(Scene3D(Graph3D(g))).mkString("")
-          }.mkString("")
-        }
+        case g: Grid => g.children.map(autoWrapWrappedGridItem).mkString("")
+
+        case p: Page => {
+          p.children.map {
+            case i: WrappedGridItem => autoWrapWrappedGridItem(i)
+            case p: PageItem => go(p)
+          }
+        }.mkString("")
         // a parent is a component that has children
         // and thus triggers the recursive render
         case x: Parent => {

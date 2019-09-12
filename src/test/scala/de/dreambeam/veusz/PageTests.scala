@@ -64,4 +64,18 @@ class PageTests extends FlatSpec with Matchers {
     file should exist
     file.delete()
   }
+
+  it should "render a Page with a WrappedPageItem" in {
+    val xData = (BigDecimal(1.0) to 10.0 by 0.5).map(_.toDouble).toVector
+    val yData = xData.map(_ * 1.25)
+    val xy1 = GraphItems.XY(xData, yData)
+
+    val p1 = DocumentItems.Page(xy1)
+
+    //p1.openInVeusz()
+    val file = new File("veusz/documenttest.pdf")
+    p1.export(file.getAbsolutePath)
+    file should exist
+    file.delete()
+  }
 }

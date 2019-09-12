@@ -21,7 +21,7 @@ object GlobalVeuszSettings {
 
 trait DocumentItem extends Item
 
-trait PageItem extends Item
+trait PageItem extends WrappedPageItem
 
 
 /**
@@ -30,9 +30,11 @@ trait PageItem extends Item
   */
 sealed trait WrappedGridItem extends Item
 
+sealed trait WrappedPageItem extends WrappedGridItem
+
 trait GridItem extends WrappedGridItem
 
-trait GraphItem extends WrappedGridItem
+trait GraphItem extends WrappedPageItem
 
 /**
   * a NonOrthGraphItem can be used for Polar and Ternary Graphs
