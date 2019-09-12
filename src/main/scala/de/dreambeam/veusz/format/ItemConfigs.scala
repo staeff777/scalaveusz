@@ -70,9 +70,9 @@ case class BackgroundConfig(
           var fillStyle: String = FillStyle.Solid,
           var hide: Boolean = false,
           var transparency: Int = 0,
-          var lineWidth: SizeUnit = 0.5 pt (),
+          var lineWidth: SizeUnit = 0.5 pt,
           var lineStyle: String = LineStyle.Solid,
-          var spacing: SizeUnit = 5 pt (),
+          var spacing: SizeUnit = 5 pt,
           var backColor: String = Colors.Background,
           var backTransparency: Int = 0,
           var backHide: Boolean = false

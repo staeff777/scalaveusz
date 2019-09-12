@@ -40,6 +40,7 @@ class Renderer(dataHandler: DataHandler) {
         case s: Scene3DItem        => go(Scene3D(s)).mkString("")
         case g: Graph3DItem        => go(Scene3D(Graph3D(g))).mkString("")
         case g: Grid               => go(g)
+        case e:_ => throw new RuntimeException(s"$e not matched")
       }
 
       def autoWrapPageItem(p: WrappedPageItem) = p match {
@@ -52,8 +53,7 @@ class Renderer(dataHandler: DataHandler) {
         case g: Grid            => go(g)
         case g: Graph           => go(g)
         case p: PolarGraph      => go(p)
-        case t: TernaryGraph      => go(t)
-        case p: PolarGraph      => go(p)
+        case t: TernaryGraph     => go(t)
         case s: Scene3D        => go(s)
         case i: WrappedGridItem => autoWrapWrappedGridItem(i)
       }
