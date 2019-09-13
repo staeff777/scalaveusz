@@ -3,17 +3,17 @@
 
 Create [Veusz](https://veusz.github.io/) charts in Scala.
 
-# Excerpt of Architecture
+## First Steps
 
-![Excerpt of ScalaVeusz Architecture](https://raw.githubusercontent.com/staeff777/scalaveusz/develop/ScalaVeusz.png)
-
-# How to Use
-
+Include the dependency requirements into the build.sbt:
 ```scala
+libraryDependencies += "de.dreambeam" %% "scalaveusz" % "0.4.0" // version according to Maven Central Badge in the top of this page
+```
 
-
-
-object RendererTest extends App {
+Create an Example:
+```scala
+import de.dreambeam.veusz._
+object Veusztest extends App {
 
   // XY Plots use 2 one-dimensional datasets
   val xData = (1.0 to 10.0 by 0.5).toVector
@@ -21,17 +21,17 @@ object RendererTest extends App {
   val ySin = xData.map (2 * Math.sin(_) + 5)
 
   // create a linear XY Point Plot with Lines
-  val xyLinearPlot = XY(xData, yLinear)
+  val xyLinearPlot = GraphItems.XY(xData, yLinear)
   xyLinearPlot.config.plotLine.color = "darkblue"
   xyLinearPlot.config.markerFill.color = "blue"
 
   // create a sinus XY Point Plot with Lines
-  val xySinusPlot = XY(xData, ySin)
+  val xySinusPlot = GraphItems.XY(xData, ySin)
   xySinusPlot.config.plotLine.color = "darkred"
   xySinusPlot.config.markerFill.color = "red"
 
   // put both XY Plots into a Graph
-  val graph = Graph(xyLinearPlot, xySinusPlot)
+  val graph = PageItems.Graph(xyLinearPlot, xySinusPlot)
 
   graph.axis(0).label = "X Axis" //Axis can also be defined in the Graph constructor
   graph.axis(1).label = "Y Axis" //More than just two axis is possible
