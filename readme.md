@@ -48,7 +48,7 @@ This will result in the following Veusz project:
 For further examples see [scalaveusz-examples](https://github.com/staeff777/scalaveusz-examples)
 
 # Structure
-
+The following figure shows the possible structure of a Vuesz document.
 ![Excerpt of ScalaVeusz Architecture](documentation/structure.png)
 
 

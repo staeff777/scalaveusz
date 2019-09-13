@@ -50,7 +50,7 @@ object Boxplot {
     val d = new BoxplotData(data.map(Numerical(_)), labels, Numerical(positions))
     Boxplot(d, whiskerMode, fillFraction)
   }
-
+  
 }
 
 case class Boxplot(var data: BoxplotData,

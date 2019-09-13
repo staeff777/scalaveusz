@@ -65,7 +65,6 @@ class GraphItemTest extends FlatSpec with Matchers {
     boxPlot.config.fill.color = Colors.DarkMagenta
     val file = new File("veusz/boxplot.svg")
     boxPlot.export(file.getAbsolutePath)
-    boxPlot.openInVeusz("test")
     file should exist
     file.delete()
   }

@@ -32,6 +32,44 @@ object Barchart {
     new Barchart(numLengths, Numerical(positions), direction, mode, keys, xAxis, yAxis, name, config)
   }
 
+  def apply(lengths: Vector[Numerical],
+            positions: BarChartData,
+            direction: Direction.Value,
+            mode: BarchartMode.Value,
+            keys: Vector[String],
+            xAxis: String,
+            yAxis: String,
+            name: String): Barchart = new Barchart(lengths, positions, direction, mode, keys, xAxis, yAxis, name, BarchartConfig())
+
+  def apply(lengths: Vector[Numerical],
+            positions: BarChartData,
+            direction: Direction.Value,
+            mode: BarchartMode.Value,
+            keys: Vector[String],
+            xAxis: String,
+            yAxis: String): Barchart = new Barchart(lengths, positions, direction, mode, keys, xAxis, yAxis, "bar", BarchartConfig())
+
+  def apply(lengths: Vector[Numerical],
+            positions: BarChartData,
+            direction: Direction.Value,
+            mode: BarchartMode.Value,
+            keys: Vector[String],
+           ): Barchart = new Barchart(lengths, positions, direction, mode, keys, "x", "y", "bar", BarchartConfig())
+
+  def apply(lengths: Vector[Numerical],
+            positions: BarChartData,
+            direction: Direction.Value,
+            mode: BarchartMode.Value
+           ): Barchart = new Barchart(lengths, positions, direction, mode, Vector.empty, "x", "y", "bar", BarchartConfig())
+
+  def apply(lengths: Vector[Numerical],
+            positions: BarChartData,
+            direction: Direction.Value
+           ): Barchart = new Barchart(lengths, positions, direction, BarchartMode.Grouped, Vector.empty, "x", "y", "bar", BarchartConfig())
+
+  def apply(lengths: Vector[Numerical],
+            positions: BarChartData
+           ): Barchart = new Barchart(lengths, positions, Direction.Vertical, BarchartMode.Grouped, Vector.empty, "x", "y", "bar", BarchartConfig())
 }
 
 case class Barchart(var lengths: Vector[Numerical],
