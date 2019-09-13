@@ -59,7 +59,6 @@ class GridTest extends FlatSpec with Matchers{
     grid.config.leftMargin = 0.0 cm()
     grid.config.bottomMargin = 0.5 cm()
 
-    grid.openInVeusz()
     val file = new File("veusz/wrappedgrid.png")
     grid.export(file.getAbsolutePath)
     file should exist
