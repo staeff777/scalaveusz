@@ -68,4 +68,4 @@ case class BoxplotConfig(main: BoxplotMainConfig = BoxplotMainConfig(),
                          border: BorderConfig = BorderConfig(),
                          whiskerLine: de.dreambeam.veusz.format.LineStyleConfig = de.dreambeam.veusz.format.LineStyleConfig(),
                          markersBorder: BorderConfig = BorderConfig(),
-                         markersFill: BackgroundConfig = BackgroundConfig())
+                         markersFill: FillConfig = FillConfig())

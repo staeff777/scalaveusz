@@ -710,7 +710,7 @@ class Renderer(dataHandler: DataHandler) {
        |
        |${renderBorderConfig(bp.config.markersBorder)}
        |
-       |${renderBackgroundConfig(bp.config.markersFill)("MarkersFill")}
+       |${renderFillConfig(bp.config.markersFill)("MarkersFill")}
      """.stripMargin
   }
 
