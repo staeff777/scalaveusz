@@ -4,10 +4,10 @@ jdk:
   - oraclejdk8
 
 before_install:
-  - git fetch --tags
   - sudo add-apt-repository ppa:jeremysanders/ppa -y
   - sudo apt-get update -q
   - sudo apt-get install veusz -y
+  - git fetch --tags
 
 cache:
   directories:
