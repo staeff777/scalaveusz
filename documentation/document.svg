@@ -2,22 +2,22 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 2481 3508" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
     <g transform="matrix(3.20188,0,0,9.5413,-1514.49,-6745.7)">
-        <rect x="473" y="707" width="723" height="226" style="fill:rgb(235,219,121);stroke:black;stroke-width:0.06px;"/>
+        <rect x="473" y="707" width="723" height="226" style="fill:rgb(255,248,202);stroke:black;stroke-width:0.06px;"/>
     </g>
     <g transform="matrix(1.01111,0,0,0.862848,165.354,-85.7121)">
-        <rect x="0" y="236.22" width="2125.98" height="2362.2" style="fill:rgb(205,222,196);stroke:black;stroke-width:0.44px;"/>
+        <rect x="0" y="236.22" width="2125.98" height="2362.2" style="fill:rgb(214,226,207);stroke:black;stroke-width:0.44px;"/>
     </g>
     <g transform="matrix(1.01945,0,0,1.36007,388.444,724.15)">
-        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(157,192,177);stroke:black;stroke-width:0.35px;"/>
+        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(202,219,212);stroke:black;stroke-width:0.35px;"/>
     </g>
     <g transform="matrix(1.01892,0,0,0.45,389.444,371.575)">
-        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(190,156,181);stroke:black;stroke-width:0.53px;"/>
+        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(206,176,198);stroke:black;stroke-width:0.53px;"/>
     </g>
     <g transform="matrix(1.01892,0,0,0.45475,389.444,581.929)">
-        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(170,159,187);stroke:black;stroke-width:0.53px;"/>
+        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(198,190,211);stroke:black;stroke-width:0.53px;"/>
     </g>
     <g transform="matrix(1.01892,0,0,0.750233,389.444,657.173)">
-        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(154,172,193);stroke:black;stroke-width:0.47px;"/>
+        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(191,202,214);stroke:black;stroke-width:0.47px;"/>
     </g>
     <g transform="matrix(1.07374,0,0,0.9,-221.427,-360.709)">
         <rect x="708.661" y="1653.54" width="1653.54" height="236.22" style="fill:rgb(189,205,225);stroke:black;stroke-width:0.42px;"/>
@@ -38,19 +38,19 @@
         <text x="537.136px" y="545.304px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;">Grid</text>
     </g>
     <g transform="matrix(0.893679,0,0,0.2,626.74,1820.28)">
-        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(157,192,177);stroke:black;stroke-width:0.64px;"/>
+        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(202,219,212);stroke:black;stroke-width:0.64px;"/>
     </g>
     <g transform="matrix(0.89335,0,0,0.2,626.74,1369.46)">
-        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(235,155,148);stroke:black;stroke-width:0.64px;"/>
+        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(255,206,202);stroke:black;stroke-width:0.64px;"/>
     </g>
     <g transform="matrix(0.89335,0,0,0.2,626.74,1463.94)">
-        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(190,156,181);stroke:black;stroke-width:0.64px;"/>
+        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(206,176,198);stroke:black;stroke-width:0.64px;"/>
     </g>
     <g transform="matrix(0.89335,0,0,0.2,626.74,1558.43)">
-        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(170,159,187);stroke:black;stroke-width:0.64px;"/>
+        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(198,190,211);stroke:black;stroke-width:0.64px;"/>
     </g>
     <g transform="matrix(0.89335,0,0,0.356067,626.74,1579.19)">
-        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(154,172,193);stroke:black;stroke-width:0.61px;"/>
+        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(191,202,214);stroke:black;stroke-width:0.61px;"/>
     </g>
     <g transform="matrix(0.976294,0,0,0.421133,8.75479,1119.42)">
         <rect x="708.661" y="1653.54" width="1653.54" height="236.22" style="fill:rgb(189,205,225);stroke:black;stroke-width:0.55px;"/>
@@ -74,7 +74,7 @@
         <text x="537.136px" y="545.304px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:75px;">Grid</text>
     </g>
     <g transform="matrix(1.01875,0,0,0.7,389.764,-77.2441)">
-        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(235,155,148);stroke:black;stroke-width:0.48px;"/>
+        <rect x="0" y="472.441" width="1889.76" height="472.441" style="fill:rgb(255,206,202);stroke:black;stroke-width:0.48px;"/>
     </g>
     <g transform="matrix(1,0,0,1,-102.789,-455.197)">
         <text x="537.136px" y="779.945px" style="font-family:'ArialMT', 'Arial', sans-serif;font-size:50px;">Graph</text>
