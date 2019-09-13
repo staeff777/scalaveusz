@@ -66,8 +66,8 @@ class GraphsTest extends FlatSpec with Matchers {
   }
 
   it should "render a configured PolarGraph with multiple Children" in {
-    val nonOrthPoint = PolarItems.NonOrthPoint(Vector(1.0, 10.0), Vector(1.0, 1.0))
-    val nonOrthFunction = PolarItems.NonOrthFunction("1000 * sin(a)")
+    val nonOrthPoint = PolarGraphItems.NonOrthPoint(Vector(1.0, 10.0), Vector(1.0, 1.0))
+    val nonOrthFunction = PolarGraphItems.NonOrthFunction("1000 * sin(a)")
     nonOrthFunction.config.main.steps = 1000
 
     val polarGraph = PageItems.PolarGraph(nonOrthPoint, nonOrthFunction)
@@ -88,10 +88,10 @@ class GraphsTest extends FlatSpec with Matchers {
   }
 
   it should "render a configured TeraryGraph with multiple Children" in {
-    val f1 = TernaryItems.NonOrthFunction("30", "a")
-    val f2 = TernaryItems.NonOrthFunction("30", "b")
+    val f1 = TernaryGraphItems.NonOrthFunction("30", "a")
+    val f2 = TernaryGraphItems.NonOrthFunction("30", "b")
     val (a, b, s) = (1 to 100).map(_ => (Random.nextDouble() * 100.0, Random.nextDouble() * 100.0, Random.nextDouble() * 2)).toVector.unzip3
-    val p = TernaryItems.NonOrthPoint(a, b, s)
+    val p = TernaryGraphItems.NonOrthPoint(a, b, s)
     p.config.plotLine.hide = true
     p.config.markerFill.color = Colors.Magenta
     p.config.markerBorder.hide = true

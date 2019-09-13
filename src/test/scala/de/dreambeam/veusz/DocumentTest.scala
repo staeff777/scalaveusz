@@ -15,7 +15,7 @@ class DocumentTest extends FlatSpec with Matchers {
     val p1 = DocumentItems.Page(PageItems.Graph(xy1))
     val p2 = DocumentItems.Page(PageItems.Graph(xy2))
 
-    val d = Veusz.Document(p1,p2)
+    val d = V.Document(p1,p2)
     val file = new File("veusz/documenttest.pdf")
     d.export(file.getAbsolutePath)
     file should exist
@@ -28,7 +28,7 @@ class DocumentTest extends FlatSpec with Matchers {
     val xy1 = GraphItems.XY(xData, yData)
     val xy2 = GraphItems.XY(xData, yData.map(Math.sin(_)))
 
-    val d = Veusz.Document(xy1, xy2)
+    val d = V.Document(xy1, xy2)
     val file = new File("veusz/documenttest.pdf")
     d.export(file.getAbsolutePath)
     file should exist

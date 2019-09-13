@@ -11,6 +11,7 @@ libraryDependencies += "de.dreambeam" %% "scalaveusz" % "0.4.0" // version accor
 ```
 
 Create an Example:
+
 ```scala
 import de.dreambeam.veusz._
 object Veusztest extends App {
@@ -50,24 +51,6 @@ For further examples see [scalaveusz-examples](https://github.com/staeff777/scal
 
 ![Excerpt of ScalaVeusz Architecture](documentation/document.svg)
 
-- Document
-  - Page
-    - Grid
-    - Graph
-      - Axis
-      - Barchart
-      - Boxplot
-      - Contour
-      - Covariance
-      - Function
-      - XY
-   - Scene3D
-     - Graph3D
-       - Axis3D
-   - Line
-   - Rectangle
-   - Polygon
-   - ImageFile
 
 # Easily discover Plot-Types
 

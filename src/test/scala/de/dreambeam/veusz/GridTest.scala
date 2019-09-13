@@ -11,7 +11,7 @@ class GridTest extends FlatSpec with Matchers{
 
   "scalaveusz" should "render a Grid with multiple GridItems" in {
 
-    val nonOrthFunction = PolarItems.NonOrthFunction("1000 * sin(a)")
+    val nonOrthFunction = PolarGraphItems.NonOrthFunction("1000 * sin(a)")
     nonOrthFunction.config.main.steps = 1000
     val polarGraph = PageItems.PolarGraph( nonOrthFunction)
 
@@ -22,7 +22,7 @@ class GridTest extends FlatSpec with Matchers{
 
 
     val (a,b,s) = (1 to 100).map(_ => (Random.nextDouble() * 100.0, Random.nextDouble() * 100.0, Random.nextDouble() * 2)).toVector.unzip3
-    val p = TernaryItems.NonOrthPoint(a,b,s)
+    val p = TernaryGraphItems.NonOrthPoint(a,b,s)
     val ternaryGraph = PageItems.TernaryGraph( p)
 
     val dataset = (for (x <- 0 until 100; y <- 0 until 100) yield (x.toDouble, y.toDouble) -> { (Math.sin(0.1 * (x + y))) + 0.5 }).toMap
@@ -42,7 +42,7 @@ class GridTest extends FlatSpec with Matchers{
 
   "scalaveusz" should "render a Grid with multiple WrappedGridItems" in {
 
-    val nonOrthFunction = PolarItems.NonOrthFunction("1000 * sin(a)")
+    val nonOrthFunction = PolarGraphItems.NonOrthFunction("1000 * sin(a)")
     nonOrthFunction.config.main.steps = 1000
 
     val xData = (BigDecimal(1.0) to 10.0 by 0.5).map(_.toDouble).toVector
@@ -50,7 +50,7 @@ class GridTest extends FlatSpec with Matchers{
     val xy1 = GraphItems.XY(xData, yData)
 
     val (a,b,s) = (1 to 100).map(_ => (Random.nextDouble() * 100.0, Random.nextDouble() * 100.0, Random.nextDouble() * 2)).toVector.unzip3
-    val p = TernaryItems.NonOrthPoint(a,b,s)
+    val p = TernaryGraphItems.NonOrthPoint(a,b,s)
 
     val dataset = (for (x <- 0 until 100; y <- 0 until 100) yield (x.toDouble, y.toDouble) -> { (Math.sin(0.1 * (x + y))) + 0.5 }).toMap
     val s3d = Graph3DItems.Surface3D(dataset, dataset)

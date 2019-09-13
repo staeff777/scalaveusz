@@ -53,27 +53,23 @@ package object veusz {
   val PolarDirection = de.dreambeam.veusz.format.PolarDirection
   val PolarPositionOf0 = de.dreambeam.veusz.format.PolarPositionOf0
 
-  object Veusz {
-    val Document = veusz.components.Document
-    val DocumentItems = veusz.DocumentItems
-    val PageItems = veusz.PageItems
-    val GridItems = veusz.GridItems
-    val GraphItems = veusz.GraphItems
-    val PolarItems = veusz.PolarItems
-    val Scene3DItems = veusz.Scene3DItems
-    val Graph3DItems = veusz.Graph3DItems
-  }
 
   object DocumentItems{
     val Page = veusz.components.Page
+    val PageItems = veusz.PageItems
   }
 
   object PageItems {
     val Grid = veusz.components.Grid
+    val GridItems = veusz.GridItems
     val Graph = components.graph.Graph
+    val GraphItems = veusz.GraphItems
     val PolarGraph = components.nonorthgraphs.PolarGraph
+    val PolarGraphItems = veusz.PolarGraphItems
     val TernaryGraph = components.nonorthgraphs.TernaryGraph
+    val TernaryGraphItems = veusz.TernaryGraphItems
     val Scene3D = components.graph3d.Scene3D
+    val Scene3DItems = veusz.Scene3DItems
     val Label = veusz.components.Label
 
     object Shapes{
@@ -92,6 +88,7 @@ package object veusz {
     val Scene3D = graph3d.Scene3D
 
     val Colorbar = veusz.components.Colorbar
+    val Shapes = veusz.PageItems.Shapes
   }
 
 
@@ -118,20 +115,20 @@ package object veusz {
 
   val BoxplotData = data.BoxplotData
 
-  object PolarItems {
+  object PolarGraphItems {
     val Colorbar = veusz.components.Colorbar
     val NonOrthPoint = veusz.components.nonorthgraphs.NonOrthPoint
     val NonOrthFunction = veusz.components.nonorthgraphs.NonOrthFunction
 
   }
 
-  object TernaryItems {
+  object TernaryGraphItems {
     val Colorbar = veusz.components.Colorbar
     val NonOrthPoint =  veusz.components.nonorthgraphs.TernaryPoint
     val NonOrthFunction =  veusz.components.nonorthgraphs.TernaryFunction
   }
 
-  val NonOrthItems = PolarItems
+  val NonOrthItems = PolarGraphItems
 
   object Scene3DItems {
     val Graph3D = veusz.components.graph3d.Graph3D
@@ -143,6 +140,60 @@ package object veusz {
     val Function3D = veusz.components.graph3d.Function3D
     val Surface3D = veusz.components.graph3d.Surface3D
     val Volume3D = veusz.components.graph3d.Volume3D
+
+    val Axis3D = veusz.components.graph3d.Axis3D
+    val YAxis3D = veusz.components.graph3d.YAxis3D
+    val XAxis3D = veusz.components.graph3d.XAxis3D
+    val ZAxis3D = veusz.components.graph3d.ZAxis3D
+  }
+
+  object V {
+    val Document = veusz.components.Document
+    val DocumentItems = veusz.DocumentItems
+
+    val Page = veusz.components.Page
+    val PageItems = veusz.PageItems
+
+    val Grid = veusz.components.Grid
+    val GridItems = veusz.GridItems
+    val Graph = components.graph.Graph
+    val GraphItems = veusz.GraphItems
+    val PolarGraph = components.nonorthgraphs.PolarGraph
+    val PolarGraphItems = veusz.PolarGraphItems
+    val TernaryGraph = components.nonorthgraphs.TernaryGraph
+    val TernaryGraphItems = veusz.TernaryGraphItems
+    val Scene3D = components.graph3d.Scene3D
+    val Scene3DItems = veusz.Scene3DItems
+
+
+    val Colorbar = veusz.components.Colorbar
+    val NonOrthTernaryPoint =  veusz.components.nonorthgraphs.TernaryPoint
+    val NonOrthTernaryFunction =  veusz.components.nonorthgraphs.TernaryFunction
+    val NonOrthPolarPoint = veusz.components.nonorthgraphs.NonOrthPoint
+    val NonOrthPolarFunction = veusz.components.nonorthgraphs.NonOrthFunction
+    val Graph3D = veusz.components.graph3d.Graph3D
+    val Point3D = veusz.components.graph3d.Point3D
+    val Function3D = veusz.components.graph3d.Function3D
+    val Surface3D = veusz.components.graph3d.Surface3D
+    val Volume3D = veusz.components.graph3d.Volume3D
+
+    val Label = veusz.components.Label
+    val Shapes = PageItems.Shapes
+
+    val XY = components.graph.XY
+    val Barchart = veusz.components.graph.Barchart
+    val Fit = veusz.components.graph.Fit
+    val Function = veusz.components.graph.Function
+    //val Fit = veusz.components.Fit
+    val Boxplot = veusz.components.graph.Boxplot
+    val Image = veusz.components.graph.Image
+    val Contours = veusz.components.graph.Contours
+    val VectorField = veusz.components.graph.Vectorfield
+    val Key = veusz.components.Key
+
+    val Axis = veusz.components.graph.Axis
+    val XAxis = veusz.components.graph.XAxis
+    val YAxis = veusz.components.graph.YAxis
 
     val Axis3D = veusz.components.graph3d.Axis3D
     val YAxis3D = veusz.components.graph3d.YAxis3D
