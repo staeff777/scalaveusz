@@ -4,8 +4,8 @@
 Create [Veusz](https://veusz.github.io/) charts in Scala.
 The combination of this API and Vuesz allows to 
 - quickly create various types of plots in Scala, 
-- open them in the Veusz Editor to try out different layout and styles and then to
-- adjust the settings in code according to the UI.
+- open them in the Veusz editor to try out different layouts and styles and then to
+- adjust the settings in the source code according to the UI.
 
 It is useful for the creation of static scientific plots, if render time is not a key requiement (due to the execution of an external program). 
 
@@ -57,10 +57,13 @@ It is useful for the creation of static scientific plots, if render time is not 
 
 For further examples see [scalaveusz-examples](https://github.com/staeff777/scalaveusz-examples)
 
-# Structure
-The following figure shows the possible structure of a Vuesz document.
+# Document Structure
+The following figure shows the possible structure of a Veusz document.
 ![Excerpt of ScalaVeusz Architecture](documentation/structure.png)
 
+Per definition, each **chart** is in a **graph** which is in a **page** (or a **grid within a page**), which is in a **document**. 
+
+To reduce unnecessary boilerplate code, Scalaveusz offers autowrapping. For example, If you put a **chart** into a **document** the plot would then automatically be wrapped with each required parent (**graph** and **page**). 
 
 # Dealing with DateTime
 
