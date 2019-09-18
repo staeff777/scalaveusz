@@ -61,6 +61,8 @@ For further examples see [scalaveusz-examples](https://github.com/staeff777/scal
 The following figure shows the possible structure of a Veusz document.
 ![Excerpt of ScalaVeusz Architecture](documentation/structure.png)
 
+
+## Autowrapping
 Per definition, each **chart** is in a **graph** which is in a **page** (or a **grid within a page**), which is in a **document**. 
 
 To reduce unnecessary boilerplate code, Scalaveusz offers autowrapping. For example, If you put a **chart** into a **document** the plot would then automatically be wrapped with each required parent (**graph** and **page**). 
