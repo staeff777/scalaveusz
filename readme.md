@@ -14,7 +14,7 @@ It is useful for the creation of static scientific plots, if render time is not 
   - [Quick Access to Veusz Items](#quick-access-to-veusz-items)
   - [Document Structure](#document-structure)
   - [Changing Item Settings and Style](#changing-item-settings-and-style)
-- [Dealing with Date and Time](#dealing-with-date-and-time) 
+- [Dealing with Date and Time](#dealing-with-datetime) 
 
 ## First Steps
 1. Install [Veusz](https://veusz.github.io/download/)
