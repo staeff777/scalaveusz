@@ -14,6 +14,7 @@ object Document
   def apply(children: WrappedDocumentItem*) = {
        new Document( children.toVector)
   }
+
 }
 
 case class Document (var children: Vector[WrappedDocumentItem], var config: DocumentConfig = DocumentConfig(), var name: String = "document")
