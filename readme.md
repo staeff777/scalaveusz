@@ -75,13 +75,26 @@ It is possible to either browse the document structure to find a prefered Item
 The following figure shows the possible structure of a Veusz document.
 ![Excerpt of ScalaVeusz Architecture](documentation/structure.png)
 
+### Builing a document tree
+Per definition, each **chart** is in a **graph** which is in a **page** (or a **grid within a page**), which is in a **document**. 
+```scala
+val xy = V.GraphItems.XY(xData, yLinear)
+val graph = V.PageItems.Graph(xy)  // takes multiples Graphs
+val page = V.DocumentItems.Page(graph) // takes a single graph or a grid
+val document = V.Document(page) // takes multiple pages
+```
 
 ### Autowrapping
-Per definition, each **chart** is in a **graph** which is in a **page** (or a **grid within a page**), which is in a **document**. 
 
 To reduce unnecessary boilerplate code, Scalaveusz offers autowrapping. For example, If you put a **chart** into a **document** the plot would then automatically be wrapped with each required parent (**graph** and **page**). 
-
+```scala
+val xy = V.GraphItems.XY(xData, yLinear)
+vval xy2 = V.GraphItems.XY(xData, ySin)
+val document = V.Document(xy, xy2) // places each item into a separate page
+```
 ## Changing Item Settings and Style
+The following image shows the mapping between the Veusz UI and the API's data objects:
+
 ![Excerpt of ScalaVeusz Architecture](documentation/config.png)
 
 XY Item is created using two Vectors, Axis 'x' and 'y' are used default
