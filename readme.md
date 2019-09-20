@@ -89,7 +89,7 @@ val document = V.Document(page) // takes multiple pages
 To reduce unnecessary boilerplate code, Scalaveusz offers autowrapping. For example, If you put a **chart** into a **document** the plot would then automatically be wrapped with each required parent (**graph** and **page**). 
 ```scala
 val xy = V.GraphItems.XY(xData, yLinear)
-vval xy2 = V.GraphItems.XY(xData, ySin)
+val xy2 = V.GraphItems.XY(xData, ySin)
 val document = V.Document(xy, xy2) // places each item into a separate page
 ```
 ## Changing Item Settings and Style
