@@ -57,15 +57,56 @@ It is useful for the creation of static scientific plots, if render time is not 
 
 For further examples see [scalaveusz-examples](https://github.com/staeff777/scalaveusz-examples)
 
-# Document Structure
+# How to use the API
+## Quick Access to Veusz-Items
+The Veusz API should be accassible through a single import of `de.dreambeam.veusz._` . Items can be accessed using the `V` shortcut object and the autocomplete features of your prefered IDE.  
+
+![V_autocompletion](documentation/V.png)
+
+It is possible to either browse the document structure to find a prefered Item
+
+![V_autocompletion](documentation/V_Browse.png)
+
+.. or to access the Items directly
+
+![V_autocompletion](documentation/V_Direct.png)
+
+## Document Structure
 The following figure shows the possible structure of a Veusz document.
 ![Excerpt of ScalaVeusz Architecture](documentation/structure.png)
 
 
-## Autowrapping
+### Autowrapping
 Per definition, each **chart** is in a **graph** which is in a **page** (or a **grid within a page**), which is in a **document**. 
 
 To reduce unnecessary boilerplate code, Scalaveusz offers autowrapping. For example, If you put a **chart** into a **document** the plot would then automatically be wrapped with each required parent (**graph** and **page**). 
+
+## Changing Item Settings and Style
+![Excerpt of ScalaVeusz Architecture](documentation/config.png)
+
+XY Item is created using two Vectors, Axis 'x' and 'y' are used default
+```scala 
+val xyLinearPlot = GraphItems.XY(xData, yLinear)
+```
+All properties are mutable. Although this is not a good functional style, it allows simple and quick changes.
+We decided for ease of use over convention since it is still your option to treat each object as if it was immutable.
+However, the conversion from Vector to the Numerical type must be done manually. (TODO Explain Datatypes)
+```scala 
+xyLinearPlot.colorMarkers = Numerical(ySin)
+```
+The Item Configuration can be accessed over the config property. 
+This contains a subconfiguration for each Veusz Formatting Tab.
+
+```scala
+xyLinearPlot.config.main.markerSize = 2 pt() // pt(), cm(), mm(), in() or percent()
+xyLinearPlot.config.plotLine.color = "#ff007f"
+xyLinearPlot.config.markerFill.color = "darkred"
+```
+The colorMarker Configuration is also integrated into the config object.
+```scala
+xyLinearPlot.config.colorConfig.min = 2.5
+xyLinearPlot.config.colorConfig.max = 7.5
+```
 
 # Dealing with DateTime
 
