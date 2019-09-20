@@ -9,6 +9,13 @@ The combination of this API and Vuesz allows to
 
 It is useful for the creation of static scientific plots, if render time is not a key requiement (due to the execution of an external program). 
 
+- [First Steps](#first-steps)
+- [How to use the API](#how-to-use-the-api)
+  - [Quick Access to Veusz Items](#quick-access-to-veusz-items)
+  - [Document Structure](#document-structure)
+  - [Changing Item Settings and Style](#changing-item-settings-and-style)
+- [Dealing with Date and Time](#dealing-with-date-and-time) 
+
 ## First Steps
 1. Install [Veusz](https://veusz.github.io/download/)
    
