@@ -22,7 +22,7 @@ inThisBuild(
 name := "scalaveusz"
 organization := "de.dreambeam"
 
-version := "0.4.7-SNAPSHOT"
+version := "0.4.7"
 
 scalaVersion := "2.12.9"
 
