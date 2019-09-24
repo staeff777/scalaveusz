@@ -845,11 +845,11 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("yAxis", l.yAxis)}
        |
        |# Label Formatting
-       |${R.render("alignHorz", l.config.alignment.horizontal)}
-       |${R.render("alignVert", l.config.alignment.vertical)}
-       |${R.render("angle", l.config.alignment.angle)}
-       |${R.render("margin", l.config.alignment.margin)}
-       |${R.render("clip", l.config.alignment.clip)}
+       |${R.render("alignHorz", l.config.main.horizontal)}
+       |${R.render("alignVert", l.config.main.vertical)}
+       |${R.render("angle", l.config.main.angle)}
+       |${R.render("margin", l.config.main.margin)}
+       |${R.render("clip", l.config.main.clip)}
        |
        |${renderTextConfig(l.config.text)}
        |

@@ -32,7 +32,7 @@ case class Label(var text: String,
 
 }
 
-case class LabelConfig(alignment: LabelMainConfig = LabelMainConfig(),
+case class LabelConfig(main: LabelMainConfig = LabelMainConfig(),
                        text: TextConfig = TextConfig(),
                        background: BackgroundConfig = BackgroundConfig(),
                        border: BorderConfig = BorderConfig())

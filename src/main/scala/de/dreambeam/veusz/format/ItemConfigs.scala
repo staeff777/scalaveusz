@@ -75,7 +75,7 @@ case class BackgroundConfig(
           var spacing: SizeUnit = 5 pt,
           var backColor: String = Colors.Background,
           var backTransparency: Int = 0,
-          var backHide: Boolean = false
+          var backHide: Boolean = true
 )
 
 case class BorderConfig(
@@ -83,7 +83,7 @@ case class BorderConfig(
           var width: SizeUnit = 0.5 pt,
           var style: String = LineStyle.Solid,
           var transparency: Int = 0,
-          var hide: Boolean = false
+          var hide: Boolean = true
 )
 
 case class AxisMainConfig(
@@ -459,7 +459,7 @@ case class LabelMainConfig(
           var hide: Boolean = false,
           var horizontal: HorizontalPosition.Value = HorizontalPosition.Left,
           var vertical: VerticalPosition.Value = VerticalPosition.Bottom,
-          var angle: Double = 1.0,
+          var angle: Double = 0.0,
           var margin: SizeUnit = 4 pt,
           var clip: Boolean = false
 )

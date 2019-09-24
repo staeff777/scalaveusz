@@ -53,6 +53,8 @@ package object veusz {
   val PolarDirection = de.dreambeam.veusz.format.PolarDirection
   val PolarPositionOf0 = de.dreambeam.veusz.format.PolarPositionOf0
 
+  val HorizontalPosition = de.dreambeam.veusz.format.HorizontalPosition
+  val VerticalPosition = de.dreambeam.veusz.format.VerticalPosition
 
   object DocumentItems{
     val Page = veusz.components.Page
