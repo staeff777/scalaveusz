@@ -25,9 +25,23 @@ class GraphItemTest extends FlatSpec with Matchers {
 
   it should "render a Bar Chart" in {
     val positions = (1 to 10).map(_.toDouble).toVector
+    val labels = Vector("one", "two", "three", "four", "five", "six","seven","eight","nine", "ten")
     val lengthData = positions.map(v => (1 to 10).map(_ * Random.nextDouble() * 10).toVector)
 
-    val barchart = GraphItems.Barchart(lengthData, positions)
+    val barchart = GraphItems.Barchart(lengthData, positions, labels= labels )
+    barchart.config.fill = Vector("green", "blue", "red", "cyan", "magenta", "yellow", "darkred", "darkgreen", "darkblue", "darkmagenta").map(c => BarchartFillConfig(color = c))
+    val file = new File("veusz/barchart.svg")
+    barchart.export(file.getAbsolutePath)
+    file should exist
+    file.delete()
+  }
+
+  it should "render a Bar Chart with text" in {
+    val positions = (1 to 10).map(_.toDouble).toVector
+    val labels = Vector("one", "two", "three", "four", "five", "six","seven","eight","nine", "ten")
+    val lengthData = positions.map(v => (1 to 10).map(_ * Random.nextDouble() * 10).toVector)
+
+    val barchart = GraphItems.Barchart(Vector(positions), positions, labels= labels )
     barchart.config.fill = Vector("green", "blue", "red", "cyan", "magenta", "yellow", "darkred", "darkgreen", "darkblue", "darkmagenta").map(c => BarchartFillConfig(color = c))
     val file = new File("veusz/barchart.svg")
     barchart.export(file.getAbsolutePath)

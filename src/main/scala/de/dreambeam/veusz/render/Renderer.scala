@@ -733,6 +733,8 @@ class Renderer(dataHandler: DataHandler) {
       case n: Numerical => dataHandler.uniqueReference(n, "")
       case d: DateTime  => dataHandler.uniqueReference(d, "dt")
     }
+    val labelsName = if(bar.labels.nonEmpty)    dataHandler.uniqueReference(Text(bar.labels),"")
+                      else ""
 
     s"""
        |${R.render("lengths", lengthNames)}
@@ -740,6 +742,7 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("direction", bar.direction)}
        |${R.render("mode", bar.mode)}
        |${R.render("keys", bar.keys)}
+       |${R.render("labels", labelsName)}
        |${R.render("xAxis", bar.xAxis)}
        |${R.render("yAxis", bar.yAxis)}
        |

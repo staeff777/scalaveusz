@@ -64,4 +64,12 @@ class GridTest extends FlatSpec with Matchers{
     file should exist
     file.delete()
   }
+
+  it should "render a simple grid" in {
+    val graphItems = Vector(PageItems.Graph(), PageItems.Graph())
+
+    val grid = PageItems.Grid(children = graphItems)
+
+    val page = DocumentItems.Page(grid)
+  }
 }
