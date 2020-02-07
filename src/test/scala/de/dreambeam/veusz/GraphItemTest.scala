@@ -36,6 +36,7 @@ class GraphItemTest extends FlatSpec with Matchers {
     file.delete()
   }
 
+  //text not visible on x axis, x axis should be set to 'labels'
   it should "render a Bar Chart with text" in {
     val positions = (1 to 10).map(_.toDouble).toVector
     val labels = Vector("one", "two", "three", "four", "five", "six","seven","eight","nine", "ten")

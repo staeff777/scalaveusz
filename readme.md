@@ -23,7 +23,7 @@ It is useful for the creation of static scientific plots, if render time is not 
 
 2. Include the dependency requirements into the build.sbt:
     ```scala
-    libraryDependencies += "de.dreambeam" %% "scalaveusz" % "0.4.0" // version according to Maven Central Badge in the top of this page
+    libraryDependencies += "de.dreambeam" %% "scalaveusz" % "0.4.8" // version according to Maven Central Badge in the top of this page
     ```
     **Scala 2.12** and **2.13** are currently supported.
     
