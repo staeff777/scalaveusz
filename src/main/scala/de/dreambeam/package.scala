@@ -39,7 +39,6 @@ package object veusz {
   val AxisMode = de.dreambeam.veusz.format.AxisMode
   val Surface3DMode = de.dreambeam.veusz.format.Surface3DMode
   val Function3DMode = de.dreambeam.veusz.format.Function3DMode
-  val LineMode = de.dreambeam.veusz.format.LineMode
   val TernaryCoordSystem = de.dreambeam.veusz.format.TernaryCoordSystem
   val TernaryGraphMode = de.dreambeam.veusz.format.TernaryGraphMode
 
@@ -61,7 +60,8 @@ package object veusz {
   val Direction =  de.dreambeam.veusz.format.Direction
 
   val ImageFile = veusz.components.shapes.ImageFile
-  val Line = veusz.components.shapes.Line
+  val LineLengthAngle = veusz.components.shapes.LineLengthAngle
+  val LinePoint2Point = veusz.components.shapes.LinePoint2Point
   val Rectangle = veusz.components.shapes.Rectangle
   val Ellipse = veusz.components.shapes.Ellipse
   val Polygon= veusz.components.shapes.Polygon
@@ -87,7 +87,8 @@ package object veusz {
 
     object Shapes{
       val ImageFile = veusz.components.shapes.ImageFile
-      val Line = veusz.components.shapes.Line
+      val LineLengthAngle = veusz.components.shapes.LineLengthAngle
+      val LinePoint2Point = veusz.components.shapes.LinePoint2Point
       val Rectangle = veusz.components.shapes.Rectangle
       val Ellipse = veusz.components.shapes.Ellipse
       val Polygon= veusz.components.shapes.Polygon

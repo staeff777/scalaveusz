@@ -9,7 +9,7 @@ import components._
 import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Covariance, Fit, Function, Graph, Image, Vectorfield, XAxis, XY, YAxis}
 import de.dreambeam.veusz.components.graph3d.{Function3D, Graph3D, Point3D, Scene3D, Surface3D, Volume3D}
 import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph, TernaryGraph}
-import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, Line, Polygon, Rectangle}
+import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, LineLengthAngle, LinePoint2Point, Polygon, Rectangle}
 import de.dreambeam.veusz.data.{BoxplotData, DateTime, Numerical, NumericalImage, Text}
 import de.dreambeam.veusz.util.DataHandler
 
@@ -186,7 +186,8 @@ trait Executable {
     case img: ImageFile   => Page(img).createDocumentText()
     case rect: Rectangle  => Page(rect).createDocumentText()
     case el: Ellipse      => Page(el).createDocumentText()
-    case line: Line       => Page(line).createDocumentText()
+    case line: LineLengthAngle => Page(line).createDocumentText()
+    case line: LinePoint2Point=> Page(line).createDocumentText()
     case poly: Polygon    => Page(poly).createDocumentText()
     case cb: Colorbar     => Graph(cb).createDocumentText()
     case img2d: Image     => Graph(img2d).createDocumentText()

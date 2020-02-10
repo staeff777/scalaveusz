@@ -41,7 +41,7 @@ class PageTests extends FlatSpec with Matchers {
     ellipse.config.fill.fillStyle = FillStyle.DoubleDiagonalCross
     ellipse.config.fill.hide = false
 
-    val line = PageItems.Shapes.Line(LineMode.Length_Angle, Vector(0.4),Vector(0.24), Vector(0.2))
+    val line = PageItems.Shapes.LineLengthAngle(Vector(0.4),Vector(0.24), Vector(0.2))
     line.config.main.arrowLeft = ArrowType.ArrowReverse
     line.config.main.arrowRight = ArrowType.Arrow
     line.config.arrowFill.color = Colors.DarkRed

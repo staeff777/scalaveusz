@@ -4,7 +4,7 @@ import de.dreambeam.veusz.components.{graph, _}
 import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, Covariance, Fit, Graph, Image, Vectorfield, XY}
 import de.dreambeam.veusz.components.graph3d.{Axis3D, Function3D, Graph3D, PlotLine3DConfig, Point3D, Scene3D, Surface3D, Surface3DGridLineConfig, Surface3DSurfaceConfig, Volume3D}
 import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph, TernaryGraph}
-import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, Line, Polygon, Rectangle}
+import de.dreambeam.veusz.components.shapes.{Ellipse, ImageFile, LineLengthAngle, LinePoint2Point, Polygon, Rectangle}
 import de.dreambeam.veusz.data.{DateTime, Numerical, Text}
 import de.dreambeam.veusz.format._
 import de.dreambeam.veusz.util.{DataHandler, RenderTools => R, StringTools => S}
@@ -45,7 +45,8 @@ class Renderer(dataHandler: DataHandler) {
       def autoWrapPageItem(p: WrappedPageItem) = p match {
         case p: Ellipse         => go(p)
         case p: ImageFile       => go(p)
-        case p: Line            => go(p)
+        case p: LineLengthAngle => go(p)
+        case p: LinePoint2Point => go(p)
         case p: Label           => go(p)
         case p: Polygon         => go(p)
         case r: Rectangle       => go(r)
@@ -150,7 +151,8 @@ class Renderer(dataHandler: DataHandler) {
     case rect: Rectangle     => render(rect)
     case el: Ellipse         => render(el)
     case poly: Polygon       => render(poly)
-    case line: Line          => render(line)
+    case line: LineLengthAngle => render(line)
+    case line: LinePoint2Point => render(line)
     case cb: Colorbar        => render(cb)
     case cont: Contours      => render(cont)
     case vec: Vectorfield    => render(vec)
@@ -994,13 +996,37 @@ class Renderer(dataHandler: DataHandler) {
        |${renderBorderConfig(el.config.border)}
      """.stripMargin
 
-  def render(line: Line) =
+
+
+  def render(line: LineLengthAngle) =
     s"""
-       |${R.render("mode", line.mode)}
+       |${R.render("mode", "length-angle")}
        |Set('xPos', [${line.xPositions.mkString(", ")}])
        |Set('yPos', [${line.yPositions.mkString(", ")}])
        |Set('length', [${line.lengths.mkString(", ")}])
        |Set('angle', [${line.angles.mkString(", ")}])
+       |${R.render("positioning", line.positionMode)}
+       |${R.render("xAxis", line.xAxis)}
+       |${R.render("yAxis", line.yAxis)}
+       |
+       |# Line Formatting
+       |${R.render("arrowleft", line.config.main.arrowLeft)}
+       |${R.render("arrowright", line.config.main.arrowRight)}
+       |${R.render("arrowSize", line.config.main.arrowSize)}
+       |${R.render("clip", line.config.main.clip)}
+       |${R.render("hide", line.config.main.hide)}
+       |
+       |${renderBorderConfig(line.config.line)("Line")}
+       |${renderSimpleFillConfig(line.config.arrowFill)("Fill")}
+     """.stripMargin
+
+  def render(line: LinePoint2Point) =
+    s"""
+       |${R.render("mode", "point-to-point")}
+       |Set('xPos', [${line.xPositions.mkString(", ")}])
+       |Set('yPos', [${line.yPositions.mkString(", ")}])
+       |Set('xPos2', [${line.xPositions2.mkString(", ")}])
+       |Set('yPos2', [${line.yPositions2.mkString(", ")}])
        |${R.render("positioning", line.positionMode)}
        |${R.render("xAxis", line.xAxis)}
        |${R.render("yAxis", line.yAxis)}

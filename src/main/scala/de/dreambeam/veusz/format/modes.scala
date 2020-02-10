@@ -54,8 +54,3 @@ object TernaryCoordSystem extends Enumeration {
   val Right_Left = Value("right-left")
   val Right_Bottom = Value("right-bottom")
 }
-
-object LineMode extends  Enumeration {
-  val Length_Angle = Value("length-angle")
-  val Point_To_Point = Value("point-to-point")
-}
