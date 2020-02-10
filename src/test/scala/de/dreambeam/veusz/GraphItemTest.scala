@@ -4,6 +4,7 @@ import java.io.File
 
 import de.dreambeam.veusz._
 import de.dreambeam.veusz.data.Numerical
+
 import org.scalatest._
 
 import scala.util.Random
@@ -97,6 +98,15 @@ class GraphItemTest extends FlatSpec with Matchers {
     file should exist
     file.delete()
   }
+
+  it should "render a colorbar" in {
+    val colorbar = GraphItems.Colorbar(direction = Direction.Vertical)
+    val file = new File("veusz/image.svg")
+    colorbar.export(file.getAbsolutePath)
+    file should exist
+    file.delete()
+  }
+
 
   it should "render a Vectorfield" in {
     val dataset = (for (x <- 0 until 10; y <- 0 until 10) yield

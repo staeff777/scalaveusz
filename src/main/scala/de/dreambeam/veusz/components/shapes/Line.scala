@@ -4,29 +4,57 @@ import de.dreambeam.veusz.format._
 import de.dreambeam.veusz.{Configurable, Executable, GraphItem, PageItem}
 
 object Line {
-  def apply(xPosition: Double, yPosition: Double): Line = Line(Vector(xPosition), Vector(yPosition))
-  def apply(xPosition: Double, yPosition: Double, length: Double): Line = Line(Vector(xPosition), Vector(yPosition), Vector(length))
-  def apply(xPosition: Double, yPosition: Double, length: Double, angles: Double): Line = Line(Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles))
+  def apply(xPosition: Double, yPosition: Double): Line = Line(LineMode.Length_Angle, Vector(xPosition), Vector(yPosition))
+  def apply(xPosition: Double, yPosition: Double, length: Double): Line = Line(LineMode.Length_Angle, Vector(xPosition), Vector(yPosition), Vector(length))
+  def apply(xPosition: Double, yPosition: Double, length: Double, angles: Double): Line = Line(LineMode.Length_Angle, Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles))
 
   def apply(xPosition: Double, yPosition: Double, length: Double, angles: Double, positionMode: Positioning.Value): Line =
-    Line(Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), positionMode)
+    Line(LineMode.Length_Angle, Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), positionMode)
 
-  def apply(xPosition: Double, yPosition: Double, name: String): Line = Line(Vector(xPosition), Vector(yPosition), name = name)
-  def apply(xPosition: Double, yPosition: Double, length: Double, name: String): Line = Line(Vector(xPosition), Vector(yPosition), Vector(length), name = name)
+  def apply(xPosition: Double, yPosition: Double, name: String): Line = Line(LineMode.Length_Angle, Vector(xPosition), Vector(yPosition), name = name)
+  def apply(xPosition: Double, yPosition: Double, length: Double, name: String): Line = Line(LineMode.Length_Angle, Vector(xPosition), Vector(yPosition), Vector(length), name = name)
+
+  def apply(mode: LineMode.Value, xPosition: Double, yPosition: Double): Line = Line(mode, Vector(xPosition), Vector(yPosition))
+  def apply(mode: LineMode.Value, xPosition: Double, yPosition: Double, length: Double): Line = Line(mode, Vector(xPosition), Vector(yPosition), Vector(length))
+  def apply(mode: LineMode.Value, xPosition: Double, yPosition: Double, length: Double, angles: Double): Line = Line(mode, Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles))
+
+
+  def apply(mode: LineMode.Value, xPosition: Double, yPosition: Double, name: String): Line = Line(mode, Vector(xPosition), Vector(yPosition), name = name)
+  def apply(mode: LineMode.Value, xPosition: Double, yPosition: Double, length: Double, name: String): Line = Line(mode, Vector(xPosition), Vector(yPosition), Vector(length), name = name)
+
+
+
 
   def apply(xPosition: Double, yPosition: Double, length: Double, angles: Double, name: String): Line =
-    Line(Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), name = name)
+    Line(LineMode.Length_Angle, Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), name = name)
 
   def apply(xPosition: Double, yPosition: Double, length: Double, angles: Double, positionMode: Positioning.Value, xAxis: String, yAxis: String): Line =
-    Line(Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), positionMode, xAxis, yAxis)
+    Line(LineMode.Length_Angle, Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), positionMode, xAxis, yAxis)
 
   def apply(xPosition: Double, yPosition: Double, length: Double, angles: Double, xAxis: String, yAxis: String): Line =
-    Line(Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), xAxis = xAxis, yAxis = yAxis)
+    Line(LineMode.Length_Angle, Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), xAxis = xAxis, yAxis = yAxis)
 
   def apply(xPosition: Double, yPosition: Double, length: Double, angles: Double, positionMode: Positioning.Value, xAxis: String, yAxis: String, name: String): Line =
-    Line(Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), positionMode, xAxis, yAxis, name)
+    Line(LineMode.Length_Angle, Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), positionMode, xAxis, yAxis, name)
+
+  def apply(mode: LineMode.Value, xPosition: Double, yPosition: Double, length: Double, angles: Double, positionMode: Positioning.Value): Line =
+    Line(mode, Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), positionMode)
+
+  def apply(mode: LineMode.Value, xPosition: Double, yPosition: Double, length: Double, angles: Double, name: String): Line =
+    Line(mode, Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), name = name)
+
+  def apply(mode: LineMode.Value, xPosition: Double, yPosition: Double, length: Double, angles: Double, positionMode: Positioning.Value, xAxis: String, yAxis: String): Line =
+    Line(mode, Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), positionMode, xAxis, yAxis)
+
+  def apply(mode: LineMode.Value, xPosition: Double, yPosition: Double, length: Double, angles: Double, xAxis: String, yAxis: String): Line =
+    Line(mode, Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), xAxis = xAxis, yAxis = yAxis)
+
+  def apply(mode: LineMode.Value, xPosition: Double, yPosition: Double, length: Double, angles: Double, positionMode: Positioning.Value, xAxis: String, yAxis: String, name: String): Line =
+    Line(mode, Vector(xPosition), Vector(yPosition), Vector(length), Vector(angles), positionMode, xAxis, yAxis, name)
+
 }
-case class Line(var xPositions: Vector[Double] = Vector(0.5),
+case class Line(var mode: LineMode.Value = LineMode.Length_Angle,
+                var xPositions: Vector[Double] = Vector(0.5),
                 var yPositions: Vector[Double] = Vector(0.5),
                 var lengths: Vector[Double] = Vector(0.2),
                 var angles: Vector[Double] = Vector(0.0),

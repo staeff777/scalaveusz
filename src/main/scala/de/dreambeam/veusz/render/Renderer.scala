@@ -867,6 +867,13 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("label", cb.label)}
        |${R.renderOption("min", cb.min, s"Set('min', u'Auto')")}
        |${R.renderOption("max", cb.max, s"Set('max', u'Auto')")}
+       |${R.render("direction", cb.direction)}
+       |${R.render("mode", cb.mode)}
+       |${R.render("lowerPosition", cb.minPosition)}
+       |${R.render("upperPosition", cb.maxPosition)}
+       |${R.render("otherPosition", cb.axisPosition)}
+       |${R.render("mode", cb.mode)}
+       |
        |
        |# Colorbar Formatting
        |${R.render("hide", cb.config.main.hide)}
@@ -989,6 +996,7 @@ class Renderer(dataHandler: DataHandler) {
 
   def render(line: Line) =
     s"""
+       |${R.render("mode", line.mode)}
        |Set('xPos', [${line.xPositions.mkString(", ")}])
        |Set('yPos', [${line.yPositions.mkString(", ")}])
        |Set('length', [${line.lengths.mkString(", ")}])

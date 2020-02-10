@@ -5,7 +5,7 @@ import de.dreambeam.veusz.components.graph.{Axis, Barchart, Boxplot, Contours, F
 import de.dreambeam.veusz.components.graph3d.{Axis3D, Graph3D, Scene3D, XAxis3D, YAxis3D, ZAxis3D}
 import de.dreambeam.veusz.components.nonorthgraphs.{NonOrthFunction, NonOrthPoint, PolarGraph}
 import de.dreambeam.veusz.components.shapes.Ellipse
-import de.dreambeam.veusz.format.{Centimeter, Inches, Millimeter, Percent, Point, PolarPositionOf0}
+import de.dreambeam.veusz.format.{Centimeter,  Inches, Millimeter, Percent, Point, PolarPositionOf0}
 import de.dreambeam.veusz.util._
 
 package object veusz {
@@ -21,13 +21,11 @@ package object veusz {
 
   //Convert Double to Point on Default
   implicit def double2Point(x: Double) = Point(x)
-  val Colors = de.dreambeam.veusz.format.Colors
-  val ColorMaps = de.dreambeam.veusz.format.ColorMaps
+
 
   // provide quick access to enums and prefined values
-
-
-
+  val Colors = de.dreambeam.veusz.format.Colors
+  val ColorMaps = de.dreambeam.veusz.format.ColorMaps
   val FillStyle = de.dreambeam.veusz.format.FillStyle
   val FillTo = de.dreambeam.veusz.format.FillTo
 
@@ -41,6 +39,10 @@ package object veusz {
   val AxisMode = de.dreambeam.veusz.format.AxisMode
   val Surface3DMode = de.dreambeam.veusz.format.Surface3DMode
   val Function3DMode = de.dreambeam.veusz.format.Function3DMode
+  val LineMode = de.dreambeam.veusz.format.LineMode
+  val TernaryCoordSystem = de.dreambeam.veusz.format.TernaryCoordSystem
+  val TernaryGraphMode = de.dreambeam.veusz.format.TernaryGraphMode
+
 
 
   val MarkerType = de.dreambeam.veusz.format.MarkerType
@@ -55,6 +57,15 @@ package object veusz {
 
   val HorizontalPosition = de.dreambeam.veusz.format.HorizontalPosition
   val VerticalPosition = de.dreambeam.veusz.format.VerticalPosition
+
+  val Direction =  de.dreambeam.veusz.format.Direction
+
+  val ImageFile = veusz.components.shapes.ImageFile
+  val Line = veusz.components.shapes.Line
+  val Rectangle = veusz.components.shapes.Rectangle
+  val Ellipse = veusz.components.shapes.Ellipse
+  val Polygon= veusz.components.shapes.Polygon
+
 
   object DocumentItems{
     val Page = veusz.components.Page

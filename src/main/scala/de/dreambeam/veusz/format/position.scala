@@ -24,6 +24,20 @@ object VerticalPosition extends Enumeration {
   val Bottom = Value("bottom")
 }
 
+object HorizontalPositionWithManual extends Enumeration {
+  val Left = Value("left")
+  val Centre = Value("centre")
+  val Right = Value("right")
+  val Manual = Value("manual")
+}
+
+object VerticalPositionWithManual extends Enumeration {
+  val Top = Value("top")
+  val Centre = Value("centre")
+  val Bottom = Value("bottom")
+  val Manual = Value("manual")
+}
+
 object KeyAlignment extends Enumeration {
   val top = Value("top")
   val centre = Value("centre")
