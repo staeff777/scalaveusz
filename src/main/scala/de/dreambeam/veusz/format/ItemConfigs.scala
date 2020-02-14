@@ -278,7 +278,16 @@ case class BarchartMainConfig(
           var errorStyle: ErrorType.Value = ErrorType.Bar
 )
 
-case class BarchartFillConfig(style: String = FillStyle.Solid, color: String = Colors.Grey, hide: Boolean = false)
+case class BarchartFillConfig(style: String = FillStyle.Solid,
+                              color: String = Colors.Grey,
+                              hide: Boolean = false,
+                              transparency: Int = 0,
+                              lineWidth: SizeUnit = 0.5 pt,
+                              lineStyle: String = LineStyle.Solid,
+                              spacing: SizeUnit = 0.5 pt,
+                              backcolor: String = Colors.Background,
+                              backTransparency: Int = 0,
+                              backhide: Boolean = false)
 
 case class BarchartLineConfig(style: String = LineStyle.Solid, size: SizeUnit = 0.5 pt, color: String = Colors.Black, hide: Boolean = false)
 
@@ -437,13 +446,13 @@ case class Axis3DMinorGridLinesConfig(
 )
 
 case class KeyMainConfig(var hide: Boolean = false,
-                         var horizontalPosition: HorizontalPosition.Value = HorizontalPosition.Right,
-                         var verticalPosition: VerticalPosition.Value = VerticalPosition.Top,
+                         var horizontalPosition: HorizontalPositionWithManual.Value = HorizontalPositionWithManual.Right,
+                         var verticalPosition: VerticalPositionWithManual.Value = VerticalPositionWithManual.Top,
                          var keyLength: SizeUnit = 8 percent,
                          var keyAlignment: KeyAlignment.Value = KeyAlignment.top,
                          var horizontalManual: Option[Double] = None,
                          var verticalManual: Option[Double] = None,
-                         var marginSize: Int = 1,
+                         var marginSize: Double = 1,
                          var columns: Int = 1,
                          var swapSymbol: Boolean = false)
 

@@ -39,7 +39,7 @@ class Renderer(dataHandler: DataHandler) {
         case n: NonOrthGraphItem   => go(PolarGraph(n)).mkString("")
         case s: Scene3DItem        => go(Scene3D(s)).mkString("")
         case g: Graph3DItem        => go(Scene3D(Graph3D(g))).mkString("")
-        case e => throw new RuntimeException(s"$e not matched")
+        case e                     => throw new RuntimeException(s"$e not matched")
       }
 
       def autoWrapPageItem(p: WrappedPageItem) = p match {
@@ -74,14 +74,14 @@ class Renderer(dataHandler: DataHandler) {
 
         case p: Page =>
           p.children
-            .map (autoWrapPageItem)
+            .map(autoWrapPageItem)
             .mkString("")
 
         case d: Document =>
           d.children
             .map(c =>
               c match {
-                case p: Page    => go(p)
+                case p: Page => go(p)
                 case p: Item => go(Page(p))
             })
             .mkString("")
@@ -144,26 +144,26 @@ class Renderer(dataHandler: DataHandler) {
     case bp: Boxplot     => render(bp)
     case bar: Barchart   => render(bar)
     case fun: graph.Function => render(fun)
-    case fit: Fit            => render(fit)
-    case img: Image          => render(img)
-    case img: ImageFile      => render(img)
-    case l: Label            => render(l)
-    case rect: Rectangle     => render(rect)
-    case el: Ellipse         => render(el)
-    case poly: Polygon       => render(poly)
+    case fit: Fit              => render(fit)
+    case img: Image            => render(img)
+    case img: ImageFile        => render(img)
+    case l: Label              => render(l)
+    case rect: Rectangle       => render(rect)
+    case el: Ellipse           => render(el)
+    case poly: Polygon         => render(poly)
     case line: LineLengthAngle => render(line)
     case line: LinePoint2Point => render(line)
-    case cb: Colorbar        => render(cb)
-    case cont: Contours      => render(cont)
-    case vec: Vectorfield    => render(vec)
-    case cov: Covariance     => render(cov)
-    case no: NonOrthPoint    => render(no)
-    case nf: NonOrthFunction => render(nf)
-    case p3: Point3D         => render(p3)
-    case s3: Surface3D       => render(s3)
-    case v3: Volume3D        => render(v3)
-    case f3: Function3D      => render(f3)
-    case x                   => throw new RuntimeException(x + " is currently not supported")
+    case cb: Colorbar          => render(cb)
+    case cont: Contours        => render(cont)
+    case vec: Vectorfield      => render(vec)
+    case cov: Covariance       => render(cov)
+    case no: NonOrthPoint      => render(no)
+    case nf: NonOrthFunction   => render(nf)
+    case p3: Point3D           => render(p3)
+    case s3: Surface3D         => render(s3)
+    case v3: Volume3D          => render(v3)
+    case f3: Function3D        => render(f3)
+    case x                     => throw new RuntimeException(x + " is currently not supported")
   }
 
   def render(d: Document) =
@@ -720,7 +720,17 @@ class Renderer(dataHandler: DataHandler) {
 
     val fills = bar.config.fill
       .map {
-        case BarchartFillConfig(fillStyle, color, enable) => (s"'$fillStyle'", s"'$color'", s"${R.getBool(enable)}")
+        case BarchartFillConfig(fillStyle, color, hide, transparency, lineWidth, lineStyle, spacing, backcolor, backTransparency, backhide) =>
+          (s"'$fillStyle'",
+           s"'$color'",
+           s"${R.getBool(hide)}",
+           s"$transparency",
+           s"'$lineWidth'",
+           s"'$lineStyle'",
+           s"'$spacing'",
+           s"'$backcolor'",
+           s"$backTransparency",
+           s"${R.getBool(backhide)}")
       }
       .mkString(", ")
 
@@ -735,8 +745,9 @@ class Renderer(dataHandler: DataHandler) {
       case n: Numerical => dataHandler.uniqueReference(n, "")
       case d: DateTime  => dataHandler.uniqueReference(d, "dt")
     }
-    val labelsName = if(bar.labels.nonEmpty)    dataHandler.uniqueReference(Text(bar.labels),"")
-                      else ""
+    val labelsName =
+      if (bar.labels.nonEmpty) dataHandler.uniqueReference(Text(bar.labels), "")
+      else ""
 
     s"""
        |${R.render("lengths", lengthNames)}
@@ -995,8 +1006,6 @@ class Renderer(dataHandler: DataHandler) {
        |
        |${renderBorderConfig(el.config.border)}
      """.stripMargin
-
-
 
   def render(line: LineLengthAngle) =
     s"""
