@@ -13,16 +13,14 @@ object Graph {
 
   def apply(axis: Vector[Axis], children: GraphItem*): Graph = Graph(axis = axis, children = children.toVector)
 
-  def apply(name: String, axis: Vector[Axis], children: GraphItem*): Graph = new Graph(axis, name, children.toVector, GraphConfig())
-
-  def apply(children: Vector[GraphItem], name: String = "graph", axis: Vector[Axis] = Vector(XAxis(), YAxis())): Graph = new Graph(axis, name, children, GraphConfig())
+  def apply(name: String, axis: Vector[Axis], children: GraphItem*): Graph = new Graph(children.toVector, axis, name, GraphConfig())
 
 }
 
-case class Graph(axis: Vector[Axis],
-                 var name: String,
-                 var children: Vector[GraphItem],
-                 var config: GraphConfig)
+case class Graph(var children: Vector[GraphItem] =  Vector.empty,
+                 axis: Vector[Axis] = Vector(XAxis(), YAxis()),
+                 name: String = "graph",
+                 var config: GraphConfig =  GraphConfig())
     extends PageItem with GridItem with Configurable with Executable with Parent {
   val group = "graph"
 }

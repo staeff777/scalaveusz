@@ -7,8 +7,13 @@ import de.dreambeam.veusz._
 object Document
 {
 
+  def apply(name: String, children: Vector[WrappedDocumentItem]) = {
+      new Document( children, name = name)
+  }
+
+
   def apply(name: String, children: WrappedDocumentItem*) = {
-      new Document( children.toVector, name = name)
+    new Document( children.toVector, name = name)
   }
 
   def apply(children: WrappedDocumentItem*) = {

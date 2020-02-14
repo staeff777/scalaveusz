@@ -21,6 +21,49 @@ object XY {
 
 
   def apply(x: Data,
+            y: Data
+           ): XY = {
+    XY(x, y, scaleMarkers = Numerical( Vector.empty[Double]), colorMarkers = Numerical( Vector.empty[Double]), keyText="", xAxis = "x", yAxis="y", name = "xy", XYConfig())
+  }
+
+  def apply(x: Data,
+            y: Data,
+            scaleMarkers: Numerical,
+           ): XY = {
+    XY(x, y, scaleMarkers, colorMarkers = Numerical(Vector.empty), keyText="", xAxis = "x", yAxis="y", name = "xy", XYConfig())
+  }
+
+  def apply(x: Data,
+            y: Data,
+            scaleMarkers: Numerical,
+            colorMarkers: Numerical
+           ): XY = {
+    XY(x, y, scaleMarkers, colorMarkers, keyText="", xAxis = "x", yAxis="y", name = "xy", XYConfig())
+  }
+
+
+  def apply(x: Data,
+            y: Data,
+            scaleMarkers: Numerical,
+            colorMarkers: Numerical,
+            keyText: String
+           ): XY = {
+    XY(x, y, scaleMarkers, colorMarkers, keyText, xAxis = "x", yAxis="y", name = "xy", XYConfig())
+  }
+
+  def apply(x: Data,
+            y: Data,
+            scaleMarkers: Numerical,
+            colorMarkers: Numerical,
+            keyText: String,
+            xAxis: String,
+            yAxis: String
+           ): XY = {
+
+    XY(x, y, scaleMarkers, colorMarkers, keyText, xAxis, yAxis, name = "xy", XYConfig())
+  }
+
+  def apply(x: Data,
             y: Data,
             scaleMarkers: Numerical,
             colorMarkers: Numerical,

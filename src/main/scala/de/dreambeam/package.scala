@@ -192,6 +192,13 @@ package object veusz {
     val Volume3D = veusz.components.graph3d.Volume3D
 
     val Label = veusz.components.Label
+    val ImageFile = veusz.components.shapes.ImageFile
+    val LineLengthAngle = veusz.components.shapes.LineLengthAngle
+    val LinePoint2Point = veusz.components.shapes.LinePoint2Point
+    val Rectangle = veusz.components.shapes.Rectangle
+    val Ellipse = veusz.components.shapes.Ellipse
+    val Polygon= veusz.components.shapes.Polygon
+
     val Shapes = PageItems.Shapes
 
     val XY = components.graph.XY
