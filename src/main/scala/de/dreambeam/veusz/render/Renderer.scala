@@ -493,6 +493,7 @@ class Renderer(dataHandler: DataHandler) {
     val yName = dataHandler.uniqueReference(xy.y, "y")
     val scaleName = dataHandler.uniqueReference(xy.scaleMarkers, "s")
     val colorName = dataHandler.uniqueReference(xy.colorMarkers, "c")
+    val labelsName = dataHandler.uniqueReference(xy.labels,"l")
 
     s"""
        |${R.render("xData", xName)}
@@ -500,6 +501,7 @@ class Renderer(dataHandler: DataHandler) {
        |${R.render("xAxis", xy.xAxis)}
        |${R.render("yAxis", xy.yAxis)}
        |${R.render("scalePoints", scaleName)}
+       |${R.render("labels", labelsName)}
        |${R.render("Color")("points", colorName)}
        |${R.render("key", xy.keyText)}
        |# XY Color Config

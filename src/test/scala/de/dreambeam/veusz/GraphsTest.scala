@@ -25,6 +25,7 @@ class GraphsTest extends FlatSpec with Matchers {
     file.delete()
   }
 
+
   it should "render a a Graph with Shapes" in {
 
     val label = PageItems.Label("Hello Veusz", 0.2, 0.9)

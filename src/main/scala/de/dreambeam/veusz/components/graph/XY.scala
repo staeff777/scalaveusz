@@ -10,35 +10,52 @@ object XY {
             y: Vector[Double],
             scaleMarkers: Vector[Double] = Vector.empty[Double],
             colorMarkers: Vector[Double] = Vector.empty[Double],
+            labels: Vector[String] = Vector.empty[String],
             keyText: String = "",
             xAxis: String = "x",
             yAxis: String = "y",
             name: String = "xy",
             config: XYConfig = XYConfig()
            ): XY = {
-    XY(Numerical(x), Numerical(y), Numerical(scaleMarkers), Numerical(colorMarkers), keyText, xAxis, yAxis, name, config)
+    XY(Numerical(x), Numerical(y), Numerical(scaleMarkers), Numerical(colorMarkers), Text(labels), keyText, xAxis, yAxis, name, config)
   }
 
 
   def apply(x: Data,
             y: Data
            ): XY = {
-    XY(x, y, scaleMarkers = Numerical( Vector.empty[Double]), colorMarkers = Numerical( Vector.empty[Double]), keyText="", xAxis = "x", yAxis="y", name = "xy", XYConfig())
+    XY(x, y, scaleMarkers = Numerical( Vector.empty[Double]), colorMarkers = Numerical( Vector.empty[Double]), labels = Text(Vector.empty), keyText="", xAxis = "x", yAxis="y", name = "xy", XYConfig())
+  }
+
+  def apply(x: Data,
+            y: Data,
+            labels: Text,
+           ): XY = {
+    XY(x, y, scaleMarkers = Numerical( Vector.empty[Double]), colorMarkers = Numerical( Vector.empty[Double]), labels,  keyText="", xAxis = "x", yAxis="y", name = "xy", XYConfig())
   }
 
   def apply(x: Data,
             y: Data,
             scaleMarkers: Numerical,
            ): XY = {
-    XY(x, y, scaleMarkers, colorMarkers = Numerical(Vector.empty), keyText="", xAxis = "x", yAxis="y", name = "xy", XYConfig())
+    XY(x, y, scaleMarkers, colorMarkers = Numerical(Vector.empty), labels = Text(Vector.empty), keyText="", xAxis = "x", yAxis="y", name = "xy", XYConfig())
   }
+
+  def apply(x: Data,
+            y: Data,
+            scaleMarkers: Numerical,
+            labels: Text,
+           ): XY = {
+    XY(x, y, scaleMarkers, colorMarkers = Numerical(Vector.empty), labels, keyText="", xAxis = "x", yAxis="y", name = "xy", XYConfig())
+  }
+
 
   def apply(x: Data,
             y: Data,
             scaleMarkers: Numerical,
             colorMarkers: Numerical
            ): XY = {
-    XY(x, y, scaleMarkers, colorMarkers, keyText="", xAxis = "x", yAxis="y", name = "xy", XYConfig())
+    XY(x, y, scaleMarkers, colorMarkers, labels = Text(Vector.empty), keyText="", xAxis = "x", yAxis="y", name = "xy", XYConfig())
   }
 
 
@@ -46,9 +63,10 @@ object XY {
             y: Data,
             scaleMarkers: Numerical,
             colorMarkers: Numerical,
+            labels: Text,
             keyText: String
            ): XY = {
-    XY(x, y, scaleMarkers, colorMarkers, keyText, xAxis = "x", yAxis="y", name = "xy", XYConfig())
+    XY(x, y, scaleMarkers, colorMarkers, labels, keyText, xAxis = "x", yAxis="y", name = "xy", XYConfig())
   }
 
   def apply(x: Data,
@@ -60,8 +78,22 @@ object XY {
             yAxis: String
            ): XY = {
 
-    XY(x, y, scaleMarkers, colorMarkers, keyText, xAxis, yAxis, name = "xy", XYConfig())
+    XY(x, y, scaleMarkers, colorMarkers,labels = Text(Vector.empty), keyText, xAxis, yAxis, name = "xy", XYConfig())
   }
+
+  def apply(x: Data,
+            y: Data,
+            scaleMarkers: Numerical,
+            colorMarkers: Numerical,
+            labels: Text,
+            keyText: String,
+            xAxis: String,
+            yAxis: String
+           ): XY = {
+
+    XY(x, y, scaleMarkers, colorMarkers,labels, keyText, xAxis, yAxis, name = "xy", XYConfig())
+  }
+
 
   def apply(x: Data,
             y: Data,
@@ -73,7 +105,21 @@ object XY {
             name: String
            ): XY = {
 
-    XY(x, y, scaleMarkers, colorMarkers, keyText, xAxis, yAxis, name, XYConfig())
+    XY(x, y, scaleMarkers, colorMarkers, labels = Text(Vector.empty), keyText, xAxis, yAxis, name, XYConfig())
+  }
+
+  def apply(x: Data,
+            y: Data,
+            scaleMarkers: Numerical,
+            colorMarkers: Numerical,
+            labels: Text,
+            keyText: String,
+            xAxis: String,
+            yAxis: String,
+            name: String
+           ): XY = {
+
+    XY(x, y, scaleMarkers, colorMarkers, labels, keyText, xAxis, yAxis, name, XYConfig())
   }
 }
 
@@ -81,6 +127,7 @@ case class XY(var x: Data,
               var y: Data,
               var scaleMarkers: Numerical,
               var colorMarkers: Numerical,
+              var labels: Text,
               var keyText: String,
               var xAxis: String,
               var yAxis: String,

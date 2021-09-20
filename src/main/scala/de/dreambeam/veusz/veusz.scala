@@ -73,7 +73,7 @@ trait Executable {
 
 
   /**
-  * writes all data from the datahandler into the vuesz-Document
+  * writes all data from the datahandler into the veusz-Document
     * @param dataHandler
     * @return
     */
@@ -219,7 +219,7 @@ trait Executable {
   * Save the current object as Veusz Document
     * @param title filename without the vsz extension
     * @param outdir directory where to save it
-    *               default directory GlobalVeuszSettings.defaultSaveDirectory is the ./vuesz directory
+    *               default directory GlobalVeuszSettings.defaultSaveDirectory is the ./veusz directory
     *               directory will be created if it does not exist
     */
   def saveAsVeusz(title: String, outdir: File = new File(GlobalVeuszSettings.defaultSaveDirectory)):File = {
@@ -243,7 +243,7 @@ trait Executable {
   }
 
   private def saveTemp(text: String): File = {
-    val file = File.createTempFile("scalavuesz_", ".vsz")
+    val file = File.createTempFile("scalaveusz_", ".vsz")
     val _ = new PrintWriter(file) {
       write(text); close
     }
@@ -260,7 +260,7 @@ trait Executable {
     * @param title filename without the vsz extension,
     *                 if filename is empty a temporary file will be created
     * @param outdir directory where to save it
-    *               default directory GlobalVeuszSettings.defaultSaveDirectory is the ./vuesz directory
+    *               default directory GlobalVeuszSettings.defaultSaveDirectory is the ./veusz directory
     *               directory will be created if it does not exist
     */
   def openInVeusz(title: String = "", outdir: File = new File(GlobalVeuszSettings.defaultSaveDirectory)) = {
@@ -292,7 +292,7 @@ trait Executable {
   /**
   * Export to on image file
     *
-    * To be able to use the export command, you need to have 'vuesz' in your \n Path settings or you can set an absolte path at 'GlobalVeuszSettings.veuszPath
+    * To be able to use the export command, you need to have 'veusz' in your \n Path settings or you can set an absolte path at 'GlobalVeuszSettings.veuszPath
     *
     * @param filePath  the file extension defines the format (PDF, SVG, EMF, PNG, JPG, BMP, TIFF, XMP)
     * @param pages Page Numbers starting from 0, starting from 0 (empty Vector means all pages) only works for PDF
@@ -345,19 +345,19 @@ trait Executable {
          |Export("$filePath")
          |Quit()
          |""".stripMargin
-    val file = saveTemp(documentText + exportCommand)
+    val file = saveTemp(documentText)
 
     try {
       val processBuilder = new ProcessBuilder
       processBuilder.command(GlobalVeuszSettings.veuszPath, s"--export=$filePath", s"--export-option=$exportOptions", file.getAbsolutePath)
-      // println(GlobalVeuszSettings.veuszPath +s" --export=$filePath " + s" --export-option=$exportOptions " + file.getAbsolutePath)
+       println(GlobalVeuszSettings.veuszPath +s" --export=$filePath " + s" --export-option=$exportOptions " + file.getAbsolutePath)
       val process = processBuilder.start
       if (waitForProcess) process.waitFor
       process
     } catch {
       case e: IOException =>
         val newMEssage =
-          s"${e.getMessage} \n ${"*" * 80} \n To be able to use the export command, you need to have 'vuesz' in your \n Path settings or you can set an absolte path at 'GlobalVeuszSettings.veuszPath'. \n ${"*" * 80}"
+          s"${e.getMessage} \n ${"*" * 80} \n To be able to use the export command, you need to have 'veusz' in your \n Path settings or you can set an absolte path at 'GlobalVeuszSettings.veuszPath'. \n ${"*" * 80}"
 
         val ee = new IOException(newMEssage, e.getCause)
         throw (ee)
