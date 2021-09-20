@@ -22,13 +22,13 @@ inThisBuild(
 name := "scalaveusz"
 organization := "de.dreambeam"
 
-version := "0.7.2"
+version := "0.7.3"
 
 
 scalaVersion := "2.12.9"
 
 libraryDependencies ++= Seq(
-          "org.scalactic" %% "scalactic" % "3.0.8",
+          "org.scalactic" %% "scalactic" % "3.0.8"F,
           "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 )
 
