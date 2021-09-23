@@ -6,3 +6,4 @@ target/
 RegressOutput*.txt
 veusz/*
 null
+.bsp/sbt.json

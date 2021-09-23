@@ -32,6 +32,6 @@ libraryDependencies ++= Seq(
           "org.scalatest" %% "scalatest" % "3.0.8" % "test"
 )
 
-resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
+//resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 
 crossScalaVersions := Seq("2.12.9", "2.13.0")
