@@ -11,16 +11,16 @@ import de.dreambeam.veusz.util._
 package object veusz {
   import scala.language.implicitConversions
   implicit class DoubleWithUnits(v: Double) {
-    def cm() = Centimeter(v)
-    def pt() = Point(v)
-    def mm() = Millimeter(v)
-    def in() = Inches(v)
-    def percent() = Percent(v)
+    def cm = Centimeter(v)
+    def pt = Point(v)
+    def mm = Millimeter(v)
+    def in = Inches(v)
+    def percent = Percent(v)
 
   }
 
   //Convert Double to Point on Default
-  implicit def double2Point(x: Double) = Point(x)
+  implicit def double2Point(x: Double): Point = Point(x)
 
 
   // provide quick access to enums and prefined values

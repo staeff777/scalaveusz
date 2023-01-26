@@ -306,16 +306,16 @@ trait Executable {
     * @param waitForProcess wait until export process is finished
     * @return process
     */
-  def export(filePath: String,
-             pages: Vector[Int] = Vector(),
-             color: Boolean = true,
-             dpi: Double = 100,
-             antialias: Boolean = true,
-             quality: Int = 85,
-             backcolor: String = "#ffffff00",
-             pdfdpi: Double = 150,
-             svgtextastext: Boolean = false,
-             waitForProcess: Boolean = true) = {
+  def exportImage(filePath: String,
+                  pages: Vector[Int] = Vector(),
+                  color: Boolean = true,
+                  dpi: Double = 100,
+                  antialias: Boolean = true,
+                  quality: Int = 85,
+                  backcolor: String = "#ffffff00",
+                  pdfdpi: Double = 150,
+                  svgtextastext: Boolean = false,
+                  waitForProcess: Boolean = true) = {
 
     val exportOptions = {
       val dpiSettings = "dpi=" + dpi
@@ -386,7 +386,7 @@ trait Executable {
                     backcolor: String = "#ffffff00",
                     pdfdpi: Double = 150,
                     svgtextastext: Boolean = false): Unit = {
-    export(filePath, pages, color, dpi, antialias, quality, backcolor, pdfdpi, svgtextastext)
+    exportImage(filePath, pages, color, dpi, antialias, quality, backcolor, pdfdpi, svgtextastext)
     Desktop.getDesktop().open(new File(filePath))
   }
 

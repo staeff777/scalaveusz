@@ -5,6 +5,8 @@ import de.dreambeam.veusz.{Configurable, DocumentItem, Executable, PageItem, Par
 import de.dreambeam.veusz.format.SizeUnits._
 import de.dreambeam.veusz.format.SizeUnit
 
+import scala.language.postfixOps
+
 object Page {
 
   def apply(name: String, children: WrappedPageItem*): Page =

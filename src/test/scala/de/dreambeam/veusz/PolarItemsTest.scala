@@ -12,7 +12,7 @@ class PolarItemsTest extends FlatSpec with Matchers {
     val nonOrthPoint = PolarGraphItems.NonOrthPoint(Vector(1.0, 10.0), Vector(1.0, 1.0))
 
     val file = new File("veusz/nonorthpoint.svg")
-    nonOrthPoint.export(file.getAbsolutePath)
+    nonOrthPoint.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -24,7 +24,7 @@ class PolarItemsTest extends FlatSpec with Matchers {
     nonOrthFunction.config.plotLine.width = 3 pt()
 
     val file = new File("veusz/nonorthfunc.svg")
-    nonOrthFunction.export(file.getAbsolutePath)
+    nonOrthFunction.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -38,7 +38,7 @@ class PolarItemsTest extends FlatSpec with Matchers {
     p.config.markerBorder.hide = true
 
     val file = new File("veusz/ternaryPoint.svg")
-    p.export(file.getAbsolutePath)
+    p.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -47,7 +47,7 @@ class PolarItemsTest extends FlatSpec with Matchers {
     val f1 = TernaryGraphItems.NonOrthFunction("30","a")
 
     val file = new File("veusz/nonorthfunc.svg")
-    f1.export(file.getAbsolutePath)
+    f1.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }

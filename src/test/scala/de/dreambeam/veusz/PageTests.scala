@@ -16,7 +16,7 @@ class PageTests extends FlatSpec with Matchers {
     p.config.height = 30 cm ()
 
     val file = new File("veusz/pagetest.svg")
-    graph.export(file.getAbsolutePath)
+    graph.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -60,7 +60,7 @@ class PageTests extends FlatSpec with Matchers {
     val p = DocumentItems.Page(label, imageFile, rect,ellipse,line,polygon, graph)
 
     val file = new File("veusz/pagetest_withMore.svg")
-    p.export(file.getAbsolutePath)
+    p.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -73,7 +73,7 @@ class PageTests extends FlatSpec with Matchers {
     val p1 = DocumentItems.Page(xy1)
 
     val file = new File("veusz/documenttest.pdf")
-    p1.export(file.getAbsolutePath)
+    p1.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }

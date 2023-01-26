@@ -20,7 +20,7 @@ class GraphsTest extends FlatSpec with Matchers {
     graph.config.background.hide = false
 
     val file = new File("veusz/graph.svg")
-    graph.export(file.getAbsolutePath)
+    graph.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -61,7 +61,7 @@ class GraphsTest extends FlatSpec with Matchers {
 
     val graph = PageItems.Graph(label, imageFile, rect, ellipse, line, polygon)
     val file = new File("veusz/graphwithshapes.svg")
-    graph.export(file.getAbsolutePath)
+    graph.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -83,7 +83,7 @@ class GraphsTest extends FlatSpec with Matchers {
     polarGraph.config.radiiLine.lineStyle = LineStyle.Dash1
 
     val file = new File("veusz/polarGraph.svg")
-    polarGraph.export(file.getAbsolutePath)
+    polarGraph.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -99,7 +99,7 @@ class GraphsTest extends FlatSpec with Matchers {
     val ternaryGraph = PageItems.TernaryGraph(f1, f2, p)
 
     val file = new File("veusz/ternaryGraph.svg")
-    ternaryGraph.export(file.getAbsolutePath)
+    ternaryGraph.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -118,7 +118,7 @@ class GraphsTest extends FlatSpec with Matchers {
     graph3D.config.back.hide = false
 
     val file = new File("veusz/graph3D.png")
-    graph3D.export(file.getAbsolutePath)
+    graph3D.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -151,7 +151,7 @@ class GraphsTest extends FlatSpec with Matchers {
     scene3D.config.lighting3.zPosition = -36.4
 
     val file = new File("veusz/scene.png")
-    scene3D.export(file.getAbsolutePath)
+    scene3D.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }

@@ -18,7 +18,7 @@ class Graph3DItemsTest extends FlatSpec with Matchers {
     val p3d = Graph3DItems.Point3D(xData, yData, zData, yScale, yColor)
     p3d.config.markerFill.colorMap = ColorMaps.Heat
     val file = new File("veusz/p3d.svg")
-    p3d.export(file.getAbsolutePath)
+    p3d.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -38,7 +38,7 @@ class Graph3DItemsTest extends FlatSpec with Matchers {
     f3d.config.gridLine.width = 2
     f3d.config.surface.hide = true
     val file = new File("veusz/f3d.svg")
-    f3d.export(file.getAbsolutePath)
+    f3d.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -52,7 +52,7 @@ class Graph3DItemsTest extends FlatSpec with Matchers {
     s3d.config.surface.colorMap = ColorMaps.Blue_Darkred
     s3d.config.surface.transparency = 30
     val file = new File("veusz/s3d.svg")
-    s3d.export(file.getAbsolutePath)
+    s3d.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -78,7 +78,7 @@ class Graph3DItemsTest extends FlatSpec with Matchers {
     s3d.config.main.reflectivity = 10
     s3d.config.main.fillFactor = 0.7
     val file = new File("veusz/v3d.png")
-    s3d.export(file.getAbsolutePath, dpi = 100)
+    s3d.exportImage(file.getAbsolutePath, dpi = 100)
     file should exist
     file.delete()
   }

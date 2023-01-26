@@ -2,6 +2,8 @@ package de.dreambeam.veusz.format
 
 import SizeUnits._
 
+import scala.language.postfixOps
+
 object AutoRange {
   val Exact = "exact"
   val NextTick = "next-tick"

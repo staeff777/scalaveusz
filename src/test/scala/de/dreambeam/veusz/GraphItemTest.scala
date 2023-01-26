@@ -19,7 +19,7 @@ class GraphItemTest extends FlatSpec with Matchers {
     val xy = GraphItems.XY(xData, yData, yScale, yColor)
     xy.config.markerFill.colorMap = ColorMaps.Heat
     val file = new File("veusz/xy.svg")
-    xy.export(file.getAbsolutePath)
+    xy.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -40,7 +40,7 @@ class GraphItemTest extends FlatSpec with Matchers {
     graph.axis(0).mode = AxisMode.Labels
 
     val file = new File("veusz/xy_labelx.svg")
-    graph.export(file.getAbsolutePath)
+    graph.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -53,7 +53,7 @@ class GraphItemTest extends FlatSpec with Matchers {
     val barchart = GraphItems.Barchart(lengthData, positions, labels = labels)
     barchart.config.fill = Vector("green", "blue", "red", "cyan", "magenta", "yellow", "darkred", "darkgreen", "darkblue", "darkmagenta").map(c => BarchartFillConfig(color = c))
     val file = new File("veusz/barchart.svg")
-    barchart.export(file.getAbsolutePath)
+    barchart.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -67,7 +67,7 @@ class GraphItemTest extends FlatSpec with Matchers {
     val barchart = GraphItems.Barchart(Vector(positions), positions, labels = labels)
     barchart.config.fill = Vector("green", "blue", "red", "cyan", "magenta", "yellow", "darkred", "darkgreen", "darkblue", "darkmagenta").map(c => BarchartFillConfig(color = c))
     val file = new File("veusz/barchart.svg")
-    barchart.export(file.getAbsolutePath)
+    barchart.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -91,7 +91,7 @@ class GraphItemTest extends FlatSpec with Matchers {
     val function = GraphItems.Function("sin(x)")
     function.config.plotLine.color = Colors.Blue
     val file = new File("veusz/function.svg")
-    function.export(file.getAbsolutePath)
+    function.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -101,7 +101,7 @@ class GraphItemTest extends FlatSpec with Matchers {
     val boxPlot = GraphItems.Boxplot(d)
     boxPlot.config.fill.color = Colors.DarkMagenta
     val file = new File("veusz/boxplot.svg")
-    boxPlot.export(file.getAbsolutePath)
+    boxPlot.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -113,7 +113,7 @@ class GraphItemTest extends FlatSpec with Matchers {
     img2d.config.colorMap = "heat"
     img2d.config.invertColormap = true
     val file = new File("veusz/image.svg")
-    img2d.export(file.getAbsolutePath)
+    img2d.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -121,7 +121,7 @@ class GraphItemTest extends FlatSpec with Matchers {
   it should "render a colorbar" in {
     val colorbar = GraphItems.Colorbar(direction = Direction.Vertical)
     val file = new File("veusz/image.svg")
-    colorbar.export(file.getAbsolutePath)
+    colorbar.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -135,7 +135,7 @@ class GraphItemTest extends FlatSpec with Matchers {
     vectorfield.config.main.arrowFront = ArrowType.ArrowNarrow
     vectorfield.config.main.arrowBack = ArrowType.Bar
     val file = new File("veusz/vectorfield.svg")
-    vectorfield.export(file.getAbsolutePath)
+    vectorfield.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }

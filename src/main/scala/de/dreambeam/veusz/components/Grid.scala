@@ -4,6 +4,8 @@ import de.dreambeam.veusz.{Configurable, Executable, GridItem, PageItem, Parent,
 import de.dreambeam.veusz.format.SizeUnit
 import de.dreambeam.veusz.format.SizeUnits._
 
+import scala.language.postfixOps
+
 object Grid {
   def apply(children: WrappedGridItem*): Grid = Grid(children = children.toVector)
 

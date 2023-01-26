@@ -25,13 +25,13 @@ organization := "de.dreambeam"
 version := "0.7.7"
 
 
-scalaVersion := "2.12.9"
+scalaVersion := "3.2.1"
 
 libraryDependencies ++= Seq(
-          "org.scalactic" %% "scalactic" % "3.0.8",
-          "org.scalatest" %% "scalatest" % "3.0.8" % "test"
+          "org.scalactic" %% "scalactic" % "3.2.15",
+          "org.scalatest" %% "scalatest" % "3.2.15" % "test"
 )
 
 //resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 
-crossScalaVersions := Seq("2.12.9", "2.13.0")
+crossScalaVersions := Seq("2.12.17", "2.13.0", "3.2.1")

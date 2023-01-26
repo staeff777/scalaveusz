@@ -17,7 +17,7 @@ class DocumentTest extends FlatSpec with Matchers {
 
     val d = V.Document(p1,p2)
     val file = new File("veusz/documenttest.pdf")
-    d.export(file.getAbsolutePath)
+    d.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -30,7 +30,7 @@ class DocumentTest extends FlatSpec with Matchers {
 
     val d = V.Document(xy1, xy2)
     val file = new File("veusz/documenttest.pdf")
-    d.export(file.getAbsolutePath)
+    d.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }

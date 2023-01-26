@@ -4,6 +4,8 @@ import de.dreambeam.veusz._
 import de.dreambeam.veusz.format.SizeUnit
 import de.dreambeam.veusz._
 
+import scala.language.postfixOps
+
 object Document
 {
 

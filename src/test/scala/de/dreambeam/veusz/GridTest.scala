@@ -35,7 +35,7 @@ class GridTest extends FlatSpec with Matchers{
     grid.config.bottomMargin = 0.5 cm()
 
     val file = new File("veusz/grid.png")
-    grid.export(file.getAbsolutePath)
+    grid.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }
@@ -60,7 +60,7 @@ class GridTest extends FlatSpec with Matchers{
     grid.config.bottomMargin = 0.5 cm()
 
     val file = new File("veusz/wrappedgrid.png")
-    grid.export(file.getAbsolutePath)
+    grid.exportImage(file.getAbsolutePath)
     file should exist
     file.delete()
   }

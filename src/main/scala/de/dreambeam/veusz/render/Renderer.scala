@@ -163,7 +163,7 @@ class Renderer(dataHandler: DataHandler) {
     case s3: Surface3D         => render(s3)
     case v3: Volume3D          => render(v3)
     case f3: Function3D        => render(f3)
-    case x                     => throw new RuntimeException(x + " is currently not supported")
+    case x                     => throw new RuntimeException(x.toString + " is currently not supported")
   }
 
   def render(d: Document) =
