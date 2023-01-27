@@ -34,4 +34,4 @@ libraryDependencies ++= Seq(
 
 //resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 
-crossScalaVersions := Seq("2.12.17", "2.13.0", "3.2.1")
+crossScalaVersions := Seq("2.12.17", "2.13.0", "3.1.2")
