@@ -22,7 +22,7 @@ inThisBuild(
 name := "scalaveusz"
 organization := "de.dreambeam"
 
-version := "0.8.0"
+version := "0.8.1"
 
 
 scalaVersion := "3.1.2" //scala 3.2.1 has currently a doc bug https://github.com/lampepfl/dotty/issues/15927
@@ -34,4 +34,4 @@ libraryDependencies ++= Seq(
 
 //resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases"
 
-crossScalaVersions := Seq("2.12.17", "2.13.0", "3.1.2")
+crossScalaVersions := Seq("2.12.17", "2.13.10", "3.1.2")
