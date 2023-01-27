@@ -22,7 +22,7 @@ inThisBuild(
 name := "scalaveusz"
 organization := "de.dreambeam"
 
-version := "0.7.7"
+version := "0.8.0"
 
 
 scalaVersion := "3.1.2" //scala 3.2.1 has currently a doc bug https://github.com/lampepfl/dotty/issues/15927
